@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root-container name="simple_fork_join_jpdl" width="1338" height="588">
+  <node name="start" x="355" y="66" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="end" x="377" y="462" width="132" height="36"/>
+  <node name="fork1" x="294" y="194" width="252" height="24">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="node1" x="214" y="290" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="node2" x="545" y="281" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="join1" x="315" y="388" width="252" height="24">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <deployment serverName="localhost" serverPort="8080" serverDeployer="/gpd-deployer/upload">
+    <classesAndResources/>
+    <filesAndFolders>
+      <element value="/migration_tool/src/main/use_cases/simple_fork_join_jpdl/gpd.xml"/>
+      <element value="/migration_tool/src/main/use_cases/simple_fork_join_jpdl/processdefinition.xml"/>
+    </filesAndFolders>
+  </deployment>
+</root-container>

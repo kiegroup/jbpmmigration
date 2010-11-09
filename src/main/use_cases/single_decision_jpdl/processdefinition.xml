@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition  xmlns=""  name="single_decision_jpdl">
+
+
+	<start-state name="start">
+		<transition to="decision"></transition>
+	</start-state>
+
+
+	<decision name="decision">
+		<transition to="end-state1" name="to end-state1"></transition>
+		<transition to="end-state2" name="to end-state2"></transition>
+	</decision>
+
+
+	<end-state name="end-state1"></end-state>
+
+	<end-state name="end-state2"></end-state>
+
+
+</process-definition>

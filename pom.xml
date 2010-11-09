@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.jbpm.jbpm5</groupId>
+	<artifactId>jpdl3-bpmn2</artifactId>
+	<name>jPDL3-BPMN2</name>
+	<version>1.0-SNAPSHOT</version>
+	<description>jPDL3.x to BPMN2 migration</description>
+	<url>http://community.jboss.org/wiki/jBPM5migrationtoolproject</url>
+
+	<developers>
+		<developer>
+			<id>erics</id>
+			<name>Eric D. Schabell</name>
+			<email>erics@redhat.com</email>
+			<roles>
+				<role>Head Nacho</role>
+			</roles>
+			<timezone>+2</timezone>
+		</developer>
+		<developer>
+			<id>MohReece</id>
+			<name>Maurice de Chateau</name>
+			<email>maurice.de.chateau@gmail.com</email>
+			<timezone>+2</timezone>
+		</developer>
+	</developers>
+
+	<dependencies>
+		<!-- XSLT -->
+		<dependency>
+			<groupId>xalan</groupId>
+			<artifactId>xalan</artifactId>
+			<version>2.7.1</version>
+		</dependency>
+		<dependency>
+			<groupId>xerces</groupId>
+			<artifactId>xercesImpl</artifactId>
+			<version>2.9.1</version>
+		</dependency>
+		<dependency>
+			<groupId>xml-apis</groupId>
+			<artifactId>xml-apis</artifactId>
+			<version>1.0.b2</version>
+		</dependency>
+
+		<!-- Test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+			<scope>test</scope>
+		</dependency>
+        <dependency>
+        	<groupId>dom4j</groupId>
+        	<artifactId>dom4j</artifactId>
+        	<version>1.6.1</version>
+        	<type>jar</type>
+        	<scope>provided</scope>
+        </dependency>
+        <dependency>
+        	<groupId>commons-lang</groupId>
+        	<artifactId>commons-lang</artifactId>
+        	<version>2.5</version>
+        	<type>jar</type>
+        	<scope>provided</scope>
+        </dependency>
+        <dependency>
+        	<groupId>log4j</groupId>
+        	<artifactId>log4j</artifactId>
+        	<version>1.2.16</version>
+        	<scope>provided</scope>
+        </dependency>
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/xslt</directory>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+        <testResources>
+            <testResource>
+                <directory>src/main/use_cases</directory>
+            </testResource>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

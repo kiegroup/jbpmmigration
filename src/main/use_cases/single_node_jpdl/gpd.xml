@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root-container name="single_node_jpdl" width="1338" height="588">
+  <node name="start" x="252" y="85" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="end" x="264" y="299" width="132" height="36"/>
+  <node name="node" x="260" y="194" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <deployment serverName="localhost" serverPort="8080" serverDeployer="/gpd-deployer/upload">
+    <classesAndResources/>
+    <filesAndFolders>
+      <element value="/migration_tool/src/main/use_cases/single_node_jpdl/gpd.xml"/>
+      <element value="/migration_tool/src/main/use_cases/single_node_jpdl/processdefinition.xml"/>
+    </filesAndFolders>
+  </deployment>
+</root-container>

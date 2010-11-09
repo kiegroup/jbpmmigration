@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition  xmlns=""  name="single_node_jpdl">
+
+
+	<start-state name="start">
+		<transition to="node"></transition>
+	</start-state>
+
+
+	<node name="node">
+		<transition to="end"></transition>
+	</node>
+
+
+	<end-state name="end"></end-state>
+
+
+</process-definition>

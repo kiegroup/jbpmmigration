@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions id="defId"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             targetNamespace="http://www.omg.org/spec/BPMN/20100524/MODEL">
+    <process id="procesId">
+        <laneSet id="laneSetId">
+            <lane name="DefaultLane" id="laneId">
+                <flowNodeRef>taskId</flowNodeRef>
+                <flowNodeRef>startEventId</flowNodeRef>
+                <flowNodeRef>endEventId</flowNodeRef>
+            </lane>
+        </laneSet>
+        <task completionQuantity="1" startQuantity="1" isForCompensation="false" name="" id="taskId"/>
+        <startEvent name="" id="startEventId"/>
+        <endEvent name="" id="endEventId"/>
+        <sequenceFlow targetRef="taskId" sourceRef="startEventId" name="" id="fou"/>
+        <sequenceFlow targetRef="endEventId" sourceRef="taskId" name="" id="fiv"/>
+    </process>
+    <bpmndi:BPMNDiagram>
+        <bpmndi:BPMNPlane bpmnElement="procesId">
+            <bpmndi:BPMNShape bpmnElement="laneId" isHorizontal="true" id="laneId_gui">
+                <dc:Bounds height="0" width="0" x="0" y="0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="startEventId" id="startEventId_gui">
+                <dc:Bounds height="30.0" width="30.0" x="100.0" y="35.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="taskId" id="taskId_gui">
+                <dc:Bounds height="40.0" width="50.0" x="90.0" y="105.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="endEventId" id="endEventId_gui">
+                <dc:Bounds height="28.0" width="28.0" x="101.0" y="182.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge bpmnElement="fou" id="fou_gui">
+                <di:waypoint x="115.0" y="65.0"/>
+                <di:waypoint x="115.0" y="105.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="fiv" id="fiv_gui">
+                <di:waypoint x="115.0" y="145.0"/>
+                <di:waypoint x="115.0" y="182.0"/>
+                <bpmndi:BPMNLabel/>
+            </bpmndi:BPMNEdge>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</definitions>
