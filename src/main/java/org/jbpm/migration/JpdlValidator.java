@@ -41,7 +41,7 @@ import org.w3c.dom.Node;
  */
 public final class JpdlValidator {
     /* XML Schema file for jPDL version 3.2 on the classpath. */
-    private static final String JPDL_3_2_SCHEMA = "Schemas/jPDL/jpdl-3.2.xsd";
+    private static final String JPDL_3_2_SCHEMA = "schema/jpdl/jpdl-3.2.xsd";
 
     /** Tag name for the root node (document element) of the concatenated document. */
     private static final String CONCATENATED_ROOT_NODE = "concatenated-root";

@@ -55,11 +55,11 @@ public class ProcessTransformerTest {
         assertThat(jpdlFile.exists(), is(equalTo(true)));
         Document jpdlDoc = XmlUtils.parseFile(jpdlFile);
         assertThat(jpdlDoc, is(notNullValue()));
-        System.out.println("jPDL:\n" + XmlUtils.format(jpdlDoc));
+        Logger.getRootLogger().info("jPDL:\n" + XmlUtils.format(jpdlDoc));
 
         Document bpmnDoc = ProcessTransformer.transform(jpdlDoc);
         assertThat(bpmnDoc, is(notNullValue()));
-        System.out.println("BPMN:\n" + XmlUtils.format(bpmnDoc));
+        Logger.getRootLogger().info("BPMN:\n" + XmlUtils.format(bpmnDoc));
         assertThat(BpmnValidator.validateDefinition(bpmnDoc), is(equalTo(true)));
     }
 }

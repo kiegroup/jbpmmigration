@@ -50,7 +50,7 @@ public class BpmnValidatorTest {
 
     @Test
     public void validDefinition() throws Exception {
-        File bpmn = new File("src/test/resources/bpmn/Test.bpmn.xml");
+        File bpmn = new File("src/test/resources/bpmn/SingleTask.bpmn.xml");
         Document bpmnDoc = XmlUtils.parseFile(bpmn);
         assertThat(bpmnDoc, is(notNullValue()));
         assertThat(BpmnValidator.validateDefinition(bpmnDoc), is(true));

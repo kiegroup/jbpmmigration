@@ -36,7 +36,7 @@ import org.w3c.dom.Document;
  */
 public final class BpmnValidator {
     /* XML Schema file for BPMN version 2.0 on the classpath. */
-    private static final String BPMN_2_0_SCHEMA = "Schemas/BPMN/BPMN20.xsd";
+    private static final String BPMN_2_0_SCHEMA = "schema/bpmn2/BPMN20.xsd";
 
     /** Logging facility. */
     private static final Logger LOGGER = Logger.getLogger(BpmnValidator.class);
