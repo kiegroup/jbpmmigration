@@ -34,7 +34,6 @@ import org.w3c.dom.Node;
  * This class validates an original jDPL definition against the applicable XML schema.
  * <p>
  * TODO: Make jPDL version flexible (now only 3.2 is supported).<br>
- * TODO: Include validation for GPD.
  * 
  * @author Eric D. Schabell
  * @author Maurice de Chateau
@@ -42,6 +41,8 @@ import org.w3c.dom.Node;
 public final class JpdlValidator {
     /* XML Schema file for jPDL version 3.2 on the classpath. */
     private static final String JPDL_3_2_SCHEMA = "schema/jpdl/jpdl-3.2.xsd";
+    /* XML Schema file for GPD on the classpath. */
+    private static final String GPD_SCHEMA = "schema/gpd/gpd.xsd";
 
     /** Tag name for the root node (document element) of the concatenated document. */
     private static final String CONCATENATED_ROOT_NODE = "concatenated-root";
@@ -116,7 +117,14 @@ public final class JpdlValidator {
             return null;
         }
 
-        // TODO: Validate the document before returning it.
-        return document;
+        // Validate against the GPD schema.
+        File schema = null;
+        try {
+            schema = new File(JpdlValidator.class.getClassLoader().getResource(GPD_SCHEMA).toURI());
+        } catch (URISyntaxException usEx) {
+            LOGGER.error("Cannot locate GPD schema.", usEx);
+            return null;
+        }
+        return XmlUtils.validate(document, schema) ? document : null;
     }
 }
