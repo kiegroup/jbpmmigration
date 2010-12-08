@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><smooks-resource-list xmlns="http://www.milyn.org/xsd/smooks-1.1.xsd" xmlns:jb="http://www.milyn.org/xsd/smooks/javabean-1.2.xsd">
+  <params>
+    <param name="inputType">input.xml</param>
+    <param name="input.xml" type="input.type.actived">Workspace://jbpmmigration/src/test/resources/jpdl3/singleNode/processdefinition.xml</param>
+    <param name="stream.filter.type">DOM</param>
+  </params>
+  <jb:bean beanId="node" class="org.jbpm.model.Node">
+    <jb:value data="/process-definition/node/@name" property="name"/>
+    <jb:wiring beanIdRef="nodeContentElements" property="nodeContentElements"/>
+  </jb:bean>
+  <jb:bean beanId="nodeContentElements" class="java.util.ArrayList">
+    <jb:value property="String"/>
+  </jb:bean>
+</smooks-resource-list>
