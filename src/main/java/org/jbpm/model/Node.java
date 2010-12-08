@@ -7,7 +7,7 @@ package org.jbpm.model;
 /**
  * Class to mapping jPDL Node types to java object.
  *  
- * @author eschabel
+ * @author Eric D. Schabell
  *
  */
 public final class Node {
