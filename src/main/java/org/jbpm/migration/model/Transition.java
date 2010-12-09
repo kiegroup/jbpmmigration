@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.jbpm.model;
+package org.jbpm.migration.model;
 
 /**
  * Class to mapping jPDL Transition types to java object.

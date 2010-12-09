@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.jbpm.model;
+package org.jbpm.migration.model;
 
 import java.util.ArrayList;
 
