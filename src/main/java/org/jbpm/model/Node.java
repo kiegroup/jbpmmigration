@@ -3,6 +3,8 @@
  */
 package org.jbpm.model;
 
+import java.util.ArrayList;
+
 
 /**
  * Class to mapping jPDL Node types to java object.
@@ -29,7 +31,8 @@ public final class Node {
 // TODO:    private Event nodeContentEvent;
 // TODO:    private ExceptionHandler nodeContentExceptionHandler;
 // TODO:    private Timer nodeContentTimer;
-// TODO:    private Transition nodeContentTransition;
+    private ArrayList<Transition> nodeContentTransitionList;
+    private Transition nodeContentTransition;
     
 	public void setName(String name) {
 		this.name = name;
@@ -112,5 +115,19 @@ public final class Node {
 		return nodeContentDescription;
 	}
 
-	
+	public void setTransitionList(ArrayList<Transition> transitionList) {
+		this.nodeContentTransitionList = transitionList;
+	}
+
+	public ArrayList<Transition> getTransitionList() {
+		return nodeContentTransitionList;
+	}
+
+	public void setNodeContentTransition(Transition nodeContentTransition) {
+		this.nodeContentTransition = nodeContentTransition;
+	}
+
+	public Transition getNodeContentTransition() {
+		return nodeContentTransition;
+	}
 }
