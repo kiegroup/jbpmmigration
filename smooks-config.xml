@@ -4,7 +4,7 @@
     <param name="input.xml" type="input.type.actived">Workspace://jbpmmigration/src/test/resources/jpdl3/singleNode/processdefinition.xml</param>
     <param name="stream.filter.type">DOM</param>
   </params>
-  <jb:bean beanId="jpdlnode" class="org.jbpm.model.Node">
+  <jb:bean beanId="jpdlnode" class="org.jbpm.model.Node" createOnElement="/process-definition/node">
     <jb:value property="actionAcceptPropagatedEvents"/>
     <jb:value property="actionAsyc"/>
     <jb:value property="actionClass"/>
@@ -13,18 +13,18 @@
     <jb:value property="actionName"/>
     <jb:value property="actionRefName"/>
     <jb:value property="async"/>
-    <jb:value data="/process-definition/node/@name" property="name"/>
+    <jb:value property="name"/>
     <jb:value property="nodeContentDescription"/>
     <jb:wiring beanIdRef="nodeContentTransition" property="nodeContentTransition"/>
     <jb:wiring beanIdRef="transitionList" property="transitionList"/>
   </jb:bean>
-  <jb:bean beanId="nodeContentTransition" class="org.jbpm.model.Transition">
+  <jb:bean beanId="nodeContentTransition" class="org.jbpm.model.Transition" createOnElement="/process-definition/node/transition">
     <jb:value property="description"/>
     <jb:value property="name"/>
-    <jb:value data="/process-definition/node/transition/@to" property="to"/>
+    <jb:value property="to"/>
   </jb:bean>
   <jb:bean beanId="transitionList" class="java.util.ArrayList">
-    <jb:wiring beanIdRef="Transition" wireOnElement="/process-definition/node/transition"/>
+    <jb:wiring beanIdRef="Transition"/>
   </jb:bean>
   <jb:bean beanId="Transition" class="org.jbpm.model.Transition">
     <jb:value property="description"/>
