@@ -3,7 +3,6 @@
  */
 package org.jbpm.migration.model;
 
-import java.util.ArrayList;
 
 
 /**
@@ -27,12 +26,7 @@ public final class Node {
     private String actionAsyc;
 
     // node-content-elements
-    private String nodeContentDescription;
-// TODO:    private Event nodeContentEvent;
-// TODO:    private ExceptionHandler nodeContentExceptionHandler;
-// TODO:    private Timer nodeContentTimer;
-    private ArrayList<Transition> nodeContentTransitionList;
-    private Transition nodeContentTransition;
+    private Transition nodeTransition;
     
 	public void setName(String name) {
 		this.name = name;
@@ -107,27 +101,11 @@ public final class Node {
 		return actionAsyc;
 	}
 
-	public void setNodeContentDescription(String nodeContentDescription) {
-		this.nodeContentDescription = nodeContentDescription;
+	public void setNodeTransition(Transition nodeTransition) {
+		this.nodeTransition = nodeTransition;
 	}
 
-	public String getNodeContentDescription() {
-		return nodeContentDescription;
-	}
-
-	public void setTransitionList(ArrayList<Transition> transitionList) {
-		this.nodeContentTransitionList = transitionList;
-	}
-
-	public ArrayList<Transition> getTransitionList() {
-		return nodeContentTransitionList;
-	}
-
-	public void setNodeContentTransition(Transition nodeContentTransition) {
-		this.nodeContentTransition = nodeContentTransition;
-	}
-
-	public Transition getNodeContentTransition() {
-		return nodeContentTransition;
+	public Transition getNodeTransition() {
+		return nodeTransition;
 	}
 }

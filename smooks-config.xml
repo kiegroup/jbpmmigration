@@ -1,34 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?><smooks-resource-list xmlns="http://www.milyn.org/xsd/smooks-1.1.xsd" xmlns:jb="http://www.milyn.org/xsd/smooks/javabean-1.2.xsd">
+<?xml version="1.0" encoding="UTF-8"?><smooks-resource-list xmlns="http://www.milyn.org/xsd/smooks-1.1.xsd" xmlns:ftl="http://www.milyn.org/xsd/smooks/freemarker-1.1.xsd" xmlns:jb="http://www.milyn.org/xsd/smooks/javabean-1.2.xsd">
   <params>
     <param name="inputType">input.xml</param>
     <param name="input.xml" type="input.type.actived">Workspace://jbpmmigration/src/test/resources/jpdl3/singleNode/processdefinition.xml</param>
     <param name="stream.filter.type">DOM</param>
   </params>
-  <jb:bean beanId="jpdlnode" class="org.jbpm.model.Node" createOnElement="/process-definition/node">
-    <jb:value property="actionAcceptPropagatedEvents"/>
-    <jb:value property="actionAsyc"/>
-    <jb:value property="actionClass"/>
-    <jb:value property="actionConfigType"/>
-    <jb:value property="actionExpression"/>
-    <jb:value property="actionName"/>
-    <jb:value property="actionRefName"/>
-    <jb:value property="async"/>
-    <jb:value property="name"/>
-    <jb:value property="nodeContentDescription"/>
-    <jb:wiring beanIdRef="nodeContentTransition" property="nodeContentTransition"/>
-    <jb:wiring beanIdRef="transitionList" property="transitionList"/>
+  <jb:bean beanId="node" class="org.jbpm.migration.model.Node">
+    <jb:value data="/process-definition/node/@name" property="name"/>
+    <jb:wiring beanIdRef="nodeTransition" property="nodeTransition"/>
   </jb:bean>
-  <jb:bean beanId="nodeContentTransition" class="org.jbpm.model.Transition" createOnElement="/process-definition/node/transition">
-    <jb:value property="description"/>
-    <jb:value property="name"/>
-    <jb:value property="to"/>
+  <jb:bean beanId="nodeTransition" class="org.jbpm.migration.model.Transition">
+    <jb:value data="/process-definition/node/transition/@to" property="to"/>
   </jb:bean>
-  <jb:bean beanId="transitionList" class="java.util.ArrayList">
-    <jb:wiring beanIdRef="Transition"/>
+  <jb:bean beanId="processdefinition" class="org.jbpm.migration.model.ProcessDefinition">
+    <jb:value data="/process-definition/@name" property="name"/>
+    <jb:value data="/process-definition/@xmlns" property="xmlns"/>
   </jb:bean>
-  <jb:bean beanId="Transition" class="org.jbpm.model.Transition">
-    <jb:value property="description"/>
-    <jb:value property="name"/>
-    <jb:value property="to"/>
+  <jb:bean beanId="startstate" class="org.jbpm.migration.model.StartState">
+    <jb:value data="/process-definition/start-state/@name" property="name"/>
+    <jb:wiring beanIdRef="startStateTransition" property="startStateTransition"/>
+  </jb:bean>
+  <jb:bean beanId="startStateTransition" class="org.jbpm.migration.model.Transition">
+    <jb:value data="/process-definition/start-state/transition/@to" property="to"/>
+  </jb:bean>
+  <jb:bean beanId="endstate" class="org.jbpm.migration.model.EndState">
+    <jb:value data="/process-definition/end-state/@name" property="name"/>
   </jb:bean>
 </smooks-resource-list>

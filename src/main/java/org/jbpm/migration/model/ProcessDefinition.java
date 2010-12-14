@@ -3,7 +3,6 @@
  */
 package org.jbpm.migration.model;
 
-import java.util.ArrayList;
 
 /**
  * Class to mapping jPDL Process Definition types to java object.
