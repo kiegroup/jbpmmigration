@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jbpm.migration;
+package org.jbpm.migration.xsl;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -36,7 +36,7 @@ import org.w3c.dom.Document;
  */
 public final class BpmnValidator {
     /* XML Schema file for BPMN version 2.0 on the classpath. */
-    private static final String BPMN_2_0_SCHEMA = "schema/bpmn2/BPMN20.xsd";
+    private static final String BPMN_2_0_SCHEMA = "BPMN20.xsd";
 
     /** Logging facility. */
     private static final Logger LOGGER = Logger.getLogger(BpmnValidator.class);

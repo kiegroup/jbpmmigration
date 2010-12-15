@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jbpm.migration;
+package org.jbpm.migration.xsl;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -40,9 +40,9 @@ import org.w3c.dom.Node;
  */
 public final class JpdlValidator {
     /* XML Schema file for jPDL version 3.2 on the classpath. */
-    private static final String JPDL_3_2_SCHEMA = "schema/jpdl/jpdl-3.2.xsd";
+    private static final String JPDL_3_2_SCHEMA = "jpdl-3.2.xsd";
     /* XML Schema file for GPD on the classpath. */
-    private static final String GPD_SCHEMA = "schema/gpd/gpd.xsd";
+    private static final String GPD_SCHEMA = "gpd.xsd";
 
     /** Tag name for the root node (document element) of the concatenated document. */
     private static final String CONCATENATED_ROOT_NODE = "concatenated-root";

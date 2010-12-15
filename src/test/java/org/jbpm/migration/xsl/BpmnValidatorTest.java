@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jbpm.migration;
+package org.jbpm.migration.xsl;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -31,6 +31,7 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.jbpm.migration.util.XmlUtils;
+import org.jbpm.migration.xsl.BpmnValidator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.w3c.dom.Document;

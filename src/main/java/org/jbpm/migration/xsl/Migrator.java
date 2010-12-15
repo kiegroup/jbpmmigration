@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jbpm.migration;
+package org.jbpm.migration.xsl;
 
 import java.io.File;
 
@@ -28,7 +28,8 @@ import org.jbpm.migration.util.XmlUtils;
 import org.w3c.dom.Document;
 
 /**
- * This class migrate a jPDL process definition to an equivalent BPMN 2.0 process definition.
+ * This class migrate a jPDL process definition to an equivalent BPMN 2.0 process definition, using XSLT translation of the JDPL/GPD
+ * XML to the BPMN 2.0 XML.
  * 
  * @author Eric D. Schabell
  * @author Maurice de Chateau
