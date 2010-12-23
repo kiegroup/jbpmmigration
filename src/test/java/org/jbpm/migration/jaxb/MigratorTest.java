@@ -28,7 +28,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * Tests for the jDPL process definition migrator.
+ * Tests for the jPDL process definition migrator.
  * 
  * @author Eric D. Schabell
  * @author Maurice de Chateau
