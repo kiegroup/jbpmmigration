@@ -22,23 +22,34 @@
 package org.jbpm.migration.util;
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.ErrorListener;
 import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 
 import org.apache.log4j.Logger;
+import org.apache.xalan.trace.PrintTraceListener;
+import org.apache.xalan.trace.TraceManager;
+import org.apache.xalan.transformer.TransformerImpl;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXParseException;
 
 /**
@@ -67,7 +78,9 @@ public final class XmlUtils {
     public static Document createEmptyDocument() {
         Document output = null;
         try {
-            output = FACTORY.newDocumentBuilder().newDocument();
+            DocumentBuilder db = FACTORY.newDocumentBuilder();
+            db.setErrorHandler(new ParserErrorHandler());
+            output = db.newDocument();
         } catch (Exception ex) {
             LOGGER.error("Problem creating empty XML document.", ex);
         }
@@ -85,7 +98,9 @@ public final class XmlUtils {
     public static Document parseFile(File input) {
         Document output = null;
         try {
-            output = FACTORY.newDocumentBuilder().parse(input);
+            DocumentBuilder db = FACTORY.newDocumentBuilder();
+            db.setErrorHandler(new ParserErrorHandler());
+            output = db.parse(input);
         } catch (Exception ex) {
             String msg = "Problem parsing the input XML file";
             if (ex instanceof SAXParseException) {
@@ -107,9 +122,11 @@ public final class XmlUtils {
     public static Document parseString(String input) {
         Document output = null;
         try {
-            output = FACTORY.newDocumentBuilder().parse(input);
+            DocumentBuilder db = FACTORY.newDocumentBuilder();
+            db.setErrorHandler(new ParserErrorHandler());
+            output = db.parse(input);
         } catch (Exception ex) {
-            String msg = "Problem parsing the input XML file";
+            String msg = "Problem parsing the input XML string";
             if (ex instanceof SAXParseException) {
                 msg += " at line #" + ((SAXParseException) ex).getLineNumber();
             }
@@ -133,8 +150,9 @@ public final class XmlUtils {
         try {
             SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schema = factory.newSchema(new StreamSource(schemaFile));
-            // TODO: Experiment with ErrorHandler on Validator for more concise error messages.
-            schema.newValidator().validate(new DOMSource(input));
+            Validator val = schema.newValidator();
+            val.setErrorHandler(new ParserErrorHandler());
+            val.validate(new DOMSource(input));
         } catch (Exception ex) {
             LOGGER.error("Problem validating the given process definition.", ex);
             isValid = false;
@@ -157,6 +175,8 @@ public final class XmlUtils {
         try {
             output = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
             Transformer transformer = TransformerFactory.newInstance().newTransformer(new StreamSource(styleSheet));
+            instrumentTransformer(transformer);
+
             transformer.transform(new DOMSource(input), new DOMResult(output));
         } catch (Exception ex) {
             LOGGER.error("Problem transforming XML file.", ex);
@@ -173,18 +193,7 @@ public final class XmlUtils {
      * @return The formatted <code>String</code>.
      */
     public static String format(Node input) {
-        StreamResult result = null;
-        try {
-            Transformer transformer = TransformerFactory.newInstance().newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            result = new StreamResult(new StringWriter());
-            transformer.transform(new DOMSource(input), result);
-        } catch (Exception ex) {
-            LOGGER.error("Problem formatting DOM representation.", ex);
-            return null;
-        }
-
-        return result.getWriter().toString();
+        return format(new DOMSource(input));
     }
 
     /**
@@ -195,17 +204,91 @@ public final class XmlUtils {
      * @return The formatted <code>String</code>.
      */
     public static String format(String input) {
+        return format(new StreamSource(input));
+    }
+
+    private static String format(Source input) {
         StreamResult result = null;
         try {
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            instrumentTransformer(transformer);
+
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             result = new StreamResult(new StringWriter());
-            transformer.transform(new StreamSource(input), result);
+
+            transformer.transform(input, result);
         } catch (Exception ex) {
             LOGGER.error("Problem formatting DOM representation.", ex);
             return null;
         }
 
         return result.getWriter().toString();
+    }
+
+    /**
+     * Adds a little verbosity to a constructed <code>Transformer</code>.
+     * 
+     * @param transformer
+     *            The <code>Transformer</code> which may produce some output.
+     * @throws Exception
+     *             If setting/adding a listener gives a problem.
+     */
+    private static void instrumentTransformer(Transformer transformer) throws Exception {
+        transformer.setErrorListener(new TransformerErrorListener());
+
+        if (transformer instanceof TransformerHandler) {
+            transformer = ((TransformerHandler) transformer).getTransformer();
+        }
+        if (transformer instanceof TransformerImpl) {
+            TraceManager tm = ((TransformerImpl) transformer).getTraceManager();
+            PrintTraceListener ptl = new PrintTraceListener(new PrintWriter(System.out));
+            // Print information as each node is 'executed' in the stylesheet.
+            ptl.m_traceElements = true;
+            // Print information after each result-tree generation event.
+            ptl.m_traceGeneration = true;
+            // Print information after each selection event.
+            ptl.m_traceSelection = true;
+            // Print information whenever a template is invoked.
+            ptl.m_traceTemplates = true;
+            // Print information whenever an extension call is made.
+            ptl.m_traceExtension = true;
+            tm.addTraceListener(ptl);
+        }
+    }
+
+    /** Private class for making the parsing and validation processes a little more verbose. */
+    private static class ParserErrorHandler implements ErrorHandler {
+        @Override
+        public void warning(SAXParseException saxParseEx) {
+            LOGGER.warn("Problem parsing XML:", saxParseEx);
+        }
+
+        @Override
+        public void error(SAXParseException saxParseEx) {
+            LOGGER.error("Problem parsing XML:", saxParseEx);
+        }
+
+        @Override
+        public void fatalError(SAXParseException saxParseEx) {
+            LOGGER.fatal("Problem parsing XML:", saxParseEx);
+        }
+    }
+
+    /** Private class for making the transformation processes a little more verbose. */
+    private static class TransformerErrorListener implements ErrorListener {
+        @Override
+        public void warning(TransformerException transformerEx) {
+            LOGGER.warn("Problem transforming XML:", transformerEx);
+        }
+
+        @Override
+        public void error(TransformerException transformerEx) {
+            LOGGER.warn("Problem transforming XML:", transformerEx);
+        }
+
+        @Override
+        public void fatalError(TransformerException transformerEx) {
+            LOGGER.warn("Problem transforming XML:", transformerEx);
+        }
     }
 }
