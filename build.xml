@@ -1,0 +1,9 @@
+<project name="TranformXml" default="TransformFile">
+	<target name="TransformFile">
+		<!-- Transform one file into an HTML file -->
+		<xslt in="src/test/resources/jpdl3/singleNode/processdefinition.xml" 
+			out="target/processdefinition.bpmn.xml"
+		    style="src/main/resources/jpdl3-bpmn2.xsl"
+		/>
+	</target>
+</project>
