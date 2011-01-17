@@ -1,22 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:jbpm="urn:jbpm.org:jpdl-3.2">
+<xsl:output method="xml"/>
 
-    <xsl:template match="/process-definition">
-        <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
-            xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    <xsl:template match="/">
+        <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" 
+        	xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+            xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" 
+            xmlns:di="http://www.omg.org/spec/DD/20100524/DI" 
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             targetNamespace="http://www.jbpm.org/">
             <xsl:attribute name="name"> 
-                <xsl:value-of select="@name" />
+                <xsl:value-of select="jbpm:process/@name" />
             </xsl:attribute>
 
-            <xsl:apply-templates />
-            <xsl:apply-templates select="//transition" />
 
-        </definitions>
-    </xsl:template>
+    	<xsl:apply-templates select="jbpm:process"/>
 
-    <xsl:template match="//start-state">
+	  	</definitions>
+	</xsl:template>
+    
+	<xsl:template match="jbpm:process">
+	    <process>
+	      <xsl:attribute name="id"><xsl:value-of select="@name"/></xsl:attribute>
+	      <xsl:attribute name="name"><xsl:value-of select="@name"/></xsl:attribute>
+	      <xsl:apply-templates/>
+	    </process>
+	</xsl:template>
+	
+    <xsl:template match="jbpm:start-state">
         <startEvent>
             <xsl:attribute name="name">
                 <xsl:value-of select="@name" />
@@ -24,10 +36,11 @@
             <xsl:attribute name="id">
                 <xsl:value-of select="@name" /><xsl:text>_id</xsl:text>
             </xsl:attribute>
+	      <xsl:apply-templates/>
         </startEvent>
     </xsl:template>
 
-    <xsl:template match="//end-state">
+    <xsl:template match="jbpm:end-state">
         <endEvent>
             <xsl:attribute name="name">
                 <xsl:value-of select="@name" />
@@ -38,7 +51,7 @@
         </endEvent>
     </xsl:template>
 
-    <xsl:template match="//node">
+    <xsl:template match="jbpm:node">
         <serviceTask>
             <xsl:attribute name="name">
                 <xsl:value-of select="@name" />
@@ -46,16 +59,21 @@
             <xsl:attribute name="id">
                 <xsl:value-of select="@name" /><xsl:text>_id</xsl:text>
             </xsl:attribute>
+	      <xsl:apply-templates/>
         </serviceTask>
     </xsl:template>
 
-    <xsl:template match="//transition">
+    <xsl:template match="jbpm:transition">
         <sequenceFlow>
+        	<xsl:attribute name="id">
+        		<xsl:text>flow_</xsl:text>
+        		<xsl:value-of select="../@name" />
+        	</xsl:attribute>
             <xsl:attribute name="sourceRef">
-                <xsl:value-of select="../@name" /><xsl:text>_id</xsl:text>
+                <xsl:value-of select="../@name" />
             </xsl:attribute>
             <xsl:attribute name="targetRef">
-                <xsl:value-of select="@to" /><xsl:text>_id</xsl:text>
+                <xsl:value-of select="@to" />
             </xsl:attribute>
         </sequenceFlow>
     </xsl:template>
