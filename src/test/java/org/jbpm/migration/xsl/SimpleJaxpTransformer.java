@@ -36,7 +36,7 @@ import javax.xml.transform.stream.StreamSource;
  *
  */
 public class SimpleJaxpTransformer {
-	
+		 
     /**
      * Accept two command line arguments: the name of an XML file, and
      * the name of an XSLT stylesheet. The result of the transformation
@@ -44,19 +44,20 @@ public class SimpleJaxpTransformer {
      */
     public static void main(String[] args)
             throws javax.xml.transform.TransformerException {
-        if (args.length != 2) {
+        if (args.length != 3) {
             System.err.println("Usage:");
             System.err.println("  java " + SimpleJaxpTransformer.class.getName(  )
-                    + " xmlFileName xsltFileName");
+                    + " xmlFileName xsltFileName outputFileName");
             System.exit(1);
         }
  
-        File xmlFile  = new File(args[0]);
-        File xsltFile = new File(args[1]);
- 
+        File xmlFile    = new File(args[0]);
+        File xsltFile   = new File(args[1]);
+        File outputFile = new File(args[2]);
+        
         Source xmlSource  = new StreamSource(xmlFile);
         Source xsltSource = new StreamSource(xsltFile);
-        Result result     = new StreamResult(System.err);
+        Result result     = new StreamResult(outputFile);
  
         // create an instance of TransformerFactory
         TransformerFactory transFact = TransformerFactory.newInstance( );
