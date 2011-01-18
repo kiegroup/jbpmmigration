@@ -151,8 +151,10 @@ public final class XmlUtils {
             SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schema = factory.newSchema(new StreamSource(schemaFile));
             Validator val = schema.newValidator();
-            val.setErrorHandler(new ParserErrorHandler());
+            ParserErrorHandler eh = new ParserErrorHandler();
+            val.setErrorHandler(eh);
             val.validate(new DOMSource(input));
+            isValid = !eh.didExceptionOccur();
         } catch (Exception ex) {
             LOGGER.error("Problem validating the given process definition.", ex);
             isValid = false;
@@ -258,19 +260,28 @@ public final class XmlUtils {
 
     /** Private class for making the parsing and validation processes a little more verbose. */
     private static class ParserErrorHandler implements ErrorHandler {
+        private boolean exceptionOccurred;
+
         @Override
         public void warning(SAXParseException saxParseEx) {
             LOGGER.warn("Problem parsing XML:", saxParseEx);
+            exceptionOccurred = true;
         }
 
         @Override
         public void error(SAXParseException saxParseEx) {
             LOGGER.error("Problem parsing XML:", saxParseEx);
+            exceptionOccurred = true;
         }
 
         @Override
         public void fatalError(SAXParseException saxParseEx) {
             LOGGER.fatal("Problem parsing XML:", saxParseEx);
+            exceptionOccurred = true;
+        }
+
+        boolean didExceptionOccur() {
+            return exceptionOccurred;
         }
     }
 
