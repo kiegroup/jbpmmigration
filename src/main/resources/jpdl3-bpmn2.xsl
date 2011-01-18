@@ -12,16 +12,16 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             targetNamespace="http://www.jbpm.org/">
 	    	<xsl:attribute name="id">
-	      		<xsl:value-of select="jpdl:process/@name"/>
+	      		<xsl:value-of select="jpdl:process-definition/@name"/>
       		</xsl:attribute>
             <xsl:attribute name="name">
-                <xsl:value-of select="jpdl:process/@name" />
+                <xsl:value-of select="jpdl:process-definition/@name" />
             </xsl:attribute>
-	     	<xsl:apply-templates select="jpdl:process"/>
+	     	<xsl:apply-templates select="jpdl:process-definition"/>
 		</definitions>
 	</xsl:template>
     
-	<xsl:template match="jpdl:process">
+	<xsl:template match="jpdl:process-definition">
 	    <process>
 	    	<xsl:attribute name="id">
 	      		<xsl:value-of select="@name"/><xsl:text>Process</xsl:text>
