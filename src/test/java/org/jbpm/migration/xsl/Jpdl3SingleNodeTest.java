@@ -67,7 +67,6 @@ public class Jpdl3SingleNodeTest {
      * @throws Exception
      */
     @Test
-    @Ignore("Add back when fixed.")
     public void validJpldDefinition() throws Exception {
         File jpdl = new File(INPUT_JPDL);
         File gpd = new File(INPUT_GPD);
