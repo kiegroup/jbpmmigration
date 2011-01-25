@@ -73,6 +73,19 @@
 		<xsl:apply-templates/>
     </xsl:template>
 
+    <xsl:template match="jpdl:state">
+		<serviceTask>
+			<xsl:attribute name="name">
+				<xsl:value-of select="@name" />
+			</xsl:attribute>
+			<xsl:attribute name="id">
+                <xsl:value-of select="@name" />
+            </xsl:attribute>
+		</serviceTask>
+
+		<xsl:apply-templates/>
+    </xsl:template>
+
     <xsl:template match="jpdl:transition">
         <sequenceFlow>
         	<xsl:attribute name="id">
@@ -87,8 +100,6 @@
             </xsl:attribute>
         </sequenceFlow>
     </xsl:template>
-
-    <!-- TODO: Include templates for the missing jPDL elements. -->
 
      <!-- Strip the white space from the result. -->
     <xsl:template match="text()">
