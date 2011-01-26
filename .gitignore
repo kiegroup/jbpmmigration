@@ -1,0 +1,5 @@
+# files to ignore in this project.
+.classpath
+.project
+.settings*
+target/
