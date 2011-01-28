@@ -49,6 +49,47 @@
 		<xsl:apply-templates/>
     </xsl:template>
 
+	<xsl:template match="jpdl:task">
+  		<xsl:variable name="id">
+  			<xsl:value-of select="@name" />
+  		</xsl:variable>
+			<userTask>
+				<xsl:attribute name="id">
+					<xsl:value-of select="@name" />
+				</xsl:attribute>
+			    <xsl:attribute name="name">
+			    	<xsl:value-of select="@name" />
+			    </xsl:attribute>
+			    <xsl:if test="@assignee">
+			    	<potentialOwner>
+			        	<resourceAssignmentExpression>
+			          		<formalExpression>
+			          			<xsl:value-of select="@assignee" />
+			          		</formalExpression>
+			        	</resourceAssignmentExpression>
+			      	</potentialOwner>
+			    </xsl:if>
+			</userTask>
+
+		<xsl:for-each select="jpdl:transition">
+	        <sequenceFlow>
+	        	<xsl:attribute name="id">
+	        		<xsl:text>flow_</xsl:text>
+	        		<xsl:value-of select="../@name" />
+	        		<xsl:value-of select='position()' />
+	        	</xsl:attribute>
+	            <xsl:attribute name="sourceRef">
+	                <xsl:value-of select="../@name" />
+	            </xsl:attribute>
+	            <xsl:attribute name="targetRef">
+	                <xsl:value-of select="@to" />
+	            </xsl:attribute>
+	        </sequenceFlow>
+  		</xsl:for-each>
+			
+</xsl:template>
+
+
     <xsl:template match="jpdl:end-state">
         <endEvent>
             <xsl:attribute name="name">
