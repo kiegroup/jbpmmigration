@@ -43,6 +43,7 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.xalan.trace.PrintTraceListener;
 import org.apache.xalan.trace.TraceManager;
@@ -264,24 +265,26 @@ public final class XmlUtils {
 
         @Override
         public void warning(SAXParseException saxParseEx) {
-            LOGGER.warn("Problem parsing XML:", saxParseEx);
-            exceptionOccurred = true;
+            log(Level.WARN, saxParseEx);
         }
 
         @Override
         public void error(SAXParseException saxParseEx) {
-            LOGGER.error("Problem parsing XML:", saxParseEx);
-            exceptionOccurred = true;
+            log(Level.ERROR, saxParseEx);
         }
 
         @Override
         public void fatalError(SAXParseException saxParseEx) {
-            LOGGER.fatal("Problem parsing XML:", saxParseEx);
-            exceptionOccurred = true;
+            log(Level.FATAL, saxParseEx);
         }
 
         boolean didExceptionOccur() {
             return exceptionOccurred;
+        }
+
+        private void log(Level level, SAXParseException saxParseEx) {
+            exceptionOccurred = true;
+            LOGGER.log(level, "Problem parsing XML: " + saxParseEx.getMessage());
         }
     }
 
@@ -289,17 +292,21 @@ public final class XmlUtils {
     private static class TransformerErrorListener implements ErrorListener {
         @Override
         public void warning(TransformerException transformerEx) {
-            LOGGER.warn("Problem transforming XML:", transformerEx);
+            log(Level.WARN, transformerEx);
         }
 
         @Override
         public void error(TransformerException transformerEx) {
-            LOGGER.warn("Problem transforming XML:", transformerEx);
+            log(Level.ERROR, transformerEx);
         }
 
         @Override
         public void fatalError(TransformerException transformerEx) {
-            LOGGER.warn("Problem transforming XML:", transformerEx);
+            log(Level.FATAL, transformerEx);
+        }
+
+        private void log(Level level, TransformerException transformerEx) {
+            LOGGER.log(level, "Problem transforming XML: " + transformerEx);
         }
     }
 }
