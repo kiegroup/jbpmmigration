@@ -46,28 +46,62 @@
 			<xsl:attribute name="calledElement">
             	<xsl:apply-templates select="jpdl:sub-process" />
             </xsl:attribute>
-			<dataInput>
-				<xsl:attribute name="id">
-					<xsl:value-of select="../@name" />
-					<xsl:text>_</xsl:text>
-	            	<xsl:apply-templates select="jpdl:variable" />
-	            	<xsl:text>Input</xsl:text>
-				</xsl:attribute>
-				<xsl:attribute name="name">
-	            	<xsl:apply-templates select="jpdl:variable" />
-	            </xsl:attribute>	
-            </dataInput>
-            <dataOutput>
-				<xsl:attribute name="id">
-					<xsl:value-of select="../@name" />
-					<xsl:text>_</xsl:text>
-	            	<xsl:apply-templates select="jpdl:variable" />
-	            	<xsl:text>Output</xsl:text>
-				</xsl:attribute>
-				<xsl:attribute name="name">
-	            	<xsl:apply-templates select="jpdl:variable" />
-	            </xsl:attribute>	
-            </dataOutput>
+            <ioSpecification>
+				<dataInput>
+					<xsl:attribute name="id">
+						<xsl:value-of select="@name" />
+						<xsl:text>_</xsl:text>
+		            	<xsl:apply-templates select="jpdl:variable" />
+		            	<xsl:text>Input</xsl:text>
+					</xsl:attribute>
+					<xsl:attribute name="name">
+		            	<xsl:apply-templates select="jpdl:variable" />
+		            </xsl:attribute>	
+	            </dataInput>
+	            <dataOutput>
+					<xsl:attribute name="id">
+						<xsl:value-of select="@name" />
+						<xsl:text>_</xsl:text>
+		            	<xsl:apply-templates select="jpdl:variable" />
+		            	<xsl:text>Output</xsl:text>
+					</xsl:attribute>
+					<xsl:attribute name="name">
+		            	<xsl:apply-templates select="jpdl:variable" />
+		            </xsl:attribute>	
+	            </dataOutput>
+	            <inputSet>
+	            	<xsl:attribute name="dataInputRefs">
+						<xsl:value-of select="@name" />
+						<xsl:text>_</xsl:text>
+		            	<xsl:apply-templates select="jpdl:variable" />
+		            	<xsl:text>Input</xsl:text>
+	            	</xsl:attribute>
+	            </inputSet>
+	            <outputSet>
+	            	<xsl:attribute name="dataInputRefs">
+						<xsl:value-of select="@name" />
+						<xsl:text>_</xsl:text>
+		            	<xsl:apply-templates select="jpdl:variable" />
+		            	<xsl:text>Output</xsl:text>
+	            	</xsl:attribute>
+	            </outputSet>
+            </ioSpecification>
+            <dataInputAssociation>
+            	<xsl:attribute name="sourceRef">
+            		<xsl:apply-templates select="jpdl:variable" />
+            	</xsl:attribute>
+            	<xsl:attribute name="targetRef">
+            		<xsl:apply-templates select="jpdl:variable" />
+            	</xsl:attribute>
+            </dataInputAssociation>
+            <dataOutputAssociation>
+            	<xsl:attribute name="sourceRef">
+            		<xsl:apply-templates select="jpdl:variable" />
+            	</xsl:attribute>
+            	<xsl:attribute name="targetRef">
+            		<xsl:apply-templates select="jpdl:variable" />
+            	</xsl:attribute>
+            </dataOutputAssociation>
 		</callActivity>
 
 		<xsl:apply-templates select="jpdl:transition"/>
