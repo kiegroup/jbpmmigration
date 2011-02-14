@@ -8,6 +8,7 @@
 	<xsl:import href="process-state-bpmn.xsl"/>
 	<xsl:import href="task-bpmn.xsl"/>
 	<xsl:import href="node-bpmn.xsl"/>
+	<xsl:import href="state-bpmn.xsl"/>
 	
 	<xsl:output method="xml" />
 
