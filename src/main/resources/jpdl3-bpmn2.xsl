@@ -11,6 +11,7 @@
 	<xsl:import href="state-bpmn.xsl"/>
 	<xsl:import href="decision-bpmn.xsl"/>
 	<xsl:import href="forkjoin-bpmn.xsl"/>
+	<xsl:import href="transition-bpmn.xsl"/>
 	
 	<xsl:output method="xml" />
 
@@ -64,21 +65,6 @@
                 <xsl:value-of select="@name" />
             </xsl:attribute>
 		</endEvent>
-	</xsl:template>
-
-	<xsl:template match="jpdl:transition">
-		<sequenceFlow>
-			<xsl:attribute name="id">
-        		<xsl:text>flow_</xsl:text>
-        		<xsl:value-of select="../@name" />
-        	</xsl:attribute>
-			<xsl:attribute name="sourceRef">
-                <xsl:value-of select="../@name" />
-            </xsl:attribute>
-			<xsl:attribute name="targetRef">
-                <xsl:value-of select="@to" />
-            </xsl:attribute>
-		</sequenceFlow>
 	</xsl:template>
 
 	<!-- Strip the white space from the result. -->
