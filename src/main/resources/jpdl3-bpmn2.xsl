@@ -7,6 +7,7 @@
 	<!-- Import the pieces of jPDL we need. -->
 	<xsl:import href="process-state-bpmn.xsl"/>
 	<xsl:import href="task-bpmn.xsl"/>
+	<xsl:import href="node-bpmn.xsl"/>
 	
 	<xsl:output method="xml" />
 
@@ -60,19 +61,6 @@
                 <xsl:value-of select="@name" />
             </xsl:attribute>
 		</endEvent>
-	</xsl:template>
-
-	<xsl:template match="jpdl:node">
-		<scriptTask>
-			<xsl:attribute name="name">
-                <xsl:value-of select="@name" />
-            </xsl:attribute>
-			<xsl:attribute name="id">
-                <xsl:value-of select="@name" />
-            </xsl:attribute>
-		</scriptTask>
-
-		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="jpdl:state">
