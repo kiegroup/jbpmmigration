@@ -9,6 +9,8 @@
 	<xsl:import href="task-bpmn.xsl"/>
 	<xsl:import href="node-bpmn.xsl"/>
 	<xsl:import href="state-bpmn.xsl"/>
+	<xsl:import href="decision-bpmn.xsl"/>
+	<xsl:import href="forkjoin-bpmn.xsl"/>
 	
 	<xsl:output method="xml" />
 
