@@ -64,19 +64,6 @@
 		</endEvent>
 	</xsl:template>
 
-	<xsl:template match="jpdl:state">
-		<serviceTask>
-			<xsl:attribute name="name">
-				<xsl:value-of select="@name" />
-			</xsl:attribute>
-			<xsl:attribute name="id">
-                <xsl:value-of select="@name" />
-            </xsl:attribute>
-		</serviceTask>
-
-		<xsl:apply-templates />
-	</xsl:template>
-
 	<xsl:template match="jpdl:decision">
 		<complexGateway>
 			<xsl:attribute name="name">
