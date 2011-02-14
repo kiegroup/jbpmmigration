@@ -64,35 +64,6 @@
 		</endEvent>
 	</xsl:template>
 
-	<xsl:template match="jpdl:decision">
-		<complexGateway>
-			<xsl:attribute name="name">
-				<xsl:value-of select="@name" />
-			</xsl:attribute>
-			<xsl:attribute name="id">
-                <xsl:value-of select="@name" />
-            </xsl:attribute>
-		</complexGateway>
-
-		<xsl:for-each select="jpdl:transition">
-			<sequenceFlow>
-				<xsl:attribute name="id">
-	        		<xsl:text>flow_</xsl:text>
-	        		<xsl:value-of select="../@name" />
-	        		<xsl:value-of select='position()' />
-	        	</xsl:attribute>
-				<xsl:attribute name="sourceRef">
-	                <xsl:value-of select="../@name" />
-	            </xsl:attribute>
-				<xsl:attribute name="targetRef">
-	                <xsl:value-of select="@to" />
-	            </xsl:attribute>
-			</sequenceFlow>
-		</xsl:for-each>
-
-	</xsl:template>
-
-
 	<xsl:template match="jpdl:transition">
 		<sequenceFlow>
 			<xsl:attribute name="id">
