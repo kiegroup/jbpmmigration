@@ -9,6 +9,14 @@
 
 
 	<state name="state">
+		<event type="node-enter">
+            <action class="org.jboss.handler.TestHandler" />
+        </event>
+		<event type="node-leave">
+            <action class="org.jboss.handler.TestHandler" />
+        </event>
+	
+	
 		<transition to="end-state"></transition>
 	</state>
 

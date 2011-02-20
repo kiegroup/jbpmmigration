@@ -12,9 +12,48 @@
 			<xsl:attribute name="id">
                 <xsl:value-of select="@name" />
             </xsl:attribute>
+            
+            <xsl:apply-templates select="jpdl:event" />
 		</serviceTask>
 
-		<xsl:apply-templates />
+		<!--  Process transitions. -->
+		<xsl:for-each select="jpdl:transition">
+			<sequenceFlow>
+				<xsl:attribute name="id">
+	        		<xsl:text>flow_</xsl:text>
+	        		<xsl:value-of select="../@name" />
+	        		<xsl:value-of select='position()' />
+	        	</xsl:attribute>
+				<xsl:attribute name="sourceRef">
+	                <xsl:value-of select="../@name" />
+	            </xsl:attribute>
+				<xsl:attribute name="targetRef">
+	                <xsl:value-of select="@to" />
+	            </xsl:attribute>
+			</sequenceFlow>
+		</xsl:for-each>
 	</xsl:template>
 
+	<!-- Event types 'node-enter' and 'node-leave' reduced to just one implementation -->
+	<!-- even if they both are there to fit BPMN specification. -->
+    <xsl:template match="jpdl:event">
+    	<xsl:choose>
+    		<xsl:when test="@type='node-enter'">
+    			<xsl:attribute name="implementation">undefined</xsl:attribute>
+   				<xsl:attribute name="name">
+    				<xsl:apply-templates select="jpdl:action" />
+   				</xsl:attribute>
+    		</xsl:when>
+    		
+    		<xsl:when test="@type='leave'">
+    			<implementation>
+    				<xsl:apply-templates select="jpdl:action" />
+    			</implementation>
+    		</xsl:when>
+    	</xsl:choose>
+    </xsl:template>
+    
+    <xsl:template match="jpdl:action">
+    	<xsl:value-of select="@class" />
+    </xsl:template>
 </xsl:stylesheet>
