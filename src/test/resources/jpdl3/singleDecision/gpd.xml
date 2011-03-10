@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="singleDecision" width="1039" height="433">
+<root-container name="singleDecision" width="1111" height="466">
   <node name="start-state" x="303" y="85" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
@@ -15,5 +15,5 @@
     </edge>
   </node>
   <node name="end-state1" x="142" y="342" width="132" height="36"/>
-  <node name="end-state2" x="425" y="342" width="132" height="36"/>
+  <node name="end-state2" x="433" y="361" width="132" height="36"/>
 </root-container>

@@ -4,19 +4,20 @@
 
 
 	<start-state name="start-state">
-		<transition to="decision"></transition>
+		<transition to="decision" />
 	</start-state>
 
 
 	<decision name="decision">
-		<transition to="end-state1"></transition>
-		<transition to="end-state2" name="to-end-state2"></transition>
+		<handler class="org.jboss.handler.DecisionTestHandler" />
+		<transition to="end-state1" />
+		<transition to="end-state2" name="to-end-state2" />
 	</decision>
 
 
-	<end-state name="end-state1"></end-state>
+	<end-state name="end-state1" />
 
-	<end-state name="end-state2"></end-state>
+	<end-state name="end-state2" />
 
 
 </process-definition>

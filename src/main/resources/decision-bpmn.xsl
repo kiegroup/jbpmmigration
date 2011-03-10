@@ -5,15 +5,22 @@
 	xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
 
 	<xsl:template match="jpdl:decision">
-		<complexGateway>
+		<inclusiveGateway>
 			<xsl:attribute name="name">
 				<xsl:value-of select="@name" />
 			</xsl:attribute>
 			<xsl:attribute name="id">
                 <xsl:value-of select="@name" />
             </xsl:attribute>
-		</complexGateway>
-
+            <xsl:attribute name="gatewayDirection">
+            	<xsl:text>Diverging</xsl:text>
+            </xsl:attribute>
+            
+            <xsl:apply-templates select="jpdl:handler" />
+                        	
+		</inclusiveGateway>
+		
+		
 		<xsl:for-each select="jpdl:transition">
 			<sequenceFlow>
 				<xsl:attribute name="id">
@@ -32,4 +39,12 @@
 
 	</xsl:template>
 
+	<!-- Processing decision handler elements. -->
+    <xsl:template match="jpdl:handler">
+    	<documentation>
+    		<xsl:text>This decision makes use of the following handler: </xsl:text>
+    		<xsl:value-of select="@class" />
+    	</documentation>
+    </xsl:template>
+    
 </xsl:stylesheet>
