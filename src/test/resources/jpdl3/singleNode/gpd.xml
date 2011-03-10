@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="Single Node" width="1002" height="535">
+<root-container name="SingleNode" width="1111" height="466">
   <node name="start-state" x="37" y="25" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>

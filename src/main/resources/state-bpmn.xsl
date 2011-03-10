@@ -6,35 +6,28 @@
 
 	<!-- Import the pieces of jPDL we need. -->
 	<xsl:import href="event-bpmn.xsl"/>
-
+	<xsl:import href="transition-bpmn.xsl"/>
+	
 	<xsl:template match="jpdl:state">
-		<serviceTask>
+			<scriptTask>
 			<xsl:attribute name="name">
-				<xsl:value-of select="@name" />
-			</xsl:attribute>
+                <xsl:value-of select="@name" />
+            </xsl:attribute>
 			<xsl:attribute name="id">
                 <xsl:value-of select="@name" />
             </xsl:attribute>
-            
-            <xsl:apply-templates select="jpdl:event" />
-		</serviceTask>
 
-		<!--  Process transitions. -->
-		<xsl:for-each select="jpdl:transition">
-			<sequenceFlow>
-				<xsl:attribute name="id">
-	        		<xsl:text>flow_</xsl:text>
-	        		<xsl:value-of select="../@name" />
-	        		<xsl:value-of select='position()' />
-	        	</xsl:attribute>
-				<xsl:attribute name="sourceRef">
-	                <xsl:value-of select="../@name" />
-	            </xsl:attribute>
-				<xsl:attribute name="targetRef">
-	                <xsl:value-of select="@to" />
-	            </xsl:attribute>
-			</sequenceFlow>
-		</xsl:for-each>
+			<xsl:if test="jpdl:event">
+	            <script>
+           	    	// place holder for the following action handlers,
+           	    	// so you can migrate the code here:
+           	    	//
+        			<xsl:apply-templates select="jpdl:event" />
+    	        </script>           
+			</xsl:if>
+		</scriptTask>
+
+		<xsl:apply-templates select="jpdl:transition"/>
 	</xsl:template>
 
 </xsl:stylesheet>

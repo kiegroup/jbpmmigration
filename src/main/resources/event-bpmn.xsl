@@ -4,22 +4,22 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:jpdl="urn:jbpm.org:jpdl-3.2"
 	xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
 
-	<!-- Event types 'node-enter' and 'node-leave' reduced to just one implementation -->
-	<!-- even if they both are there to fit BPMN specification. -->
+	<!-- Event types 'node-enter' and 'node-leave' are added to the documentation element. -->
     <xsl:template match="jpdl:event">
-    	<xsl:choose>
-    		<xsl:when test="@type='node-enter'">
-    			<xsl:attribute name="implementation">
-    				<xsl:apply-templates select="jpdl:action" />
-   				</xsl:attribute>
-    		</xsl:when>
-    		
-    		<xsl:when test="@type='leave'">
-    			<implementation>
-    				<xsl:apply-templates select="jpdl:action" />
-    			</implementation>
-    		</xsl:when>
-    	</xsl:choose>
+			<xsl:if test="@type='node-enter'">
+				<xsl:text>// node-enter: 
+				// </xsl:text>
+				<xsl:apply-templates select="jpdl:action" />
+				<xsl:text>
+				</xsl:text>				
+			</xsl:if>		
+			<xsl:if test="@type='node-leave'">
+				<xsl:text>// node-leave: 
+				// </xsl:text>
+				<xsl:apply-templates select="jpdl:action" />
+				<xsl:text>
+				</xsl:text>
+			</xsl:if>
     </xsl:template>
     
     <xsl:template match="jpdl:action">
