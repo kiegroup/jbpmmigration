@@ -5,18 +5,19 @@
 	xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
 
 	<xsl:template match="jpdl:transition">
-		<sequenceFlow>
-			<xsl:attribute name="id">
-        		<xsl:text>flow_</xsl:text>
-        		<xsl:value-of select="../@name" />
-        	</xsl:attribute>
-			<xsl:attribute name="sourceRef">
-                <xsl:value-of select="../@name" />
-            </xsl:attribute>
-			<xsl:attribute name="targetRef">
-                <xsl:value-of select="@to" />
-            </xsl:attribute>
-		</sequenceFlow>
+			<sequenceFlow>
+				<xsl:attribute name="id">
+	        		<xsl:text>flow_</xsl:text>
+	        		<xsl:value-of select="../@name" />
+	        		<xsl:value-of select='position()' />
+	        	</xsl:attribute>
+				<xsl:attribute name="sourceRef">
+	                <xsl:value-of select="../@name" />
+	            </xsl:attribute>
+				<xsl:attribute name="targetRef">
+	                <xsl:value-of select="@to" />
+	            </xsl:attribute>
+			</sequenceFlow>
 	</xsl:template>
 
 </xsl:stylesheet>

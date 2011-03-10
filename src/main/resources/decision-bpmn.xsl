@@ -4,6 +4,10 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:jpdl="urn:jbpm.org:jpdl-3.2"
 	xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
 
+	<!-- Import the pieces of jPDL we need. -->
+	<xsl:import href="handler-bpmn.xsl"/>
+	<xsl:import href="transition-bpmn.xsl"/>
+
 	<xsl:template match="jpdl:decision">
 		<inclusiveGateway>
 			<xsl:attribute name="name">
@@ -20,31 +24,7 @@
                         	
 		</inclusiveGateway>
 		
-		
-		<xsl:for-each select="jpdl:transition">
-			<sequenceFlow>
-				<xsl:attribute name="id">
-	        		<xsl:text>flow_</xsl:text>
-	        		<xsl:value-of select="../@name" />
-	        		<xsl:value-of select='position()' />
-	        	</xsl:attribute>
-				<xsl:attribute name="sourceRef">
-	                <xsl:value-of select="../@name" />
-	            </xsl:attribute>
-				<xsl:attribute name="targetRef">
-	                <xsl:value-of select="@to" />
-	            </xsl:attribute>
-			</sequenceFlow>
-		</xsl:for-each>
-
+		<xsl:apply-templates select="jpdl:transition"/>
 	</xsl:template>
-
-	<!-- Processing decision handler elements. -->
-    <xsl:template match="jpdl:handler">
-    	<documentation>
-    		<xsl:text>This decision makes use of the following handler: </xsl:text>
-    		<xsl:value-of select="@class" />
-    	</documentation>
-    </xsl:template>
     
 </xsl:stylesheet>
