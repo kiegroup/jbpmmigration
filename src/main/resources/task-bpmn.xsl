@@ -6,21 +6,31 @@
 
 	<!-- Import the pieces of jPDL we need. -->
 	<xsl:import href="event-bpmn.xsl"/>
+	<xsl:import href="transition-bpmn.xsl"/>
+	
 
 	<xsl:template match="jpdl:task-node">
 		<userTask>
 			<xsl:attribute name="id">
-					<xsl:value-of select="@name" />
+					<xsl:value-of select="translate(@name,' ','_')" />
 				</xsl:attribute>
 			<xsl:attribute name="name">
 			    	<xsl:value-of select="@name" />
 			</xsl:attribute>
 			
-			<xsl:apply-templates select="jpdl:event" />    
+			<xsl:if test="jpdl:event">
+	            <documentation>
+           	    	// place holder for the following event action 
+           	    	// handlers, migrate the code found here:
+           	    	//
+        			<xsl:apply-templates select="jpdl:event"/>
+    	        </documentation>           
+			</xsl:if>
+
 		<ioSpecification>
 			<dataInput>
 				<xsl:attribute name="id">
-					<xsl:value-of select="@name" />
+					<xsl:value-of select="translate(@name,' ','_')" />
 					<xsl:text>_TaskNameInput</xsl:text>
 				</xsl:attribute>
 				<xsl:attribute name="name">
@@ -29,7 +39,7 @@
             </dataInput>
             <inputSet>
             	<dataInputRefs>
-            		<xsl:value-of select="@name" />
+            		<xsl:value-of select="translate(@name,' ','_')" />
 					<xsl:text>_TaskNameInput</xsl:text>
             	</dataInputRefs>
             </inputSet>
@@ -37,7 +47,7 @@
 		</ioSpecification>
 		<dataInputAssociation>
 		 	<targetRef>
-		 		<xsl:value-of select="@name" />
+		 		<xsl:value-of select="translate(@name,' ','_')" />
 				<xsl:text>_TaskNameInput</xsl:text>
 			</targetRef>
 			<assignment>
@@ -53,22 +63,7 @@
 		<xsl:apply-templates select="jpdl:task" mode="assignment" />	       
 		</userTask>
 
-		<xsl:for-each select="jpdl:transition">
-			<sequenceFlow>
-				<xsl:attribute name="id">
-	        		<xsl:text>flow_</xsl:text>
-	        		<xsl:value-of select="../@name" />
-	        		<xsl:value-of select='position()' />
-	        	</xsl:attribute>
-				<xsl:attribute name="sourceRef">
-	                <xsl:value-of select="../@name" />
-	            </xsl:attribute>
-				<xsl:attribute name="targetRef">
-	                <xsl:value-of select="@to" />
-	            </xsl:attribute>
-			</sequenceFlow>
-		</xsl:for-each>
-
+		<xsl:apply-templates select="jpdl:transition" />
 	</xsl:template>
 
 	<xsl:template match="jpdl:task" mode="task">
