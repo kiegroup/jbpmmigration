@@ -14,7 +14,7 @@
                 <xsl:value-of select="@name" />
             </xsl:attribute>
 			<xsl:attribute name="id">
-                <xsl:value-of select="@name" />
+                <xsl:value-of select="translate(@name,' ','_')" />
             </xsl:attribute>
 
 			<xsl:if test="jpdl:event">

@@ -8,14 +8,14 @@
 			<sequenceFlow>
 				<xsl:attribute name="id">
 	        		<xsl:text>flow_</xsl:text>
-	        		<xsl:value-of select="../@name" />
+	        		<xsl:value-of select="translate(../@name,' ','_')" />
 	        		<xsl:value-of select='position()' />
 	        	</xsl:attribute>
 				<xsl:attribute name="sourceRef">
-	                <xsl:value-of select="../@name" />
+	                <xsl:value-of select="translate(../@name,' ','_')" />
 	            </xsl:attribute>
 				<xsl:attribute name="targetRef">
-	                <xsl:value-of select="@to" />
+	                <xsl:value-of select="translate(@to,' ','_')" />
 	            </xsl:attribute>
 			</sequenceFlow>
 	</xsl:template>

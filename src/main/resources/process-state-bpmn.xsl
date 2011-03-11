@@ -10,7 +10,7 @@
 				<xsl:value-of select="@name" />
 			</xsl:attribute>
 			<xsl:attribute name="id">
-                <xsl:value-of select="@name" />
+                <xsl:value-of select="translate(@name,' ', '_')" />
             </xsl:attribute>
 			<xsl:attribute name="calledElement">
             	<xsl:apply-templates select="jpdl:sub-process" />
@@ -18,7 +18,7 @@
             <ioSpecification>
 				<dataInput>
 					<xsl:attribute name="id">
-						<xsl:value-of select="@name" />
+						<xsl:value-of select="translate(@name,' ','_')" />
 						<xsl:text>_</xsl:text>
 		            	<xsl:apply-templates select="jpdl:variable" />
 		            	<xsl:text>Input</xsl:text>
@@ -31,7 +31,7 @@
 	            </dataInput>
 	            <dataOutput>
 					<xsl:attribute name="id">
-						<xsl:value-of select="@name" />
+						<xsl:value-of select="translate(@name,' ','_')" />
 						<xsl:text>_</xsl:text>
 		            	<xsl:apply-templates select="jpdl:variable" />
 		            	<xsl:text>Output</xsl:text>

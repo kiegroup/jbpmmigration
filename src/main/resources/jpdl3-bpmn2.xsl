@@ -21,10 +21,10 @@
 			xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 			targetNamespace="http://www.jbpm.org/">
 			<xsl:attribute name="id">
-	      		<xsl:value-of select="jpdl:process-definition/@name" />
+	      		<xsl:value-of select="translate(jpdl:process-definition/@name,' ','_')" />
       		</xsl:attribute>
 			<xsl:attribute name="name">
-                <xsl:value-of select="jpdl:process-definition/@name" />
+                <xsl:value-of select="translate(jpdl:process-definition/@name,' ','_')" />
             </xsl:attribute>
 			<xsl:apply-templates select="jpdl:process-definition" />
 		</definitions>
@@ -33,7 +33,7 @@
 	<xsl:template match="jpdl:process-definition">
 		<process>
 			<xsl:attribute name="id">
-	      		<xsl:value-of select="@name" /><xsl:text>Process</xsl:text>
+	      		<xsl:value-of select="translate(@name,' ','_')" /><xsl:text>_Process</xsl:text>
       		</xsl:attribute>
 			<xsl:attribute name="name">
 	      		<xsl:value-of select="@name" />
@@ -49,7 +49,7 @@
                 <xsl:value-of select="@name" />
             </xsl:attribute>
 			<xsl:attribute name="id">
-                <xsl:value-of select="@name" />
+                <xsl:value-of select="translate(@name,' ','_')" />
             </xsl:attribute>
 		</startEvent>
 
@@ -62,7 +62,7 @@
                 <xsl:value-of select="@name" />
             </xsl:attribute>
 			<xsl:attribute name="id">
-                <xsl:value-of select="@name" />
+                <xsl:value-of select="translate(@name,' ','_')" />
             </xsl:attribute>
 		</endEvent>
 	</xsl:template>
