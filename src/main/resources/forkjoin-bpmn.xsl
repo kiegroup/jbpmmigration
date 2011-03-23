@@ -4,6 +4,9 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:jpdl="urn:jbpm.org:jpdl-3.2"
 	xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
 
+	<!-- Import the pieces of jPDL we need. -->
+	<xsl:import href="transition-bpmn.xsl"/>
+
 	<xsl:template match="jpdl:fork">
 		<parallelGateway>
 			<xsl:attribute name="name">
@@ -14,21 +17,7 @@
             </xsl:attribute>
 		</parallelGateway>
 
-		<xsl:for-each select="jpdl:transition">
-			<sequenceFlow>
-				<xsl:attribute name="id">
-	        		<xsl:text>flow_</xsl:text>
-	        		<xsl:value-of select="translate(../@name,' ','_')" />
-	        		<xsl:value-of select='position()' />
-	        	</xsl:attribute>
-				<xsl:attribute name="sourceRef">
-	                <xsl:value-of select="../@name" />
-	            </xsl:attribute>
-				<xsl:attribute name="targetRef">
-	                <xsl:value-of select="@to" />
-	            </xsl:attribute>
-			</sequenceFlow>
-		</xsl:for-each>
+		<xsl:apply-templates select="jpdl:transition" />
 	</xsl:template>
 
 	<xsl:template match="jpdl:join">
