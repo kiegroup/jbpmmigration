@@ -33,7 +33,6 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.jbpm.migration.util.XmlUtils;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
