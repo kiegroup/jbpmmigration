@@ -90,9 +90,6 @@
             <resource>
                 <directory>src/main/xsd</directory>
             </resource>
-			<resource>
-				<directory>src/main/xjb</directory>
-			</resource>
 		</resources>
 		<plugins>
 			<plugin>
@@ -103,18 +100,6 @@
 					<source>1.6</source>
 					<target>1.6</target>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>jaxb2-maven-plugin</artifactId>
-				<version>1.3</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>xjc</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
