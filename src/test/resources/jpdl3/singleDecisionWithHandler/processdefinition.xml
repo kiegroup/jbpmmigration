@@ -9,6 +9,7 @@
 
 
 	<decision name="decision">
+		<handler class="org.jboss.handler.DecisionTestHandler" />
 		<transition to="end-state1" />
 		<transition to="end-state2" name="to-end-state2" />
 	</decision>
