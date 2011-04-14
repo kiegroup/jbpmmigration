@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="singleTask" width="1090" height="441">
-  <node name="start-state" x="304" y="101" width="132" height="36">
+<root-container name="singleTask" width="1111" height="516">
+  <node name="start-state" x="104" y="19" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="human-task" x="308" y="201" width="132" height="36">
+  <node name="human-task" x="108" y="92" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
   </node>
-  <node name="end-state" x="309" y="316" width="132" height="36"/>
+  <node name="end-state" x="104" y="178" width="132" height="36"/>
 </root-container>

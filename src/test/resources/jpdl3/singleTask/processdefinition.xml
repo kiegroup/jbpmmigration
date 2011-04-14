@@ -12,12 +12,6 @@
 		<task name="Test task">
 			<assignment actor-id="EXPERT" />
 		</task>
-		<event type="node-enter">
-			<action class="org.jboss.handler.HumanTaskHandler"></action>
-		</event>
-        <event type="node-leave">
-            <action class="org.jboss.handler.HumanTaskHandler" />
-        </event>
 		<transition to="end-state"></transition>
 	</task-node>
 
