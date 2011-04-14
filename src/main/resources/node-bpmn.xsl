@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <xsl:stylesheet version="1.0"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:jpdl="urn:jbpm.org:jpdl-3.2"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tns="http://www.jboss.org/drools" xmlns:jpdl="urn:jbpm.org:jpdl-3.2"
 	xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
 
 	<!-- Import the pieces of jPDL we need. -->
 	<xsl:import href="event-bpmn.xsl"/>
 	<xsl:import href="transition-bpmn.xsl"/>
+	<xsl:import href="action-bpmn.xsl"/>
 
 	<xsl:template match="jpdl:node">
 	
@@ -14,15 +15,15 @@
 		<!--  to process the handler classes.  -->
 		<xsl:choose>
 		
-			<xsl:when test="jpdl:event">
+			<xsl:when test="(jpdl:event) or (jpdl:action)">
 				<task>
 					<xsl:attribute name="id">
 						<xsl:value-of select="translate(@name,' ','_')" />
 					</xsl:attribute>
 					<xsl:attribute name="name">
-			    		<xsl:text>Java Node</xsl:text>
+						 <xsl:value-of select="@name" />
 					</xsl:attribute>
-					<xsl:attribute name="taskName">
+					<xsl:attribute name="tns:taskName">
 			    		<xsl:text>JavaNode</xsl:text>
 					</xsl:attribute>
 					
@@ -64,7 +65,15 @@
 						</targetRef>
 						<assignment>
 							<from>
-								<xsl:apply-templates select="jpdl:event" mode="classname"/>
+								<xsl:choose>
+									<xsl:when test="jpdl:event">
+										<xsl:apply-templates select="jpdl:event" mode="classname"/>
+									</xsl:when>
+									
+									<xsl:when test="jpdl:action">
+										<xsl:apply-templates select="jpdl:action"/>
+									</xsl:when>
+								</xsl:choose>
 							</from>
 							<to>
 								<xsl:value-of select="@name" />
