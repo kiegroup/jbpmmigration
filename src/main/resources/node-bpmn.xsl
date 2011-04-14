@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <xsl:stylesheet version="1.0"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tns="http://www.jboss.org/drools" xmlns:jpdl="urn:jbpm.org:jpdl-3.2"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:drools="http://www.jboss.org/drools" xmlns:jpdl="urn:jbpm.org:jpdl-3.2"
 	xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
 
 	<!-- Import the pieces of jPDL we need. -->
@@ -23,7 +23,7 @@
 					<xsl:attribute name="name">
 						 <xsl:value-of select="@name" />
 					</xsl:attribute>
-					<xsl:attribute name="tns:taskName">
+					<xsl:attribute name="drools:taskName">
 			    		<xsl:text>JavaNode</xsl:text>
 					</xsl:attribute>
 					
