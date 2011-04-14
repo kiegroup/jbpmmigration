@@ -44,9 +44,8 @@ import org.w3c.dom.Document;
  */
 public class Jpdl3SingleDecisionTest {
 
-    // input jpdl files.
+    // input jpdl file.
     private static final String INPUT_JPDL = "src/test/resources/jpdl3/singleDecision/processdefinition.xml";
-    private static final String INPUT_GPD = "src/test/resources/jpdl3/singleDecision/gpd.xml";
 
     // xsd sheet.
     private static final String XSD_SHEET = "src/main/resources/jpdl3-bpmn2.xsl";
@@ -68,9 +67,8 @@ public class Jpdl3SingleDecisionTest {
     @Test
     public void validJpldDefinition() throws Exception {
         File jpdl = new File(INPUT_JPDL);
-        File gpd = new File(INPUT_GPD);
         try {
-            Document document = JpdlValidator.validateDefinition(jpdl, gpd);
+            Document document = JpdlValidator.validateDefinition(jpdl);
             assertThat(document, is(notNullValue()));
         } catch (Exception e) {
             e.printStackTrace();

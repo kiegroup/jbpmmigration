@@ -51,8 +51,7 @@ public class JpdlValidatorTest {
     @Test
     public void validDefinition() throws Exception {
         File jpdl = new File("src/test/resources/jpdl3/singleNode/processdefinition.xml");
-        File gpd = new File("src/test/resources/jpdl3/singleNode/gpd.xml");
-        Document document = JpdlValidator.validateDefinition(jpdl, gpd);
+        Document document = JpdlValidator.validateDefinition(jpdl);
         assertThat(document, is(notNullValue()));
     }
 }

@@ -24,45 +24,57 @@ package org.jbpm.migration.xsl;
 import java.io.File;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.jbpm.migration.util.XmlUtils;
 import org.w3c.dom.Document;
 
 /**
- * This class migrate a jPDL process definition to an equivalent BPMN 2.0 process definition, using XSLT translation of the JDPL/GPD
+ * This class migrate a jPDL process definition to an equivalent BPMN 2.0 process definition, using XSLT translation of the JDPL
  * XML to the BPMN 2.0 XML.
  * 
  * @author Eric D. Schabell
  * @author Maurice de Chateau
  */
 public class Migrator {
+    private static final Logger LOGGER = Logger.getLogger(Migrator.class);
+
     /**
      * @param args
      *            The input for this method:<br>
      *            <ul>
      *            <li>args[0]: The (full) path of the jPDL process definition that's to be migrated.</li>
-     *            <li>args[1]: The (full) path of the corresponding GPD positioning file.</li>
      *            </ul>
      *            Any further arguments are ignored.
      */
     public static void main(String[] args) {
         // Check the input.
-        if (args.length != 2 || StringUtils.isBlank(args[0]) || StringUtils.isBlank(args[1])) {
-            throw new IllegalArgumentException("Insufficient arguments for the migrator (must be 2).");
+        if (args.length < 1 || StringUtils.isBlank(args[0])) {
+            throw new IllegalArgumentException("Insufficient arguments for the migrator (must be 1).");
         }
         File jpdl = new File(args[0]);
-        File gpd = new File(args[1]);
-        if (!jpdl.isFile() || !gpd.isFile()) {
-            throw new IllegalArgumentException("Both of the input arguments must be files.");
+        if (!jpdl.isFile()) {
+            throw new IllegalArgumentException("The input arguments must be a file.");
         }
 
         // Validate the jPDL and GPD files.
-        Document input = JpdlValidator.validateDefinition(jpdl, gpd);
-        System.out.println(XmlUtils.format(input));
+        Document input = JpdlValidator.validateDefinition(jpdl);
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug(XmlUtils.format(input));
+        }
 
         // Transform the process.
         Document output = ProcessTransformer.transform(input);
-        System.out.println(XmlUtils.format(output));
+        if (output == null) {
+            LOGGER.fatal("Unable to transform process definition; aborting. See previous log entries for details.");
+        }
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug(XmlUtils.format(input));
+        }
 
-        // TODO: Validate the BPMN file.
+        // Validate the BPMN file.
+        if (!BpmnValidator.validateDefinition(output)) {
+            LOGGER.warn("Transformed process definition is not valid according to the BPMN 2.0 specification."
+                    + " See previous log entries for details.");
+        }
     }
 }
