@@ -6,20 +6,31 @@
 
 	<!-- Event types 'node-enter' and 'node-leave' are added to the documentation element. -->
     <xsl:template match="jpdl:event">
-			<xsl:if test="@type='node-enter'">
-				<xsl:text>// node-enter: 
-				// </xsl:text>
-				<xsl:apply-templates select="jpdl:action" />
-				<xsl:text>
-				</xsl:text>				
-			</xsl:if>		
-			<xsl:if test="@type='node-leave'">
-				<xsl:text>// node-leave: 
-				// </xsl:text>
-				<xsl:apply-templates select="jpdl:action" />
-				<xsl:text>
-				</xsl:text>
-			</xsl:if>
+		<xsl:if test="@type='node-enter'">
+			<xsl:text>// node-enter: 
+			// </xsl:text>
+			<xsl:apply-templates select="jpdl:action" />
+			<xsl:text>
+			</xsl:text>				
+		</xsl:if>		
+		<xsl:if test="@type='node-leave'">
+			<xsl:text>// node-leave: 
+			// </xsl:text>
+			<xsl:apply-templates select="jpdl:action" />
+			<xsl:text>
+			</xsl:text>
+		</xsl:if>
+    </xsl:template>
+    
+    <xsl:template match="jpdl:event" mode="classname">
+		<xsl:choose>
+			<xsl:when test="@type='node-enter'">
+				<xsl:apply-templates select="jpdl:action" />							
+			</xsl:when>		
+		 <xsl:otherwise>
+			<xsl:apply-templates select="jpdl:action" />
+		</xsl:otherwise>
+		</xsl:choose>    	
     </xsl:template>
     
     <xsl:template match="jpdl:action">
