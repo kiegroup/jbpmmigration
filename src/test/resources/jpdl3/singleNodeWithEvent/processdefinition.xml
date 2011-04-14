@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition  xmlns="urn:jbpm.org:jpdl-3.2"  name="SingleNode">
+
+	<start-state name="start-state">
+		<transition to="node" />
+	</start-state>
+
+	<node name="node">
+		<event type="node-enter">
+            <action class="org.jboss.handler.TestHandler" />
+        </event>
+		<event type="node-leave">
+            <action class="org.jboss.handler.TestHandler" />
+        </event>
+		<transition to="end-state" />
+	</node>
+
+	<end-state name="end-state" />
+
+</process-definition>
