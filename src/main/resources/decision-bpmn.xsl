@@ -20,8 +20,7 @@
             	<xsl:text>Diverging</xsl:text>
             </xsl:attribute>
             
-            <xsl:apply-templates select="jpdl:handler" />
-                        	
+            <xsl:apply-templates select="jpdl:handler" />              	
 		</inclusiveGateway>
 		
 		<xsl:apply-templates select="jpdl:transition"/>
