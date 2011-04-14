@@ -4,7 +4,7 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:jpdl="urn:jbpm.org:jpdl-3.2"
 	xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
 
-	<!-- Processing handler elements. -->
+	<!-- Processing handler elements in documentation element. -->
     <xsl:template match="jpdl:handler">
     	<documentation>
     		<xsl:text>
@@ -13,6 +13,11 @@
     		<xsl:text>.
     		</xsl:text>
     	</documentation>
+    </xsl:template>
+
+	<!-- Processing handler elements to return the class name. -->
+    <xsl:template match="jpdl:handler" mode="classname">
+    	<xsl:value-of select="@class" />
     </xsl:template>
 
 </xsl:stylesheet>
