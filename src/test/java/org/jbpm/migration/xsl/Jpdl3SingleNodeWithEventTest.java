@@ -46,7 +46,6 @@ public class Jpdl3SingleNodeWithEventTest {
 
     // input jpdl files.
     private static final String INPUT_JPDL = "src/test/resources/jpdl3/singleNodeWithEvent/processdefinition.xml";
-    private static final String INPUT_GPD = "src/test/resources/jpdl3/singleNodeWithEvent/gpd.xml";
 
     // xsd sheet.
     private static final String XSD_SHEET = "src/main/resources/jpdl3-bpmn2.xsl";
@@ -68,9 +67,8 @@ public class Jpdl3SingleNodeWithEventTest {
     @Test
     public void validJpldDefinition() throws Exception {
         File jpdl = new File(INPUT_JPDL);
-        File gpd = new File(INPUT_GPD);
         try {
-            Document document = JpdlValidator.validateDefinition(jpdl, gpd);
+            Document document = JpdlValidator.validateDefinition(jpdl);
             assertThat(document, is(notNullValue()));
         } catch (Exception e) {
             e.printStackTrace();
