@@ -5,6 +5,7 @@
 	xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
 
 	<!-- Import the pieces of jPDL we need. -->
+	<xsl:import href="start-state-bpmn.xsl"/>
 	<xsl:import href="process-state-bpmn.xsl"/>
 	<xsl:import href="task-bpmn.xsl"/>
 	<xsl:import href="node-bpmn.xsl"/>
@@ -41,19 +42,6 @@
 
 			<xsl:apply-templates />
 		</process>
-	</xsl:template>
-
-	<xsl:template match="jpdl:start-state">
-		<startEvent>
-			<xsl:attribute name="name">
-                <xsl:value-of select="@name" />
-            </xsl:attribute>
-			<xsl:attribute name="id">
-                <xsl:value-of select="translate(@name,' ','_')" />
-            </xsl:attribute>
-		</startEvent>
-
-		<xsl:apply-templates />
 	</xsl:template>
 
 	<xsl:template match="jpdl:end-state">
