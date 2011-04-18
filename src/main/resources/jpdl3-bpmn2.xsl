@@ -20,7 +20,7 @@
 		<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
 			xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
 			xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-			xmlns:tns="http://www.jboss.org/drools" targetNamespace="http://www.jbpm.org/">
+			xmlns:drools="http://www.jboss.org/drools" targetNamespace="http://www.jbpm.org/">
 			<xsl:attribute name="id">
 	      		<xsl:value-of select="translate(jpdl:process-definition/@name,' ','_')" />
       		</xsl:attribute>
