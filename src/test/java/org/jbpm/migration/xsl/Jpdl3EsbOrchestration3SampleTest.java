@@ -44,7 +44,7 @@ import org.w3c.dom.Document;
 public class Jpdl3EsbOrchestration3SampleTest {
 
     // input jpdl file.
-    private static final String INPUT_JPDL = "src/test/resources/jpdl3/esbOrchestration3Sample/processdefinition.xml";
+    private static final String INPUT_JPDL = "src/test/resources/jpdl3/esbOrchestration4Sample/processdefinition.xml";
 
     // xsd sheet.
     private static final String XSD_SHEET = "src/main/resources/jpdl3-bpmn2.xsl";
