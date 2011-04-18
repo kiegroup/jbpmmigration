@@ -41,10 +41,10 @@ import org.w3c.dom.Document;
  * @author Eric D. Schabell
  * @author Maurice de Chateau
  */
-public class Jpdl3EsbOrchestration1SampleTest {
+public class Jpdl3EsbOrchestration2SampleTest {
 
     // input jpdl file.
-    private static final String INPUT_JPDL = "src/test/resources/jpdl3/esbOrchestration1Sample/processdefinition.xml";
+    private static final String INPUT_JPDL = "src/test/resources/jpdl3/esbOrchestration2Sample/processdefinition.xml";
 
     // xsd sheet.
     private static final String XSD_SHEET = "src/main/resources/jpdl3-bpmn2.xsl";
