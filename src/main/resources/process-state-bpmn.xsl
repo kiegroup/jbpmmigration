@@ -44,7 +44,7 @@
 	            </dataOutput>
 	            <inputSet>
 	            	<dataInputRefs>
-	            		<xsl:value-of select="@name" />
+	            		<xsl:value-of select="translate(@name,' ','_')" />
 						<xsl:text>_</xsl:text>
 		            	<xsl:apply-templates select="jpdl:variable" />
 		            	<xsl:text>Input</xsl:text>
@@ -52,7 +52,7 @@
 	            </inputSet>
 	            <outputSet>
 	            	<dataOutputRefs>
-						<xsl:value-of select="@name" />
+						<xsl:value-of select="translate(@name,' ','_')" />
 						<xsl:text>_</xsl:text>
 		            	<xsl:apply-templates select="jpdl:variable" />
 		            	<xsl:text>Output</xsl:text>
@@ -61,13 +61,13 @@
             </ioSpecification>
             <dataInputAssociation>
             	<sourceRef>
-            		<xsl:value-of select="@name" />
+            		<xsl:value-of select="translate(@name,' ','_')" />
 					<xsl:text>_</xsl:text>
 		            <xsl:apply-templates select="jpdl:variable" />
 		            <xsl:text>Input</xsl:text>
             	</sourceRef>
             	<targetRef>
-            		<xsl:value-of select="@name" />
+            		<xsl:value-of select="translate(@name,' ','_')" />
 					<xsl:text>_</xsl:text>
 		            <xsl:apply-templates select="jpdl:variable" />
 		            <xsl:text>Output</xsl:text>
@@ -75,13 +75,13 @@
             </dataInputAssociation>
             <dataOutputAssociation>
             	<sourceRef>
-           			<xsl:value-of select="@name" />
+           			<xsl:value-of select="translate(@name,' ','_')" />
 					<xsl:text>_</xsl:text>
 	            	<xsl:apply-templates select="jpdl:variable" />
 	            	<xsl:text>Output</xsl:text>
             	</sourceRef>
             	<targetRef>
-            		<xsl:value-of select="@name" />
+            		<xsl:value-of select="translate(@name,' ','_')" />
 					<xsl:text>_</xsl:text>
 		            <xsl:apply-templates select="jpdl:variable" />
 		            <xsl:text>Input</xsl:text>
