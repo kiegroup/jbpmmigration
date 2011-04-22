@@ -28,6 +28,8 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 
+import javax.xml.transform.TransformerException;
+
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -37,66 +39,77 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 
 /**
- * Tests for the jPDL process definition transformer with JAXP.
+ * Base class for tests for the jPDL process definition transformer with JAXP.
  * 
  * @author Eric D. Schabell
  * @author Maurice de Chateau
  */
-public class Jpdl3HighLevelPaymetProcessTest {
+public abstract class AbstractJpdl3Test {
+    // XSLT sheet.
+    private static final String XSLT_SHEET = "src/main/resources/jpdl3-bpmn2.xsl";
 
-    // input jpdl file.
-    private static final String INPUT_JPDL = "src/test/resources/jpdl3/highLevelPaymentProcess/processdefinition.xml";
-
-    // xsd sheet.
-    private static final String XSD_SHEET = "src/main/resources/jpdl3-bpmn2.xsl";
-
-    // results file of transformation.
+    // Results file of transformation.
     private static final String RESULTS_FILE = "target/processdefinition.bpmn.xml";
 
     @BeforeClass
     public static void oneTimeSetUp() {
+        // Set up Log4J.
         BasicConfigurator.configure();
         Logger.getRootLogger().setLevel(Level.ERROR);
+
+        // Make sure the style sheet is available.
+        File xsltSheet = new File(XSLT_SHEET);
+        assertThat("Stylesheet missing.", xsltSheet.exists(), is(true));
     }
 
     /**
      * Validate the jPDL input file.
-     * 
-     * @throws Exception
      */
     @Test
-    public void validJpldDefinition() throws Exception {
-        File jpdl = new File(INPUT_JPDL);
-        try {
-            Document document = JpdlValidator.validateDefinition(jpdl);
-            assertThat(document, is(notNullValue()));
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail("Not a valid jPDL definition.");
+    public void validJpldDefinition() {
+        // Make sure the input file is available.
+        File jpdl = new File(getJpdlFile());
+        assertThat("Indicated input file missing.", jpdl.exists(), is(true));
+
+        // Validate the input process definition.
+        Document document = JpdlValidator.validateDefinition(jpdl);
+        assertThat("Not a valid jPDL definition.", document, is(notNullValue()));
+    }
+
+    /**
+     * Transform the input file to an output file.
+     */
+    @Test
+    public void transformjPDL() {
+        // Remove any previously existing output first.
+        File outputFile = new File(RESULTS_FILE);
+        if (outputFile.exists()) {
+            assertThat("Unable to clean output.", outputFile.delete(), is(true));
         }
+
+        // Transform the input file; creates the output file.
+        try {
+            SimpleJaxpTransformer.transform(getJpdlFile(), XSLT_SHEET, RESULTS_FILE);
+        } catch (TransformerException e) {
+            e.printStackTrace();
+            fail("Problem encountered during the transformation: " + e.getMessage());
+        }
+
+        // Check that an output file is created.
+        outputFile = new File(RESULTS_FILE);
+        assertThat("Expected output file missing.", outputFile.exists(), is(true));
     }
 
     /**
-     * Transform the input file.
-     * 
-     * @throws Exception
+     * Validate the BPMN2 output file.
      */
     @Test
-    public void transformjPDL() throws Exception {
-        SimpleJaxpTransformer.main(new String[] { INPUT_JPDL, XSD_SHEET, RESULTS_FILE });
-        assertThat(RESULTS_FILE, is(notNullValue()));
-    }
-
-    /**
-     * Validate the BPMN output file.
-     * 
-     * @throws Exception
-     */
-    @Test
-    public void validBpmnDefinition() throws Exception {
+    public void validBpmnDefinition() {
         File bpmn = new File(RESULTS_FILE);
         Document bpmnDoc = XmlUtils.parseFile(bpmn);
         assertThat(bpmnDoc, is(notNullValue()));
         assertThat(BpmnValidator.validateDefinition(bpmnDoc), is(true));
     }
+
+    protected abstract String getJpdlFile();
 }
