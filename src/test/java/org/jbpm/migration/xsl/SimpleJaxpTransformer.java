@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.jbpm.migration.xsl;
 
 import java.io.File;
@@ -27,44 +26,53 @@ import java.io.File;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 /**
  * @author Eric D. Schabell
- *
+ * @author Maurice de Chateau
  */
-public class SimpleJaxpTransformer {
-		 
-    /**
-     * Accept two command line arguments: the name of an XML file, and
-     * the name of an XSLT stylesheet. The result of the transformation
-     * is written to stdout.
-     */
-    public static void main(String[] args)
-            throws javax.xml.transform.TransformerException {
-        if (args.length != 3) {
-            System.err.println("Usage:");
-            System.err.println("  java " + SimpleJaxpTransformer.class.getName(  )
-                    + " xmlFileName xsltFileName outputFileName");
-            System.exit(1);
-        }
- 
-        File xmlFile    = new File(args[0]);
-        File xsltFile   = new File(args[1]);
-        File outputFile = new File(args[2]);
-        
-        Source xmlSource  = new StreamSource(xmlFile);
-        Source xsltSource = new StreamSource(xsltFile);
-        Result result     = new StreamResult(outputFile);
- 
-        // create an instance of TransformerFactory
-        TransformerFactory transFact = TransformerFactory.newInstance( );
- 
-        Transformer trans = transFact.newTransformer(xsltSource);
- 
-        trans.transform(xmlSource, result);
+public final class SimpleJaxpTransformer {
+    /** Private constructor to prevent instantiation. */
+    private SimpleJaxpTransformer() {
     }
 
+    /**
+     * Accept three command line arguments: the name of an XML file, the name of an XSLT stylesheet and the name of the file the
+     * result of the transformation is to be written to.
+     */
+    public static void main(String[] args) throws TransformerException {
+        if (args.length != 3) {
+            System.err.println("Usage:");
+            System.err.println("  java " + SimpleJaxpTransformer.class.getName() + " xmlFileName xsltFileName outputFileName");
+            System.exit(1);
+        }
+
+        transform(args[0], args[1], args[2]);
+    }
+
+    /**
+     * 
+     * @param xmlFile
+     *            The name of an XML input file.
+     * @param xsltFile
+     *            The name of an XSLT stylesheet.
+     * @param outputFile
+     *            The name of the file the result of the transformation is to be written to.
+     * @throws TransformerException
+     *             If the creation of the {@link Transformer} or the transformation run into problems.
+     */
+    static void transform(String xmlFile, String xsltFile, String outputFile) throws TransformerException {
+        // Create a transformer with the given stylesheet.
+        Source xsltSource = new StreamSource(new File(xsltFile));
+        Transformer transformer = TransformerFactory.newInstance().newTransformer(xsltSource);
+
+        // Transform the given input file and put the result in the given output file.
+        Source xmlSource = new StreamSource(new File(xmlFile));
+        Result result = new StreamResult(new File(outputFile));
+        transformer.transform(xmlSource, result);
+    }
 }

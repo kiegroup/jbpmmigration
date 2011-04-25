@@ -27,9 +27,9 @@ package org.jbpm.migration.xsl;
  * @author Eric D. Schabell
  * @author Maurice de Chateau
  */
-public class Jpdl3SingleDecisionTest extends AbstractJpdl3Test {
+public class Jpdl3SingleNodeWithActionTest extends AbstractJpdl3Test {
     // Input jPDL file.
-    private static final String INPUT_JPDL = "src/test/resources/jpdl3/singleDecision/processdefinition.xml";
+    private static final String INPUT_JPDL = "src/test/resources/jpdl3/singleNodeWithAction/processdefinition.xml";
 
     @Override
     protected String getJpdlFile() {
