@@ -22,6 +22,7 @@
 package org.jbpm.migration.util;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -138,6 +139,22 @@ public final class XmlUtils {
     }
 
     /**
+     * Write an XML document to a <code>File</code>.
+     * 
+     * @param input
+     *            The input XML document.
+     * @param file
+     *            The intended <code>File</code>.
+     */
+    public static void writeFile(Document input, File file) {
+        try {
+            new FileWriter(file).write(format(input));
+        } catch (Exception ex) {
+            LOGGER.error("Problem writing XML to file.", ex);
+        }
+    }
+
+    /**
      * Validate an XML document against an XML Schema definition.
      * 
      * @param input
@@ -213,6 +230,7 @@ public final class XmlUtils {
     private static String format(Source input) {
         StreamResult result = null;
         try {
+            // Use an identity transformation to write the source to the result.
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             instrumentTransformer(transformer);
 
