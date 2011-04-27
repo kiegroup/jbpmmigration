@@ -24,9 +24,7 @@
 		            	<xsl:text>Input</xsl:text>
 					</xsl:attribute>
 					<xsl:attribute name="name">
-						<xsl:apply-templates select="jpdl:variable">
-					 		<xsl:with-param name="return">name</xsl:with-param>
-						</xsl:apply-templates>
+						<xsl:apply-templates select="jpdl:variable" mode="name" /> 
 		            </xsl:attribute>	
 	            </dataInput>
 	            <dataOutput>
@@ -37,9 +35,7 @@
 		            	<xsl:text>Output</xsl:text>
 					</xsl:attribute>
 					<xsl:attribute name="name">
-						<xsl:apply-templates select="jpdl:variable">
-					 		<xsl:with-param name="return">mapped-name</xsl:with-param>
-						</xsl:apply-templates>
+						<xsl:apply-templates select="jpdl:variable" />
 		            </xsl:attribute>	
 	            </dataOutput>
 	            <inputSet>
@@ -98,19 +94,14 @@
 		<xsl:value-of select="@name" />
 	</xsl:template>
 
-	<!-- Variable element with a parameter, set to -->
-	<!-- variable you want to return.              -->
+	<!-- Variable element name. -->
+	<xsl:template match="jpdl:variable" mode="name">
+		<xsl:value-of select="@name" />
+	</xsl:template>
+
+	<!-- Variable element mapped name. -->
 	<xsl:template match="jpdl:variable">
-		<xsl:param name="return" />
-		<xsl:choose>
-			<xsl:when test="$return='name'">
-				<xsl:value-of select="@name" />
-			</xsl:when>
-			
-			<xsl:otherwise>
-				<xsl:value-of select="@mapped-name" />
-			</xsl:otherwise>
-		</xsl:choose>
+		<xsl:value-of select="@mapped-name" />
 	</xsl:template>
 
 </xsl:stylesheet>
