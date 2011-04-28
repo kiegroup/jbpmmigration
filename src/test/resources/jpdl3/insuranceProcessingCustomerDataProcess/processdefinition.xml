@@ -42,13 +42,13 @@
 	</state>
 
 	<decision name="Level of relationshop in request" async="true">
-		<handler class="nl.snsbank.processes.verzekeren.verwerkenklantgegevens.handler.LevelRelatieInAanvraagHandler"></handler>
-		<transition to="Insurance customer" name="ja"></transition>
+		<handler class="nl.snsbank.processes.verzekeren.verwerkenklantgegevens.handler.LevelRelatieInAanvraagHandler" />
+		<transition to="Insurance customer" name="yes" />
 		<transition to="Get level of relationship" name="no" />
 	</decision>
 
 
-	<end-state name="end"></end-state>
+	<end-state name="end" />
 
 
 </process-definition>
