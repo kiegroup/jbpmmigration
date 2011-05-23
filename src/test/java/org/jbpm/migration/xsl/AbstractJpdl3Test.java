@@ -89,7 +89,7 @@ public abstract class AbstractJpdl3Test {
 
         // Transform the input file; creates the output file.
         try {
-            SimpleJaxpTransformer.transform(getJpdlFile(), XSLT_SHEET, RESULTS_FILE);
+            JbpmMigration.transform(getJpdlFile(), XSLT_SHEET, RESULTS_FILE);
         } catch (TransformerException e) {
             e.printStackTrace();
             fail("Problem encountered during the transformation: " + e.getMessage());

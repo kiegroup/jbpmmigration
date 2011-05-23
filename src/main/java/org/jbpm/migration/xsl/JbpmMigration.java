@@ -35,9 +35,9 @@ import javax.xml.transform.stream.StreamSource;
  * @author Eric D. Schabell
  * @author Maurice de Chateau
  */
-public final class SimpleJaxpTransformer {
+public final class JbpmMigration {
     /** Private constructor to prevent instantiation. */
-    private SimpleJaxpTransformer() {
+    private JbpmMigration() {
     }
 
     /**
@@ -47,7 +47,7 @@ public final class SimpleJaxpTransformer {
     public static void main(String[] args) throws TransformerException {
         if (args.length != 3) {
             System.err.println("Usage:");
-            System.err.println("  java " + SimpleJaxpTransformer.class.getName() + " xmlFileName xsltFileName outputFileName");
+            System.err.println("  java " + JbpmMigration.class.getName() + " jpdlProcessDefinitionFileName xsltFileName outputFileName");
             System.exit(1);
         }
 
