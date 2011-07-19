@@ -39,11 +39,17 @@
 			<xsl:attribute name="name">
 	      		<xsl:value-of select="@name" />
       		</xsl:attribute>
+      		<xsl:if test="jpdl:description">
+      			<xsl:apply-templates select="jpdl:description" />
+      		</xsl:if>
 
 			<xsl:apply-templates />
 		</process>
 	</xsl:template>
 
+
+	<xsl:template match="jpdl:description" />
+	
 	<xsl:template match="jpdl:end-state">
 		<endEvent>
 			<xsl:attribute name="name">
