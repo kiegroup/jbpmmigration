@@ -9,13 +9,13 @@
 
 
 	<decision name="customer id known">
-		<handler class="nl.snsbank.processes.verzekeren.matchenaanvrager.handler.KlantnummerBekendHandler" />
+		<handler class="org.jboss.jbpm.handler.KlantnummerBekendHandler" />
 		<transition to="Matching customer insurances" name="nee" />
 		<transition to="Gathering customer data" name="ja" />
 	</decision>
 
 	<node name="Create sales oppertunity" async="true">
-		<action async="true" class="nl.snsbank.processes.verzekeren.matchenaanvrager.handler.OpvoerenVerkoopkansHandler"></action>
+		<action async="true" class="org.jboss.jbpm.handler.OpvoerenVerkoopkansHandler"></action>
 		<transition to="end" />
 	</node>
 
@@ -24,18 +24,18 @@
 			<assignment pooled-actors="in2flow_processing_department" />
 		</task>
 		<event type="node-enter">
-			<action class="nl.snsbank.processes.verzekeren.matchenaanvrager.handler.MatchenKlantVerzekerenEnterHandler" config-type="bean" />
+			<action class="org.jboss.jbpm.handler.MatchenKlantVerzekerenEnterHandler" config-type="bean" />
 		</event>
 		<transition to="approved" />
 	</task-node>
 
 	<node name="Gathering customer data" async="true">
-		<action class="nl.snsbank.processes.verzekeren.matchenaanvrager.handler.OphalenKlantgegevensHandler" />
+		<action class="org.jboss.jbpm.handler.OphalenKlantgegevensHandler" />
 		<transition to="Create sales oppertunity" />
 	</node>
 
 	<decision name="approved">
-		<handler class="nl.snsbank.processes.verzekeren.matchenaanvrager.handler.GoedgekeurdHandler" />
+		<handler class="org.jboss.jbpm.handler.GoedgekeurdHandler" />
 		<transition to="Gathering customer data" name="yes" />
 		<transition to="by hand" name="no" />
 	</decision>

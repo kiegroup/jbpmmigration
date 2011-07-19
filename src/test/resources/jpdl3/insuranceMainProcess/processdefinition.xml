@@ -28,9 +28,9 @@
 	</process-state>
 
 	<decision name="Matching requester OK">
-		<handler config-type="bean" class="nl.snsbank.processes.generiek.handler.SubProcessOKHandler">
+		<handler config-type="bean" class="org.jboss.jbpm.handler.SubProcessOKHandler">
 			<endStateNodeName>
-				Voltooien aanvraag
+				Complete Request
 			</endStateNodeName>
 		</handler>
 		<transition to="Process customer data" />
@@ -52,18 +52,18 @@
 	</process-state>
 
 	<decision name="Process customer data OK">
-		<handler class="nl.snsbank.processes.generiek.handler.SubProcessOKHandler">
+		<handler class="org.jboss.jbpm.handler.SubProcessOKHandler">
 			<endStateNodeName>
-				Voltooien aanvraag
+				Complete Request
 			</endStateNodeName>
 		</handler>
 		<transition to="Create product" />
 	</decision>
 
 	<decision name="Initialize and validate request OK">
-		<handler class="nl.snsbank.processes.generiek.handler.SubProcessOKHandler">
+		<handler class="org.jboss.jbpm.handler.SubProcessOKHandler">
 			<endStateNodeName>
-				Voltooien aanvraag
+				Complete Request
 			</endStateNodeName>
 		</handler>
 		<transition to="Matching requester" />
@@ -86,7 +86,7 @@
 	</process-state>
 
 	<decision name="Create product OK">
-		<handler class="nl.snsbank.processes.generiek.handler.SubProcessOKHandler">
+		<handler class="org.jboss.jbpm.handler.SubProcessOKHandler">
 			<endStateNodeName>
 				Voltooien aanvraag
 			</endStateNodeName>

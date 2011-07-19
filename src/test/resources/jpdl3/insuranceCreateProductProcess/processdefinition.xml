@@ -9,7 +9,7 @@
 
 
 	<decision name="level relatie" async="true">
-		<handler class="nl.snsbank.processes.verzekeren.aanmakenproduct.handler.LevelRelatieHandler" />
+		<handler class="org.jboss.jbpm.handler.LevelRelatieHandler" />
 		<transition to="writePolicy" name="new relationship" />
 		<transition to="determine active policy" name="existing relationship without known policy" />
 		<transition to="writePolicy" name="existing relationship with policy" />
@@ -17,16 +17,16 @@
 	</decision>
 
 	<node name="determine active policy" async="true">
-		<action class="nl.snsbank.processes.verzekeren.aanmakenproduct.handler.BepalenActievePolisHandler" />
+		<action class="org.jboss.jbpm.handler.BepalenActievePolisHandler" />
 		<transition to="writePolicy" />
 	</node>
 
 	<state name="writePolicy" async="true">
 		<event type="node-enter">
-			<action class="nl.snsbank.processes.verzekeren.aanmakenproduct.handler.SchrijvenPolisHandler" />
+			<action class="org.jboss.jbpm.handler.SchrijvenPolisHandler" />
 		</event>
 		<event type="node-leave">
-			<action class="nl.snsbank.processes.verzekeren.aanmakenproduct.handler.SchrijvenPolisHandler" />
+			<action class="org.jboss.jbpm.handler.SchrijvenPolisHandler" />
 		</event>
 		<transition to="end" />
 	</state>

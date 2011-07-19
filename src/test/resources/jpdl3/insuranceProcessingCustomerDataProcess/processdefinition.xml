@@ -9,31 +9,31 @@
 
 
 	<node name="Get level of relationship" async="true">
-		<action class="nl.snsbank.processes.verzekeren.verwerkenklantgegevens.handler.OphalenLevelRelatieHandler" />
+		<action class="org.jboss.jbpm.handler.OphalenLevelRelatieHandler" />
 		<transition to="Create level relationship" name="relationship unknown" />
 		<transition to="Insurance customer" name="relationship known" />
 	</node>
 
 	<node name="change insurance status in system" async="true">
-		<action class="nl.snsbank.processes.verzekeren.verwerkenklantgegevens.handler.WijzigVerzekeringstatusHandler" />
+		<action class="org.jboss.jbpm.handler.WijzigVerzekeringstatusHandler" />
 		<transition to="end" />
 	</node>
 
 	<decision name="Insurance customer" async="true">
-		<handler class="nl.snsbank.processes.verzekeren.verwerkenklantgegevens.handler.Insurance customerHandler" />
+		<handler class="org.jboss.jbpm.handler.Insurance customerHandler" />
 		<transition to="end" name="insurance status known" />
 		<transition to="change insurance status in system" name="insurance status unknown" />
 	</decision>
 
 	<state name="Create level relationship" async="true">
 		<event type="node-enter">
-			<action class="nl.snsbank.processes.verzekeren.verwerkenklantgegevens.handler.OpvoerenLevelRelatieHandler" />
+			<action class="org.jboss.jbpm.handler.OpvoerenLevelRelatieHandler" />
 		</event>
 		<event type="node-leave">
-			<action class="nl.snsbank.processes.verzekeren.verwerkenklantgegevens.handler.OpvoerenLevelRelatieHandler" />
+			<action class="org.jboss.jbpm.handler.OpvoerenLevelRelatieHandler" />
 		</event>
 		<transition to="Insurance customer">
-			<action class="nl.snsbank.processes.generiek.handler.SetVariableHandler" config-type="bean">
+			<action class="org.jboss.jbpm.handler.SetVariableHandler" config-type="bean">
 				<name>
 					name
 				</name>
@@ -42,7 +42,7 @@
 	</state>
 
 	<decision name="Level of relationshop in request" async="true">
-		<handler class="nl.snsbank.processes.verzekeren.verwerkenklantgegevens.handler.LevelRelatieInAanvraagHandler" />
+		<handler class="org.jboss.jbpm.handler.LevelRelatieInAanvraagHandler" />
 		<transition to="Insurance customer" name="yes" />
 		<transition to="Get level of relationship" name="no" />
 	</decision>

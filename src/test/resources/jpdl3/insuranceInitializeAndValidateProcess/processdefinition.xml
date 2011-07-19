@@ -9,13 +9,13 @@
 
 
 	<node name="validateRequest" async="true">
-		<action class="nl.snsbank.processes.verzekeren.initialiserenvalideren.handler.validateRequestHandler" config-type="bean" />
+		<action class="org.jboss.jbpm.handler.validateRequestHandler" config-type="bean" />
 		<transition to="end" name="valid" />
 		<transition to="Manual" name="not valid" />
 	</node>
 
 	<node name="initializeRequest" async="true">
-		<action async="true" class="nl.snsbank.processes.verzekeren.initialiserenvalideren.handler.InitializeerAanvraagHandler" config-type="bean" />
+		<action async="true" class="org.jboss.jbpm.handler.InitializeerAanvraagHandler" config-type="bean" />
 		<transition to="validateRequest" />
 	</node>
 
