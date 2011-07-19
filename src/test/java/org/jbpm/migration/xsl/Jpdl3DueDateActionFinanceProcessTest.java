@@ -21,8 +21,6 @@
  */
 package org.jbpm.migration.xsl;
 
-import org.junit.Ignore;
-import org.junit.Test;
 
 /**
  * Tests for the jPDL process definition transformer with JAXP.
@@ -33,11 +31,6 @@ import org.junit.Test;
 public class Jpdl3DueDateActionFinanceProcessTest extends AbstractJpdl3Test {
     // Input jPDL file.
     private static final String INPUT_JPDL = "src/test/resources/jpdl3/dueDateActionFinanceProcess/processdefinition.xml";
-
-    @Override
-    @Test
-    public void validJpldDefinition() {
-    }
 
     @Override
     protected String getJpdlFile() {

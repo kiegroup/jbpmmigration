@@ -10,12 +10,9 @@
 	</start-state>
 
 	<state name="dueDateActionWaitState">
-		<script>
-			<expression>
-				java.util.Date dueDate = contextInstance.getVariable("dueDate");
-	    	</expression>
-		</script>
-		<variable name='dueDate' mapped-name='dueDate' access='read,write' />
+		<event type="node-enter">
+			<action class="org.jboss.workflow.jbpm.ActionHandlerGetDueDate" />
+		</event>
 		<timer name="overDueTimer" duedate="#{dueDate}" transition="continue">
 			<action
 				class="org.jboss.workflow.jbpm.ActionHandlerViaVariableProxy"
