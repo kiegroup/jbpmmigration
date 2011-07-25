@@ -13,6 +13,9 @@
 			A human task with event.
 		</description>
 		<task name="Test task">
+			<description>
+				Test task.
+			</description>
 			<assignment actor-id="EXPERT" />
 		</task>
 		<event type="node-enter">

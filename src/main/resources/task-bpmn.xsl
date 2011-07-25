@@ -9,9 +9,19 @@
 
 	<xsl:template match="jpdl:task" mode="task">
 		<xsl:value-of select="@name" />
+		
+		<xsl:if test="jpdl:description">
+      		<xsl:apply-templates select="jpdl:description" />
+      	</xsl:if>	
 	</xsl:template>
 
+
+
 	<xsl:template match="jpdl:task" mode="assignment">
+		<xsl:if test="jpdl:description">
+    		<xsl:apply-templates select="jpdl:description" />
+      	</xsl:if>
+	
 		<xsl:if test="jpdl:assignment/@actor-id">
 		<potentialOwner>
 			<resourceAssignmentExpression>

@@ -13,6 +13,9 @@
 			A human task.
 		</description>
 		<task name="Test task">
+			<description>
+				A test task.
+			</description>
 			<assignment actor-id="EXPERT" />
 		</task>
 		<transition to="end-state"></transition>
