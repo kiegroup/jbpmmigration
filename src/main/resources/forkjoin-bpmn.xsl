@@ -15,6 +15,10 @@
       <xsl:attribute name="id">
         <xsl:value-of select="translate(@name,' ','_')" />
       </xsl:attribute>
+
+      <xsl:if test="jpdl:description">
+        <xsl:apply-templates select="jpdl:description" />
+      </xsl:if>
     </parallelGateway>
 
     <xsl:apply-templates select="jpdl:transition" />
@@ -28,9 +32,15 @@
       <xsl:attribute name="id">
         <xsl:value-of select="translate(@name,' ','_')" />
       </xsl:attribute>
+      
+      <xsl:if test="jpdl:description">
+        <xsl:apply-templates select="jpdl:description" />
+      </xsl:if>      
     </parallelGateway>
 
     <xsl:apply-templates />
   </xsl:template>
 
+  <!-- Removes description element from the transformation. -->
+  <xsl:template match="jpdl:description" />
 </xsl:stylesheet>

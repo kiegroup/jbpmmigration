@@ -9,6 +9,9 @@
 
 
 	<fork name="fork1">
+		<description>
+			Split up here.
+		</description>
 		<transition to="node1"></transition>
 		<transition to="node2" name="to_node2"></transition>
 	</fork>
@@ -22,6 +25,9 @@
 	</node>
 
 	<join name="join1">
+		<description>
+			Come back together.
+		</description>
 		<transition to="end-state"></transition>
 	</join>
 

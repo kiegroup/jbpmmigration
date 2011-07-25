@@ -9,6 +9,9 @@
 
 
 	<decision name="decision">
+		<description>
+			Decision with handler.
+		</description>
 		<handler class="org.jboss.handler.DecisionTestHandler" />
 		<transition to="end-state1" />
 		<transition to="end-state2" name="to-end-state2" />

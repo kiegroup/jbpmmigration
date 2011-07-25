@@ -20,10 +20,16 @@
        	<xsl:text>Diverging</xsl:text>
       </xsl:attribute>
 
+      <xsl:if test="jpdl:description">
+        <xsl:apply-templates select="jpdl:description" />
+      </xsl:if>
+
       <xsl:apply-templates select="jpdl:handler" />
     </inclusiveGateway>
 
     <xsl:apply-templates select="jpdl:transition" />
   </xsl:template>
 
+  <!-- Removes description element from the transformation. -->
+  <xsl:template match="jpdl:description" />
 </xsl:stylesheet>
