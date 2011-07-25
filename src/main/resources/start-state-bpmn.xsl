@@ -25,6 +25,10 @@
 					<xsl:attribute name="id">
                 		<xsl:value-of select="translate(@name,' ','_')" />
             		</xsl:attribute>
+            		
+            		<xsl:if test="jpdl:description">
+      					<xsl:apply-templates select="jpdl:description" />
+      				</xsl:if>
 				</startEvent>
 
 				<!-- Inserting sequence flow from startEvent to Java Node. -->
@@ -53,7 +57,7 @@
 					</xsl:attribute>
 					<xsl:attribute name="drools:taskName">
 			    		<xsl:text>JavaNode</xsl:text>
-					</xsl:attribute>
+					</xsl:attribute>					
 					
 					<ioSpecification>
 						<dataInput>
@@ -137,6 +141,10 @@
 					<xsl:attribute name="id">
 		                <xsl:value-of select="translate(@name,' ','_')" />
 		            </xsl:attribute>
+		            
+		            <xsl:if test="jpdl:description">
+      					<xsl:apply-templates select="jpdl:description" />
+      				</xsl:if>
 				</startEvent>
 
 				<xsl:apply-templates select="jpdl:transition"/>
@@ -145,5 +153,8 @@
 		</xsl:choose>
 				
 	</xsl:template>
+
+	<!-- Removes description element from the transformation. -->
+	<xsl:template match="jpdl:description" />
 
 </xsl:stylesheet>
