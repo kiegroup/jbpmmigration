@@ -29,6 +29,10 @@
 			    		<xsl:text>JavaNode</xsl:text>
 					</xsl:attribute>
 					
+					<xsl:if test="jpdl:description">
+      					<xsl:apply-templates select="jpdl:description" />
+      				</xsl:if>
+		
 					<ioSpecification>
 						<dataInput>
 							<xsl:attribute name="id">
@@ -109,6 +113,10 @@
 					<xsl:attribute name="name">
 					    	<xsl:value-of select="@name" />
 					</xsl:attribute>
+		
+		      		<xsl:if test="jpdl:description">
+      					<xsl:apply-templates select="jpdl:description" />
+      				</xsl:if>
 					
 					<xsl:if test="jpdl:event">
 			            <documentation>
@@ -161,5 +169,8 @@
 
 		<xsl:apply-templates select="jpdl:transition" />
 	</xsl:template>
+
+	<!-- Removes description element from the transformation. -->
+	<xsl:template match="jpdl:description" />
 
 </xsl:stylesheet>
