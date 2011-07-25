@@ -7,6 +7,9 @@
 	</start-state>
 
 	<node name="node">
+		<description>
+			A node.
+		</description>
 		<transition to="end-state" />
 	</node>
 
