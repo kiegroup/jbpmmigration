@@ -7,11 +7,11 @@
   <xsl:template match="jpdl:end-state">
     <endEvent>
       <xsl:attribute name="name">
-                <xsl:value-of select="@name" />
-            </xsl:attribute>
+        <xsl:value-of select="@name" />
+      </xsl:attribute>
       <xsl:attribute name="id">
-                <xsl:value-of select="translate(@name,' ','_')" />
-            </xsl:attribute>
+        <xsl:value-of select="translate(@name,' ','_')" />
+      </xsl:attribute>
 
       <xsl:if test="jpdl:description">
         <xsl:apply-templates select="jpdl:description" />
@@ -22,5 +22,4 @@
 
   <!-- Removes description element from the transformation. -->
   <xsl:template match="jpdl:description" />
-
 </xsl:stylesheet>
