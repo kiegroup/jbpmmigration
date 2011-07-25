@@ -4,6 +4,10 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:jpdl="urn:jbpm.org:jpdl-3.2"
 	xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
 
+	<!-- Import the pieces of jPDL we need. -->
+	<xsl:import href="sub-process-bpmn.xsl" />
+	<xsl:import href="variable-bpmn.xsl" />
+	
 	<xsl:template match="jpdl:process-state">
 		<callActivity>
 			<xsl:attribute name="name">
@@ -86,22 +90,6 @@
 		</callActivity>
 
 		<xsl:apply-templates select="jpdl:transition"/>
-	</xsl:template>
-
-	<!-- Sub-process element supplied the name of the process -->
-	<!-- to be called.                                        -->
-	<xsl:template match="jpdl:sub-process">
-		<xsl:value-of select="@name" />
-	</xsl:template>
-
-	<!-- Variable element name. -->
-	<xsl:template match="jpdl:variable" mode="name">
-		<xsl:value-of select="@name" />
-	</xsl:template>
-
-	<!-- Variable element mapped name. -->
-	<xsl:template match="jpdl:variable">
-		<xsl:value-of select="@mapped-name" />
 	</xsl:template>
 
 </xsl:stylesheet>

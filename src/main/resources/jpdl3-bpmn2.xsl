@@ -7,12 +7,13 @@
 	<!-- Import the pieces of jPDL we need. -->
 	<xsl:import href="start-state-bpmn.xsl"/>
 	<xsl:import href="process-state-bpmn.xsl"/>
-	<xsl:import href="task-bpmn.xsl"/>
+	<xsl:import href="task-node-bpmn.xsl"/>
 	<xsl:import href="node-bpmn.xsl"/>
 	<xsl:import href="state-bpmn.xsl"/>
 	<xsl:import href="decision-bpmn.xsl"/>
 	<xsl:import href="forkjoin-bpmn.xsl"/>
 	<xsl:import href="transition-bpmn.xsl"/>
+	<xsl:import href="end-state-bpmn2.xsl" />
 	
 	<xsl:output method="xml" />
 
@@ -51,17 +52,6 @@
 	<!-- Removes description element from the transformation. -->
 	<xsl:template match="jpdl:description" />
 	
-	<xsl:template match="jpdl:end-state">
-		<endEvent>
-			<xsl:attribute name="name">
-                <xsl:value-of select="@name" />
-            </xsl:attribute>
-			<xsl:attribute name="id">
-                <xsl:value-of select="translate(@name,' ','_')" />
-            </xsl:attribute>
-		</endEvent>
-	</xsl:template>
-
 	<!-- Strip the white space from the result. -->
 	<xsl:template match="text()">
 		<xsl:value-of select="normalize-space()" />
