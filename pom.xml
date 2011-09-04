@@ -6,7 +6,7 @@
 	<groupId>org.jbpm.jbpm5</groupId>
 	<artifactId>jpdl3-bpmn2</artifactId>
 	<name>jPDL3-BPMN2</name>
-	<version>0.9</version>
+	<version>0.10-SNAPSHOT</version>
 	<description>jPDL3.x to BPMN2 migration</description>
 	<url>http://community.jboss.org/wiki/jBPM5migrationtoolproject</url>
 	<packaging>jar</packaging>
