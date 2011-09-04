@@ -36,22 +36,57 @@ import javax.xml.transform.stream.StreamSource;
  * @author Maurice de Chateau
  */
 public final class JbpmMigration {
+    
+    // Default XSLT sheet.
+    private static final String DEFAULT_XSLT_SHEET = "src/main/resources/jpdl3-bpmn2.xsl";
+    
+    
     /** Private constructor to prevent instantiation. */
     private JbpmMigration() {
     }
 
     /**
-     * Accept three command line arguments: the name of an XML file, the name of an XSLT stylesheet and the name of the file the
-     * result of the transformation is to be written to.
+     * Accept two or three command line arguments: 
+     *      - the name of an XML file (required) 
+     *      - the name of an XSLT stylesheet (optional, default is jpdl 3.2)
+     *      - the name of the file the result of the transformation is to be written to.
      */
     public static void main(String[] args) throws TransformerException {
-        if (args.length != 3) {
+        if (args.length == 2) {
+            // using default jpdl 3.2 as XSLT stylesheet.
+            transform(args[0], args[1]);
+        } else if (args.length == 3 ) {
+            // using arg[1] as XSLT stylesheet.
+            transform(args[0], args[1], args[2]);
+        } else {
             System.err.println("Usage:");
             System.err.println("  java " + JbpmMigration.class.getName() + " jpdlProcessDefinitionFileName xsltFileName outputFileName");
+            System.err.println(" or you can use the default jpdl 3.2 transformation:");
+            System.err.println("  java " + JbpmMigration.class.getName() + " jpdlProcessDefinitionFileName outputFileName");
             System.exit(1);
         }
+        
+        
+    }
 
-        transform(args[0], args[1], args[2]);
+    /**
+     * 
+     * @param xmlFile
+     *            The name of an XML input file.
+     * @param outputFile
+     *            The name of the file the result of the transformation is to be written to.
+     * @throws TransformerException
+     *             If the creation of the {@link Transformer} or the transformation run into problems.
+     */
+    static void transform(String xmlFile, String outputFile) throws TransformerException {
+        // Create a transformer with the given stylesheet.
+        Source xsltSource = new StreamSource(new File(DEFAULT_XSLT_SHEET));
+        Transformer transformer = TransformerFactory.newInstance().newTransformer(xsltSource);
+
+        // Transform the given input file and put the result in the given output file.
+        Source xmlSource = new StreamSource(new File(xmlFile));
+        Result result = new StreamResult(new File(outputFile));
+        transformer.transform(xmlSource, result);
     }
 
     /**
