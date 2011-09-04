@@ -17,13 +17,13 @@
 
 	<process-state name="Matching requester" async="true">
 		<sub-process name="Insurance_MatchingRequesterProcess" />
-		<variable access="read,write" name="requestId" mapped-name="requestId" />
-		<variable access="read,write" name="CREDIT_CHECK" mapped-name="CREDIT_CHECK" />
-		<variable access="read,write" name="INDICATION_INSURED_CUSTOMER" mapped-name="INDICATION_INSURED_CUSTOMER" />
-		<variable access="read,write" name="CUSTOMER_NUMBER" mapped-name="CUSTOMER_NUMBER" />
-		<variable access="read,write" name="OPPID" mapped-name="OPPID" />
-		<variable access="read,write" name="CUSTOMER_NAW" mapped-name="CUSTOMER_NAW_DATA" />
-		<variable access="read,write" name="ORIGINAL_REQUEST" mapped-name="ORIGINAL_REQUEST"/>
+		<variable access="read,write" name="requestId1" mapped-name="requestId1" />
+		<variable access="read,write" name="CREDIT_CHECK1" mapped-name="CREDIT_CHECK1" />
+		<variable access="read,write" name="INDICATION_INSURED_CUSTOMER1" mapped-name="INDICATION_INSURED_CUSTOMER1" />
+		<variable access="read,write" name="CUSTOMER_NUMBER1" mapped-name="CUSTOMER_NUMBER1" />
+		<variable access="read,write" name="OPPID1" mapped-name="OPPID1" />
+		<variable access="read,write" name="CUSTOMER_NAW1" mapped-name="CUSTOMER_NAW_DATA1" />
+		<variable access="read,write" name="ORIGINAL_REQUEST1" mapped-name="ORIGINAL_REQUEST1"/>
 		<transition to="Matching requester OK" />
 	</process-state>
 
@@ -38,16 +38,16 @@
 
 	<process-state name="Process customer data" async="true">
 		<sub-process name="Insurance_ProcessingCustomerDataProcess" />
-		<variable access="read,write" name="requestId" mapped-name="requestId" />
-		<variable access="read,write" name="CREDIT_CHECK" mapped-name="CREDIT_CHECK" />
-		<variable access="read,write" name="INDICATION_INSURED_CUSTOMER" mapped-name="INDICATION_INSURED_CUSTOMER" />
-		<variable access="read,write" name="CUSTOMER_NUMBER" mapped-name="CUSTOMER_NUMBER" />
-		<variable access="read,write" name="OPPID" mapped-name="OPPID" />
-		<variable access="read,write" name="CUSTOMER_NAW" mapped-name="CUSTOMER_NAW_DATA" />
-		<variable access="read,write" name="L7_NEW_CUSTOMER" mapped-name="L7_NEW_CUSTOMER" />
-		<variable access="read,write" name="L7_FOUND_ACCOUNTNUMBERS" mapped-name="L7_FOUND_ACCOUNTNUMBERS" />
-		<variable access="read,write" name="L7_CUSTOMERID" mapped-name="L7_CUSTOMERID" />
-		<variable access="read,write" name="ORIGINAL_REQUEST" mapped-name="ORIGINAL_REQUEST"/>
+		<variable access="read,write" name="requestId2" mapped-name="requestId2" />
+		<variable access="read,write" name="CREDIT_CHECK2" mapped-name="CREDIT_CHECK2" />
+		<variable access="read,write" name="INDICATION_INSURED_CUSTOMER2" mapped-name="INDICATION_INSURED_CUSTOMER2" />
+		<variable access="read,write" name="CUSTOMER_NUMBER2" mapped-name="CUSTOMER_NUMBER2" />
+		<variable access="read,write" name="OPPID2" mapped-name="OPPID2" />
+		<variable access="read,write" name="CUSTOMER_NAW2" mapped-name="CUSTOMER_NAW_DATA2" />
+		<variable access="read,write" name="L7_NEW_CUSTOMER2" mapped-name="L7_NEW_CUSTOMER2" />
+		<variable access="read,write" name="L7_FOUND_ACCOUNTNUMBERS2" mapped-name="L7_FOUND_ACCOUNTNUMBERS2" />
+		<variable access="read,write" name="L7_CUSTOMERID2" mapped-name="L7_CUSTOMERID2" />
+		<variable access="read,write" name="ORIGINAL_REQUEST2" mapped-name="ORIGINAL_REQUEST2"/>
 		<transition to="Process customer data OK" />
 	</process-state>
 
@@ -71,17 +71,17 @@
 
 	<process-state name="Create product" async="true">
 		<sub-process name="Insurance_CreatingProductProcess" />
-		<variable access="read,write" name="requestId" mapped-name="requestId" />
-		<variable access="read,write" name="CREDIT_CHECK" mapped-name="CREDIT_CHECK" />
-		<variable access="read,write" name="INDICATION_INSURED_CUSTOMER" mapped-name="INDICATION_INSURED_CUSTOMER" />
-		<variable access="read,write" name="CUSTOMER_NUMBER" mapped-name="CUSTOMER_NUMBER" />
-		<variable access="read,write" name="OPPID" mapped-name="OPPID" />
-		<variable access="read,write" name="CUSTOMER_NAW" mapped-name="CUSTOMER_NAW_DATA" />
-		<variable access="read,write" name="L7_NEW_CUSTOMER" mapped-name="L7_NEW_CUSTOMER" />
-		<variable access="read,write" name="L7_FOUND_ACCOUNTNUMBERS" mapped-name="L7_FOUND_ACCOUNTNUMBERS" />
-		<variable access="read,write" name="L7_POLICY_NUMBER" mapped-name="L7_POLICY_NUMBER" />
-		<variable access="read,write" name="L7_CUSTOMERID" mapped-name="L7_CUSTOMERID" />
-		<variable access="read,write" name="ORIGINAL_REQUEST" mapped-name="ORIGINAL_REQUEST"/>
+		<variable access="read,write" name="requestId3" mapped-name="requestId3" />
+		<variable access="read,write" name="CREDIT_CHECK3" mapped-name="CREDIT_CHECK3" />
+		<variable access="read,write" name="INDICATION_INSURED_CUSTOMER3" mapped-name="INDICATION_INSURED_CUSTOMER3" />
+		<variable access="read,write" name="CUSTOMER_NUMBER3" mapped-name="CUSTOMER_NUMBER3" />
+		<variable access="read,write" name="OPPID3" mapped-name="OPPID3" />
+		<variable access="read,write" name="CUSTOMER_NAW3" mapped-name="CUSTOMER_NAW_DATA3" />
+		<variable access="read,write" name="L7_NEW_CUSTOMER3" mapped-name="L7_NEW_CUSTOMER3" />
+		<variable access="read,write" name="L7_FOUND_ACCOUNTNUMBERS3" mapped-name="L7_FOUND_ACCOUNTNUMBERS3" />
+		<variable access="read,write" name="L7_POLICY_NUMBER3" mapped-name="L7_POLICY_NUMBER3" />
+		<variable access="read,write" name="L7_CUSTOMERID3" mapped-name="L7_CUSTOMERID3" />
+		<variable access="read,write" name="ORIGINAL_REQUEST3" mapped-name="ORIGINAL_REQUEST3"/>
 		<transition to="Create product OK" />
 	</process-state>
 
@@ -96,17 +96,17 @@
 
 	<process-state name="Complete request" async="true">
 		<sub-process name="Insurance_CompletingRequestProcess" />
-		<variable access="read,write" name="requestId" mapped-name="requestId" />
-		<variable access="read,write" name="CREDIT_CHECK" mapped-name="CREDIT_CHECK" />
-		<variable access="read,write" name="INDICATION_INSURED_CUSTOMER" mapped-name="INDICATION_INSURED_CUSTOMER" />
-		<variable access="read,write" name="CUSTOMER_NUMBER" mapped-name="CUSTOMER_NUMBER" />
-		<variable access="read,write" name="OPPID" mapped-name="OPPID" />
-		<variable access="read,write" name="CUSTOMER_NAW" mapped-name="CUSTOMER_NAW_DATA" />
-		<variable access="read,write" name="L7_NEW_CUSTOMER" mapped-name="L7_NEW_CUSTOMER" />
-		<variable access="read,write" name="L7_FOUND_ACCOUNTNUMBERS" mapped-name="L7_FOUND_ACCOUNTNUMBERS" />
-		<variable access="read,write" name="L7_POLICY_NUMBER" mapped-name="L7_POLICY_NUMBER" />
-		<variable access="read,write" name="L7_CUSTOMERID" mapped-name="L7_CUSTOMERID" />
-		<variable access="read,write" name="ORIGINAL_REQUEST" mapped-name="ORIGINAL_REQUEST"/>
+		<variable access="read,write" name="requestId4" mapped-name="requestId4" />
+		<variable access="read,write" name="CREDIT_CHECK4" mapped-name="CREDIT_CHECK4" />
+		<variable access="read,write" name="INDICATION_INSURED_CUSTOMER4" mapped-name="INDICATION_INSURED_CUSTOMER4" />
+		<variable access="read,write" name="CUSTOMER_NUMBER4" mapped-name="CUSTOMER_NUMBER4" />
+		<variable access="read,write" name="OPPID4" mapped-name="OPPID4" />
+		<variable access="read,write" name="CUSTOMER_NAW4" mapped-name="CUSTOMER_NAW_DATA4" />
+		<variable access="read,write" name="L7_NEW_CUSTOMER4" mapped-name="L7_NEW_CUSTOMER4" />
+		<variable access="read,write" name="L7_FOUND_ACCOUNTNUMBERS4" mapped-name="L7_FOUND_ACCOUNTNUMBERS4" />
+		<variable access="read,write" name="L7_POLICY_NUMBER4" mapped-name="L7_POLICY_NUMBER4" />
+		<variable access="read,write" name="L7_CUSTOMERID4" mapped-name="L7_CUSTOMERID4" />
+		<variable access="read,write" name="ORIGINAL_REQUEST4" mapped-name="ORIGINAL_REQUEST4"/>
 		<transition to="Complete request OK" />
 	</process-state>
 
