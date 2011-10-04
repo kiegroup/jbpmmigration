@@ -1,20 +1,17 @@
 /**
  * Copyright 2010 JBoss Inc
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the
+ * License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 package org.jbpm.migration.util;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
@@ -74,10 +71,10 @@ public final class XmlUtils {
     public static Document createEmptyDocument() {
         Document output = null;
         try {
-            DocumentBuilder db = FACTORY.newDocumentBuilder();
+            final DocumentBuilder db = FACTORY.newDocumentBuilder();
             db.setErrorHandler(new ParserErrorHandler());
             output = db.newDocument();
-        } catch (Exception ex) {
+        } catch (final Exception ex) {
             LOGGER.error("Problem creating empty XML document.", ex);
         }
 
@@ -91,13 +88,13 @@ public final class XmlUtils {
      *            The input XML file.
      * @return The corresponding DOM tree, or <code>null</code> if the input could not be parsed successfully.
      */
-    public static Document parseFile(File input) {
+    public static Document parseFile(final File input) {
         Document output = null;
         try {
-            DocumentBuilder db = FACTORY.newDocumentBuilder();
+            final DocumentBuilder db = FACTORY.newDocumentBuilder();
             db.setErrorHandler(new ParserErrorHandler());
             output = db.parse(input);
-        } catch (Exception ex) {
+        } catch (final Exception ex) {
             String msg = "Problem parsing the input XML file";
             if (ex instanceof SAXParseException) {
                 msg += " at line #" + ((SAXParseException) ex).getLineNumber();
@@ -115,13 +112,13 @@ public final class XmlUtils {
      *            The input XML <code>String</code>.
      * @return The corresponding DOM tree, or <code>null</code> if the input could not be parsed successfully.
      */
-    public static Document parseString(String input) {
+    public static Document parseString(final String input) {
         Document output = null;
         try {
-            DocumentBuilder db = FACTORY.newDocumentBuilder();
+            final DocumentBuilder db = FACTORY.newDocumentBuilder();
             db.setErrorHandler(new ParserErrorHandler());
-            output = db.parse(input);
-        } catch (Exception ex) {
+            output = db.parse(new ByteArrayInputStream(input.getBytes()));
+        } catch (final Exception ex) {
             String msg = "Problem parsing the input XML string";
             if (ex instanceof SAXParseException) {
                 msg += " at line #" + ((SAXParseException) ex).getLineNumber();
@@ -140,10 +137,10 @@ public final class XmlUtils {
      * @param file
      *            The intended <code>File</code>.
      */
-    public static void writeFile(Document input, File file) {
+    public static void writeFile(final Document input, final File file) {
         try {
             new FileWriter(file).write(format(input));
-        } catch (Exception ex) {
+        } catch (final Exception ex) {
             LOGGER.error("Problem writing XML to file.", ex);
         }
     }
@@ -157,17 +154,17 @@ public final class XmlUtils {
      *            The XML Schema against which the document must be validated.
      * @return Whether the validation was successful.
      */
-    public static boolean validate(Document input, File schemaFile) {
+    public static boolean validate(final Document input, final File schemaFile) {
         boolean isValid = true;
         try {
-            SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            Schema schema = factory.newSchema(new StreamSource(schemaFile));
-            Validator val = schema.newValidator();
-            ParserErrorHandler eh = new ParserErrorHandler();
+            final SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            final Schema schema = factory.newSchema(new StreamSource(schemaFile));
+            final Validator val = schema.newValidator();
+            final ParserErrorHandler eh = new ParserErrorHandler();
             val.setErrorHandler(eh);
             val.validate(new DOMSource(input));
             isValid = !eh.didExceptionOccur();
-        } catch (Exception ex) {
+        } catch (final Exception ex) {
             LOGGER.error("Problem validating the given process definition.", ex);
             isValid = false;
         }
@@ -184,15 +181,15 @@ public final class XmlUtils {
      *            The XSL style sheet according to which the document must be transformed.
      * @return The transformed document, or <code>null</code> if a problem occurred while transforming.
      */
-    public static Document transform(Document input, File styleSheet) {
+    public static Document transform(final Document input, final File styleSheet) {
         Document output = null;
         try {
             output = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-            Transformer transformer = TransformerFactory.newInstance().newTransformer(new StreamSource(styleSheet));
+            final Transformer transformer = TransformerFactory.newInstance().newTransformer(new StreamSource(styleSheet));
             instrumentTransformer(transformer);
 
             transformer.transform(new DOMSource(input), new DOMResult(output));
-        } catch (Exception ex) {
+        } catch (final Exception ex) {
             LOGGER.error("Problem transforming XML file.", ex);
         }
 
@@ -206,7 +203,7 @@ public final class XmlUtils {
      *            The uppermost node of the input XML document (fragment).
      * @return The formatted <code>String</code>.
      */
-    public static String format(Node input) {
+    public static String format(final Node input) {
         return format(new DOMSource(input));
     }
 
@@ -217,22 +214,22 @@ public final class XmlUtils {
      *            The input XML <code>String</code>.
      * @return The formatted <code>String</code>.
      */
-    public static String format(String input) {
+    public static String format(final String input) {
         return format(new StreamSource(input));
     }
 
-    private static String format(Source input) {
+    private static String format(final Source input) {
         StreamResult result = null;
         try {
             // Use an identity transformation to write the source to the result.
-            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            final Transformer transformer = TransformerFactory.newInstance().newTransformer();
             instrumentTransformer(transformer);
 
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             result = new StreamResult(new StringWriter());
 
             transformer.transform(input, result);
-        } catch (Exception ex) {
+        } catch (final Exception ex) {
             LOGGER.error("Problem formatting DOM representation.", ex);
             return null;
         }
@@ -255,8 +252,8 @@ public final class XmlUtils {
             transformer = ((TransformerHandler) transformer).getTransformer();
         }
         if (transformer instanceof TransformerImpl) {
-            TraceManager tm = ((TransformerImpl) transformer).getTraceManager();
-            PrintTraceListener ptl = new PrintTraceListener(new PrintWriter(System.out));
+            final TraceManager tm = ((TransformerImpl) transformer).getTraceManager();
+            final PrintTraceListener ptl = new PrintTraceListener(new PrintWriter(System.out));
             // Print information as each node is 'executed' in the stylesheet.
             ptl.m_traceElements = true;
             // Print information after each result-tree generation event.
@@ -276,17 +273,17 @@ public final class XmlUtils {
         private boolean exceptionOccurred;
 
         @Override
-        public void warning(SAXParseException saxParseEx) {
+        public void warning(final SAXParseException saxParseEx) {
             log(Level.WARN, saxParseEx);
         }
 
         @Override
-        public void error(SAXParseException saxParseEx) {
+        public void error(final SAXParseException saxParseEx) {
             log(Level.ERROR, saxParseEx);
         }
 
         @Override
-        public void fatalError(SAXParseException saxParseEx) {
+        public void fatalError(final SAXParseException saxParseEx) {
             log(Level.FATAL, saxParseEx);
         }
 
@@ -294,7 +291,7 @@ public final class XmlUtils {
             return exceptionOccurred;
         }
 
-        private void log(Level level, SAXParseException saxParseEx) {
+        private void log(final Level level, final SAXParseException saxParseEx) {
             exceptionOccurred = true;
             LOGGER.log(level, "Problem parsing XML: " + saxParseEx.getMessage());
         }
@@ -303,21 +300,21 @@ public final class XmlUtils {
     /** Private class for making the transformation processes a little more verbose. */
     private static class TransformerErrorListener implements ErrorListener {
         @Override
-        public void warning(TransformerException transformerEx) {
+        public void warning(final TransformerException transformerEx) {
             log(Level.WARN, transformerEx);
         }
 
         @Override
-        public void error(TransformerException transformerEx) {
+        public void error(final TransformerException transformerEx) {
             log(Level.ERROR, transformerEx);
         }
 
         @Override
-        public void fatalError(TransformerException transformerEx) {
+        public void fatalError(final TransformerException transformerEx) {
             log(Level.FATAL, transformerEx);
         }
 
-        private void log(Level level, TransformerException transformerEx) {
+        private void log(final Level level, final TransformerException transformerEx) {
             LOGGER.log(level, "Problem transforming XML: " + transformerEx);
         }
     }

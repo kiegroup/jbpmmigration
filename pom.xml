@@ -59,6 +59,11 @@
 			<artifactId>xml-apis</artifactId>
 			<version>1.0.b2</version>
 		</dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.0.1</version>
+        </dependency>
 
 		<!-- Test. -->
 		<dependency>
@@ -77,9 +82,8 @@
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
-			<version>2.5</version>
-			<type>jar</type>
 			<scope>provided</scope>
+			<version>2.6</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
