@@ -22,14 +22,14 @@
         <event type="node-leave">
             <action class="org.jboss.handler.HumanTaskHandler" />
         </event>
-		<transition to="Join"></transition>
+		<transition to="join"></transition>
 	</task-node>
 
     <state name="Retry">
         <event type="node-enter">
             <action class="org.jboss.handler.RetryHandler" />
         </event>
-		<transition to="Join" />
+		<transition to="join" />
     </state>
 
 	<node name="Trigger Originating Process">
@@ -37,9 +37,7 @@
 		<transition to="end" />
 	</node>
 
-	<join name="Join">
-        <transition to="end" />
-	</join>
+	<join name="join"></join>
 	
 	<end-state name="end" />
     

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <root-container name="singleDecision" width="1090" height="484">
-  <node name="start-state" x="137" y="120" width="132" height="36">
+  <node name="start-state" x="140" y="140" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
     </edge>
