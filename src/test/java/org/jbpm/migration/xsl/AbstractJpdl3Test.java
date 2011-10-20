@@ -21,6 +21,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.text.MessageFormat;
 
 import javax.xml.transform.TransformerException;
 
@@ -42,9 +43,12 @@ public abstract class AbstractJpdl3Test {
     // XSLT sheet.
     private static final String XSLT_SHEET = "src/main/resources/jpdl3-bpmn2.xsl";
 
-    // Results file of transformation.
-    private static final String RESULTS_FILE = "target/processdefinition.bpmn.xml";
-
+    // Results file of transformation using a Format.
+    private static final String RESULTS_FILE_FORMAT = "target/migrated_processes/{0}/processdefinition.bpmn2";
+    
+    // Directory for test to place ouput created using a Format.
+    private static final String RESULTS_DIR_FORMAT = "target/migrated_processes/{0}";
+    
     @BeforeClass
     public static void oneTimeSetUp() {
         // Set up Log4J.
@@ -76,21 +80,28 @@ public abstract class AbstractJpdl3Test {
     @Test
     public void transformjPDL() {
         // Remove any previously existing output first.
-        File outputFile = new File(RESULTS_FILE);
+        File outputFile = new File(getResultsFile());
         if (outputFile.exists()) {
             assertThat("Unable to clean output.", outputFile.delete(), is(true));
+        }
+        
+        // Ensure directory exists.
+        File jpdl = new File(getJpdlFile());
+        String results = MessageFormat.format(RESULTS_DIR_FORMAT, jpdl.getParentFile().getName());
+        if (!new File(results).mkdirs()) {
+            fail("Problem creating output directory: " + results);
         }
 
         // Transform the input file; creates the output file.
         try {
-            JbpmMigration.transform(getJpdlFile(), XSLT_SHEET, RESULTS_FILE);
+            JbpmMigration.transform(getJpdlFile(), XSLT_SHEET, getResultsFile());
         } catch (TransformerException e) {
             e.printStackTrace();
             fail("Problem encountered during the transformation: " + e.getMessage());
         }
 
         // Check that an output file is created.
-        outputFile = new File(RESULTS_FILE);
+        outputFile = new File(getResultsFile());
         assertThat("Expected output file missing.", outputFile.exists(), is(true));
     }
 
@@ -99,10 +110,21 @@ public abstract class AbstractJpdl3Test {
      */
     @Test
     public void validBpmnDefinition() {
-        File bpmn = new File(RESULTS_FILE);
+        File bpmn = new File(getResultsFile());
         Document bpmnDoc = XmlUtils.parseFile(bpmn);
         assertThat(bpmnDoc, is(notNullValue()));
         assertThat(BpmnValidator.validateDefinition(bpmnDoc), is(true));
+    }
+
+    /**
+     * Provide a results file path.
+     * 
+     * @return String.
+     */
+    protected String getResultsFile() {
+        File jpdl = new File(getJpdlFile());
+        String resultsFile = MessageFormat.format(RESULTS_FILE_FORMAT, jpdl.getParentFile().getName());
+        return resultsFile;
     }
 
     protected abstract String getJpdlFile();
