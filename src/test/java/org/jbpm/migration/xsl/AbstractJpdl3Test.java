@@ -16,21 +16,17 @@
 package org.jbpm.migration.xsl;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 
 import java.io.File;
 
-import javax.xml.transform.TransformerException;
-
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.jbpm.migration.util.XmlUtils;
+import org.jbpm.migration.JbpmMigration;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.w3c.dom.Document;
 
 /**
  * Base class for tests for the jPDL process definition transformer with JAXP.
@@ -45,6 +41,9 @@ public abstract class AbstractJpdl3Test {
     // Results file of transformation.
     private static final String RESULTS_FILE = "target/processdefinition.bpmn.xml";
 
+    /** Allow for subclasses to override the JPDL validation, as some (ESB) processes are not valid. */
+    protected boolean validateJpdl = true;
+
     @BeforeClass
     public static void oneTimeSetUp() {
         // Set up Log4J.
@@ -52,57 +51,39 @@ public abstract class AbstractJpdl3Test {
         Logger.getRootLogger().setLevel(Level.ERROR);
 
         // Make sure the style sheet is available.
-        File xsltSheet = new File(XSLT_SHEET);
+        final File xsltSheet = new File(XSLT_SHEET);
         assertThat("Stylesheet missing.", xsltSheet.exists(), is(true));
-    }
-
-    /**
-     * Validate the jPDL input file.
-     */
-    @Test
-    public void validJpldDefinition() {
-        // Make sure the input file is available.
-        File jpdl = new File(getJpdlFile());
-        assertThat("Indicated input file missing.", jpdl.exists(), is(true));
-
-        // Validate the input process definition.
-        Document document = JpdlValidator.validateDefinition(jpdl);
-        assertThat("Not a valid jPDL definition.", document, is(notNullValue()));
     }
 
     /**
      * Transform the input file to an output file.
      */
     @Test
-    public void transformjPDL() {
+    public void transformjPDL3() throws Exception {
+        // Make sure the input file is available.
+        final File jpdl = new File(getJpdlFile());
+        assertThat("Indicated input file missing.", jpdl.exists(), is(true));
+
+        if (validateJpdl) {
+            // Validate the input process definition.
+            assertThat("Not a valid jPDL definition.", JbpmMigration.validateJpdl(FileUtils.readFileToString(jpdl)), is(true));
+        }
+
         // Remove any previously existing output first.
-        File outputFile = new File(RESULTS_FILE);
-        if (outputFile.exists()) {
-            assertThat("Unable to clean output.", outputFile.delete(), is(true));
+        File bpmn = new File(RESULTS_FILE);
+        if (bpmn.exists()) {
+            assertThat("Unable to clean output.", bpmn.delete(), is(true));
         }
 
         // Transform the input file; creates the output file.
-        try {
-            JbpmMigration.transform(getJpdlFile(), XSLT_SHEET, RESULTS_FILE);
-        } catch (TransformerException e) {
-            e.printStackTrace();
-            fail("Problem encountered during the transformation: " + e.getMessage());
-        }
+        JbpmMigration.main(new String[] { jpdl.getPath(), XSLT_SHEET, RESULTS_FILE });
 
-        // Check that an output file is created.
-        outputFile = new File(RESULTS_FILE);
-        assertThat("Expected output file missing.", outputFile.exists(), is(true));
-    }
+        // Make sure the output file is available.
+        bpmn = new File(RESULTS_FILE);
+        assertThat("Expected output file missing.", bpmn.exists(), is(true));
 
-    /**
-     * Validate the BPMN2 output file.
-     */
-    @Test
-    public void validBpmnDefinition() {
-        File bpmn = new File(RESULTS_FILE);
-        Document bpmnDoc = XmlUtils.parseFile(bpmn);
-        assertThat(bpmnDoc, is(notNullValue()));
-        assertThat(BpmnValidator.validateDefinition(bpmnDoc), is(true));
+        // Validate the output process definition.
+        assertThat("Not a valid BPMN definition.", JbpmMigration.validateBpmn(FileUtils.readFileToString(bpmn)), is(true));
     }
 
     protected abstract String getJpdlFile();

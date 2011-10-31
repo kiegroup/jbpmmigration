@@ -9,11 +9,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
-package org.jbpm.migration.util;
+package org.jbpm.migration;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -22,26 +23,25 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.ErrorListener;
 import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.URIResolver;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.xalan.trace.PrintTraceListener;
 import org.apache.xalan.trace.TraceManager;
 import org.apache.xalan.transformer.TransformerImpl;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXParseException;
 
@@ -52,7 +52,7 @@ import org.xml.sax.SAXParseException;
  * @author Maurice de Chateau
  */
 public final class XmlUtils {
-    private static final Logger LOGGER = Logger.getLogger(XmlUtils.class);
+    static final Logger LOGGER = Logger.getLogger(XmlUtils.class);
 
     private static final DocumentBuilderFactory FACTORY = DocumentBuilderFactory.newInstance();
     static {
@@ -130,18 +130,22 @@ public final class XmlUtils {
     }
 
     /**
-     * Write an XML document to a <code>File</code>.
+     * Write an XML document (formatted) to a given <code>File</code>.
      * 
      * @param input
      *            The input XML document.
-     * @param file
+     * @param output
      *            The intended <code>File</code>.
      */
-    public static void writeFile(final Document input, final File file) {
+    public static void writeFile(final Document input, final File output) {
+        final StreamResult result = new StreamResult(new StringWriter());
+
+        format(new DOMSource(input), result);
+
         try {
-            new FileWriter(file).write(format(input));
-        } catch (final Exception ex) {
-            LOGGER.error("Problem writing XML to file.", ex);
+            new FileWriter(output).write(result.getWriter().toString());
+        } catch (final IOException ioEx) {
+            LOGGER.error("Problem writing XML to file.", ioEx);
         }
     }
 
@@ -150,20 +154,21 @@ public final class XmlUtils {
      * 
      * @param input
      *            The input XML document.
-     * @param schemaFile
-     *            The XML Schema against which the document must be validated.
+     * @param schemas
+     *            The XML Schema(s) against which the document must be validated.
      * @return Whether the validation was successful.
      */
-    public static boolean validate(final Document input, final File schemaFile) {
+    public static boolean validate(final Source input, final Source[] schemas) {
         boolean isValid = true;
         try {
-            final SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            final Schema schema = factory.newSchema(new StreamSource(schemaFile));
-            final Validator val = schema.newValidator();
+            final Validator val = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema(schemas).newValidator();
             final ParserErrorHandler eh = new ParserErrorHandler();
             val.setErrorHandler(eh);
-            val.validate(new DOMSource(input));
-            isValid = !eh.didExceptionOccur();
+            val.validate(input);
+            if (eh.didErrorOccur()) {
+                isValid = false;
+                eh.logErrors(LOGGER);
+            }
         } catch (final Exception ex) {
             LOGGER.error("Problem validating the given process definition.", ex);
             isValid = false;
@@ -176,65 +181,80 @@ public final class XmlUtils {
      * Transform an XML document according to an XSL style sheet.
      * 
      * @param input
-     *            The input XML document.
-     * @param styleSheet
+     *            The input XML {@link Source}.
+     * @param sheet
      *            The XSL style sheet according to which the document must be transformed.
-     * @return The transformed document, or <code>null</code> if a problem occurred while transforming.
+     * @param output
+     *            The {@link Result} in which the transformed XML is to be stored.
      */
-    public static Document transform(final Document input, final File styleSheet) {
-        Document output = null;
+    public static void transform(final Source input, final Source sheet, final Result output) {
         try {
-            output = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-            final Transformer transformer = TransformerFactory.newInstance().newTransformer(new StreamSource(styleSheet));
-            instrumentTransformer(transformer);
+            final DOMResult intermediate = new DOMResult(createEmptyDocument());
 
-            transformer.transform(new DOMSource(input), new DOMResult(output));
+            // Transform.
+            createTransformer(sheet).transform(input, intermediate);
+
+            // Format.
+            format(new DOMSource(intermediate.getNode()), output);
         } catch (final Exception ex) {
             LOGGER.error("Problem transforming XML file.", ex);
         }
-
-        return output;
     }
 
     /**
-     * Format an XML document (fragment) to a pretty-printable <code>String</code>.
+     * Format an XML {@link Source} to a pretty-printable {@link StreamResult}.
      * 
      * @param input
-     *            The uppermost node of the input XML document (fragment).
-     * @return The formatted <code>String</code>.
+     *            The (unformatted) input XML {@link Source}.
+     * @return The formatted {@link StreamResult}.
      */
-    public static String format(final Node input) {
-        return format(new DOMSource(input));
-    }
-
-    /**
-     * Format an XML <code>String</code> to a pretty-printable <code>String</code>.
-     * 
-     * @param input
-     *            The input XML <code>String</code>.
-     * @return The formatted <code>String</code>.
-     */
-    public static String format(final String input) {
-        return format(new StreamSource(input));
-    }
-
-    private static String format(final Source input) {
-        StreamResult result = null;
+    public static void format(final Source input, final Result output) {
         try {
             // Use an identity transformation to write the source to the result.
-            final Transformer transformer = TransformerFactory.newInstance().newTransformer();
-            instrumentTransformer(transformer);
-
+            final Transformer transformer = createTransformer(null);
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            result = new StreamResult(new StringWriter());
 
-            transformer.transform(input, result);
+            transformer.transform(input, output);
         } catch (final Exception ex) {
             LOGGER.error("Problem formatting DOM representation.", ex);
-            return null;
+        }
+    }
+
+    /**
+     * Create a {@link Transformer} from the given sheet.
+     * 
+     * @param xsltSource
+     *            The sheet to be used for the transformation, or <code>null</code> if an identity transformator is needed.
+     * @return The created {@link Transformer}
+     * @throws Exception
+     *             If the creation or instrumentation of the {@link Transformer} runs into trouble.
+     */
+    private static Transformer createTransformer(final Source xsltSource) throws Exception {
+        final TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = null;
+        if (xsltSource != null) {
+            // Create a resolver for imported sheets (assumption: available from classpath or the root of the jar).
+            final URIResolver resolver = new URIResolver() {
+                @Override
+                public Source resolve(final String href, final String base) throws TransformerException {
+                    return new StreamSource(Thread.currentThread().getContextClassLoader().getResourceAsStream(href));
+                }
+            };
+            transformerFactory.setURIResolver(resolver);
+
+            // Transformer using the given sheet.
+            transformer = transformerFactory.newTransformer(xsltSource);
+            transformer.setURIResolver(resolver);
+        } else {
+            // Transformer without a sheet, i.e. for "identity transform" (e.g. formatting).
+            transformer = transformerFactory.newTransformer();
         }
 
-        return result.getWriter().toString();
+        if (LOGGER.isDebugEnabled()) {
+            instrumentTransformer(transformer);
+        }
+
+        return transformer;
     }
 
     /**
@@ -268,54 +288,9 @@ public final class XmlUtils {
         }
     }
 
-    /** Private class for making the parsing and validation processes a little more verbose. */
-    private static class ParserErrorHandler implements ErrorHandler {
-        private boolean exceptionOccurred;
-
-        @Override
-        public void warning(final SAXParseException saxParseEx) {
-            log(Level.WARN, saxParseEx);
-        }
-
-        @Override
-        public void error(final SAXParseException saxParseEx) {
-            log(Level.ERROR, saxParseEx);
-        }
-
-        @Override
-        public void fatalError(final SAXParseException saxParseEx) {
-            log(Level.FATAL, saxParseEx);
-        }
-
-        boolean didExceptionOccur() {
-            return exceptionOccurred;
-        }
-
-        private void log(final Level level, final SAXParseException saxParseEx) {
-            exceptionOccurred = true;
-            LOGGER.log(level, "Problem parsing XML: " + saxParseEx.getMessage());
-        }
+    private static class ParserErrorHandler extends ErrorCollector<SAXParseException> implements ErrorHandler {
     }
 
-    /** Private class for making the transformation processes a little more verbose. */
-    private static class TransformerErrorListener implements ErrorListener {
-        @Override
-        public void warning(final TransformerException transformerEx) {
-            log(Level.WARN, transformerEx);
-        }
-
-        @Override
-        public void error(final TransformerException transformerEx) {
-            log(Level.ERROR, transformerEx);
-        }
-
-        @Override
-        public void fatalError(final TransformerException transformerEx) {
-            log(Level.FATAL, transformerEx);
-        }
-
-        private void log(final Level level, final TransformerException transformerEx) {
-            LOGGER.log(level, "Problem transforming XML: " + transformerEx);
-        }
+    private static class TransformerErrorListener extends ErrorCollector<TransformerException> implements ErrorListener {
     }
 }
