@@ -15,8 +15,7 @@
  */
 package org.jbpm.migration.xsl;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.Before;
 
 /**
  * Tests for the jPDL process definition transformer with JAXP.
@@ -28,10 +27,9 @@ public class Jpdl3EsbOrchestration1SampleTest extends AbstractJpdl3Test {
     // Input jPDL file.
     private static final String INPUT_JPDL = "src/test/resources/jpdl3/esbOrchestration1Sample/processdefinition.xml";
 
-    @Ignore("Override and ignore validation of the jPDL input file, it is not valid!")
-    @Override
-    @Test
-    public void validJpldDefinition() {
+    @Before
+    public void overrideJpdlValidation() {
+        validateJpdl = false;
     }
 
     @Override

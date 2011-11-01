@@ -60,9 +60,19 @@
 			<version>1.0.b2</version>
 		</dependency>
         <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+        <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.0.1</version>
+            <version>2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.16</version>
         </dependency>
 
 		<!-- Test. -->
@@ -76,20 +86,7 @@
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
 			<version>1.6.1</version>
-			<type>jar</type>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<scope>provided</scope>
-			<version>2.6</version>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.16</version>
-			<scope>provided</scope>
+            <scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -115,13 +112,13 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.3.1</version>
+				<version>2.3.2</version>
 				<configuration>
-					<finalName>jbpmmigration-${version}</finalName>
+					<finalName>jbpmmigration-${project.version}</finalName>
 					<archive>
 		            	<manifest>
-		            		<mainClass>org.jbpm.migration.xsl.JbpmMigration</mainClass>
-		            		<packageName>org.jbpm.migration.xsl</packageName>
+		            		<mainClass>org.jbpm.migration.JbpmMigration</mainClass>
+		            		<addClasspath>true</addClasspath>
 		            	</manifest>
 		          	</archive>
 		        </configuration>
@@ -129,11 +126,34 @@
 		        	<execution>
                           <phase>compile</phase>
                           <goals>
-                                <goal>jar</goal>
+                            <goal>jar</goal>
                           </goals>
                     </execution>
               	</executions>
 			</plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-assembly-plugin</artifactId>
+              <version>2.2.1</version>
+              <configuration>
+                <archive>
+                  <manifest>
+                    <mainClass>org.jbpm.migration.JbpmMigration</mainClass>
+                  </manifest>
+                </archive>
+                <descriptorRefs>
+                  <descriptorRef>jar-with-dependencies</descriptorRef>
+                </descriptorRefs>
+              </configuration>
+              <executions>
+                <execution>
+                  <phase>package</phase>
+                  <goals>
+                    <goal>single</goal>
+                  </goals>
+                </execution>
+              </executions>
+            </plugin> 
 		</plugins>
 	</build>
 
