@@ -1,64 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.jbpm.jbpm5</groupId>
-	<artifactId>jbpmmigration</artifactId>
-	<name>jBPM Migration</name>
-	<version>0.10-SNAPSHOT</version>
-	<description>jPDL3.x to BPMN2 migration tool</description>
-	<url>http://community.jboss.org/wiki/jBPM5migrationtoolproject</url>
-	<packaging>jar</packaging>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.jbpm.jbpm5</groupId>
+    <artifactId>jbpmmigration</artifactId>
+    <name>jBPM Migration</name>
+    <version>0.10-SNAPSHOT</version>
+    <description>jPDL3.x to BPMN2 migration tool</description>
+    <url>http://community.jboss.org/wiki/jBPM5migrationtoolproject</url>
+    <packaging>jar</packaging>
 
-	<developers>
-		<developer>
-			<id>erics</id>
-			<name>Eric D. Schabell</name>
-			<email>erics@redhat.com</email>
-			<roles>
-				<role>Head Nacho</role>
-			</roles>
-			<timezone>+2</timezone>
-		</developer>
-		<developer>
-			<id>mauricedchateau</id>
-			<name>Maurice de Chateau</name>
-			<email>maurice.de.chateau@gmail.com</email>
-			<timezone>+2</timezone>
-		</developer>
-	</developers>
+    <developers>
+        <developer>
+            <id>erics</id>
+            <name>Eric D. Schabell</name>
+            <email>erics@redhat.com</email>
+            <roles>
+                <role>Head Nacho</role>
+            </roles>
+            <timezone>+2</timezone>
+        </developer>
+        <developer>
+            <id>mauricedchateau</id>
+            <name>Maurice de Chateau</name>
+            <email>maurice.de.chateau@gmail.com</email>
+            <timezone>+2</timezone>
+        </developer>
+    </developers>
 
-	<distributionManagement>
-		<repository>
-			<id>jboss-releases-repository</id>
-			<name>JBoss Releases Repository</name>
-			<url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</url>
-		</repository>
-		<snapshotRepository>
-			<id>jboss-snapshots-repository</id>
-			<name>JBoss Snapshot Repository</name>
-			<url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
+    <distributionManagement>
+        <repository>
+            <id>jboss-releases-repository</id>
+            <name>JBoss Releases Repository</name>
+            <url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</url>
+        </repository>
+        <snapshotRepository>
+            <id>jboss-snapshots-repository</id>
+            <name>JBoss Snapshot Repository</name>
+            <url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
-	<dependencies>
-		<!-- XSLT. -->
-		<dependency>
-			<groupId>xalan</groupId>
-			<artifactId>xalan</artifactId>
-			<version>2.7.1</version>
-		</dependency>
-		<dependency>
-			<groupId>xerces</groupId>
-			<artifactId>xercesImpl</artifactId>
-			<version>2.9.1</version>
-		</dependency>
-		<dependency>
-			<groupId>xml-apis</groupId>
-			<artifactId>xml-apis</artifactId>
-			<version>1.0.b2</version>
-		</dependency>
+    <dependencies>
+        <!-- XSLT. -->
+        <dependency>
+            <groupId>xalan</groupId>
+            <artifactId>xalan</artifactId>
+            <version>2.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>2.9.1</version>
+        </dependency>
+        <dependency>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+            <version>1.0.b2</version>
+        </dependency>
+        <!-- All-purpose helpers. -->
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
@@ -75,59 +75,59 @@
             <version>1.2.16</version>
         </dependency>
 
-		<!-- Test. -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.8.1</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>dom4j</groupId>
-			<artifactId>dom4j</artifactId>
-			<version>1.6.1</version>
+        <!-- Test. -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.1</version>
             <scope>test</scope>
-		</dependency>
-	</dependencies>
+        </dependency>
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
-	<build>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-			</resource>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
             <resource>
                 <directory>src/main/xsd</directory>
             </resource>
-		</resources>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.3.2</version>
-				<configuration>
-					<finalName>jbpmmigration-${project.version}</finalName>
-					<archive>
-		            	<manifest>
-		            		<mainClass>org.jbpm.migration.JbpmMigration</mainClass>
-		            		<addClasspath>true</addClasspath>
-		            	</manifest>
-		          	</archive>
-		        </configuration>
-		        <executions>
-		        	<execution>
-                          <phase>compile</phase>
-                          <goals>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <finalName>jbpmmigration-${project.version}</finalName>
+                    <archive>
+                        <manifest>
+                            <mainClass>org.jbpm.migration.JbpmMigration</mainClass>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
                             <goal>jar</goal>
-                          </goals>
+                        </goals>
                     </execution>
               	</executions>
 			</plugin>
