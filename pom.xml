@@ -131,6 +131,14 @@
                     </execution>
               	</executions>
 			</plugin>
+        </plugins>
+	</build>
+  
+    <profiles>
+      <profile>
+        <id>option-cli</id>
+        <build>
+          <plugins>
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-assembly-plugin</artifactId>
@@ -141,7 +149,7 @@
                     <mainClass>org.jbpm.migration.JbpmMigration</mainClass>
                   </manifest>
                 </archive>
-                <descriptorRefs>
+               <descriptorRefs>
                   <descriptorRef>jar-with-dependencies</descriptorRef>
                 </descriptorRefs>
               </configuration>
@@ -151,11 +159,13 @@
                   <goals>
                     <goal>single</goal>
                   </goals>
-                </execution>
+               </execution>
               </executions>
             </plugin> 
-		</plugins>
-	</build>
+          </plugins>
+        </build>
+      </profile>
+    </profiles>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
