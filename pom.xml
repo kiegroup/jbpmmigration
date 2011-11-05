@@ -167,6 +167,23 @@
       </profile>
     </profiles>
 
+   <organization>
+      <name>JBoss by Red Hat</name>
+      <url>http://www.jboss.org/</url>
+    </organization>
+    <licenses>     <license>
+        <name>The Apache Software License, Version 2.0</name>
+        <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        <distribution>repo</distribution>
+      </license>
+    </licenses>
+  
+    <scm>
+      <connection>scm:git:git@github.com:droolsjbpm/jbpmmigration.git</connection>
+      <developerConnection>scm:git:git@github.com:droolsjbpm/jbpmmigration.git</developerConnection>
+      <url>https://github.com/dr oolsjbpm/jbpmmigration</url>
+    </scm>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
