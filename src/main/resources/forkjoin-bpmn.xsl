@@ -15,6 +15,10 @@
       <xsl:attribute name="id">
         <xsl:value-of select="translate(@name,' ','_')" />
       </xsl:attribute>
+      <xsl:attribute name="gatewayDirection">
+       	<xsl:text>Diverging</xsl:text>
+      </xsl:attribute>
+      
 
       <xsl:if test="jpdl:description">
         <xsl:apply-templates select="jpdl:description" />
@@ -31,6 +35,9 @@
 	  </xsl:attribute>
       <xsl:attribute name="id">
         <xsl:value-of select="translate(@name,' ','_')" />
+      </xsl:attribute>
+      <xsl:attribute name="gatewayDirection">
+       	<xsl:text>Converging</xsl:text>
       </xsl:attribute>
       
       <xsl:if test="jpdl:description">

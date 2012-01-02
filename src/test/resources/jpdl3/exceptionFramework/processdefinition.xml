@@ -37,7 +37,9 @@
 		<transition to="end" />
 	</node>
 
-	<join name="join"></join>
+	<join name="join">
+		<transition to="Trigger Originating Process" />
+	</join>
 	
 	<end-state name="end" />
     
