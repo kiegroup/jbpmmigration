@@ -18,7 +18,7 @@
     <xsl:choose>
 
       <xsl:when test="(jpdl:event) or (jpdl:action)">
-        <task>
+        <userTask>
           <xsl:attribute name="id">
             <xsl:value-of select="translate(@name,' ','_')" />
 		  </xsl:attribute>
@@ -102,11 +102,11 @@
               </to>
             </assignment>
           </dataInputAssociation>
-        </task>
+        </userTask>
       </xsl:when>
 
       <xsl:otherwise>
-        <task>
+        <userTask>
           <xsl:attribute name="id">
 			<xsl:value-of select="translate(@name,' ','_')" />
           </xsl:attribute>
@@ -162,7 +162,7 @@
           </dataInputAssociation>
 
           <xsl:apply-templates select="jpdl:task" mode="assignment" />
-        </task>
+        </userTask>
       </xsl:otherwise>
 
     </xsl:choose>
