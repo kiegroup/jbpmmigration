@@ -54,4 +54,20 @@
     </sequenceFlow>
   </xsl:template>
 
+ <xsl:template match="jpdl:transition" mode="javanode-leavenode-humantask">
+    <sequenceFlow>
+      <xsl:attribute name="id">
+		<xsl:text>flow_</xsl:text>
+		<xsl:value-of select="translate(../@name,' ','_')" />
+		<xsl:value-of select='position()' />
+	  </xsl:attribute>
+      <xsl:attribute name="sourceRef">
+		<xsl:text>javanode_leavenode_</xsl:text>
+	    <xsl:value-of select="translate(../@name,' ','_')" />
+	  </xsl:attribute>
+      <xsl:attribute name="targetRef">
+	    <xsl:value-of select="translate(@to,' ','_')" />
+	  </xsl:attribute>
+    </sequenceFlow>
+  </xsl:template>
 </xsl:stylesheet>

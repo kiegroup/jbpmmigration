@@ -19,10 +19,10 @@
 			<assignment actor-id="EXPERT" />
 		</task>
 		<event type="node-enter">
-			<action class="org.jboss.handler.HumanTaskHandler"></action>
+			<action class="org.jboss.handler.HumanTaskHandlerEnter"></action>
 		</event>
         <event type="node-leave">
-            <action class="org.jboss.handler.HumanTaskHandler" />
+            <action class="org.jboss.handler.HumanTaskHandlerLeave" />
         </event>
 		<transition to="end-state"></transition>
 	</task-node>
