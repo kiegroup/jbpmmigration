@@ -32,7 +32,7 @@
    		<xsl:for-each select="jpdl:variable">
 		  	<dataInput>
 				<xsl:attribute name="id">
-					<xsl:value-of select="translate(@mapped-name,' ','_')" />
+					<xsl:value-of select="translate(@name,' ','_')" />
 					<xsl:text>_</xsl:text>
 		   			<xsl:text>Input</xsl:text>
 		  		</xsl:attribute>
@@ -49,14 +49,14 @@
 		   			<xsl:text>Output</xsl:text>
 				</xsl:attribute>
 		        <xsl:attribute name="name">
-					<xsl:value-of select="@name"/>
+					<xsl:value-of select="@mapped-name"/>
 				</xsl:attribute>
 	        </dataOutput>
 		</xsl:for-each>
 	    <inputSet>
 			<xsl:for-each select="jpdl:variable">
     	      	<dataInputRefs>
-					<xsl:value-of select="translate(@mapped-name,' ','_')" />
+					<xsl:value-of select="translate(@name,' ','_')" />
             		<xsl:text>_</xsl:text>
             		<xsl:text>Input</xsl:text>
           		</dataInputRefs>
@@ -76,11 +76,9 @@
       	<dataInputAssociation>
         	<sourceRef>
 			  <xsl:value-of select="translate(@name,' ','_')" />
-          	  <xsl:text>_</xsl:text>
-          	  <xsl:text>Output</xsl:text>
         	</sourceRef>
         	<targetRef>
-				<xsl:value-of select="translate(@mapped-name,' ','_')" />
+				<xsl:value-of select="translate(@name,' ','_')" />
           		<xsl:text>_</xsl:text>
           		<xsl:text>Input</xsl:text>
         	</targetRef>
@@ -89,14 +87,12 @@
 	  <xsl:for-each select="jpdl:variable">
 	      <dataOutputAssociation>
     	    <sourceRef>
-			  <xsl:value-of select="translate(@mapped-name,' ','_')" />
+			  <xsl:value-of select="translate(@name,' ','_')" />
  	          <xsl:text>_</xsl:text>
-   		      <xsl:text>Input</xsl:text>
+   		      <xsl:text>Output</xsl:text>
         	</sourceRef>
         	<targetRef>
 				<xsl:value-of select="translate(@name,' ','_')" />
-          		<xsl:text>_</xsl:text>
-          		<xsl:text>Output</xsl:text>
         	</targetRef>
       	 </dataOutputAssociation>
       </xsl:for-each> 	
