@@ -9,7 +9,7 @@
   <xsl:import href="transition-bpmn.xsl" />
 
   <xsl:template match="jpdl:decision">
-    <inclusiveGateway>
+    <exclusiveGateway>
       <xsl:attribute name="name">
     	<xsl:value-of select="@name" />
 	  </xsl:attribute>
@@ -25,7 +25,7 @@
       </xsl:if>
 
       <xsl:apply-templates select="jpdl:handler" />
-    </inclusiveGateway>
+    </exclusiveGateway>
 
     <xsl:apply-templates select="jpdl:transition" />
   </xsl:template>
