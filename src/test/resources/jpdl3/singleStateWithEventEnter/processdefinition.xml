@@ -12,10 +12,6 @@
 		<event type="node-enter">
             <action class="org.jboss.handler.TestHandlerEnter" />
         </event>
-		<event type="node-leave">
-            <action class="org.jboss.handler.TestHandlerLeave" />
-        </event>
-	
 	
 		<transition to="end-state"></transition>
 	</state>

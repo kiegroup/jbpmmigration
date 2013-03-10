@@ -37,6 +37,23 @@
     </sequenceFlow>
   </xsl:template>
 
+  <xsl:template match="jpdl:transition" mode="signal-leave">
+    <sequenceFlow>
+      <xsl:attribute name="id">
+		<xsl:text>flow_</xsl:text>
+		<xsl:value-of select="translate(../@name,' ','_')" />
+		<xsl:value-of select='position()' />
+	  </xsl:attribute>
+      <xsl:attribute name="sourceRef">
+		<xsl:text>signal: </xsl:text>
+	    <xsl:value-of select="translate(../@name,' ','_')" />
+	  </xsl:attribute>
+      <xsl:attribute name="targetRef">
+	    <xsl:value-of select="translate(@to,' ','_')" />
+	  </xsl:attribute>
+    </sequenceFlow>
+  </xsl:template>
+  
   <xsl:template match="jpdl:transition" mode="node-leave-event">
     <sequenceFlow>
       <xsl:attribute name="id">
@@ -53,7 +70,41 @@
 	  </xsl:attribute>
     </sequenceFlow>
   </xsl:template>
+  
+  <xsl:template match="jpdl:transition" mode="node-leave-humantask">
+    <sequenceFlow>
+      <xsl:attribute name="id">
+		<xsl:text>flow_</xsl:text>
+		<xsl:value-of select="translate(../@name,' ','_')" />
+		<xsl:value-of select='position()' />
+	  </xsl:attribute>
+      <xsl:attribute name="sourceRef">
+		<xsl:text>usertask_</xsl:text>
+	    <xsl:value-of select="translate(../@name,' ','_')" />
+	  </xsl:attribute>
+      <xsl:attribute name="targetRef">
+	    <xsl:value-of select="translate(@to,' ','_')" />
+	  </xsl:attribute>
+    </sequenceFlow>
+  </xsl:template>
 
+  <xsl:template match="jpdl:transition" mode="leave-scripttask">
+    <sequenceFlow>
+      <xsl:attribute name="id">
+		<xsl:text>flow_</xsl:text>
+		<xsl:value-of select="translate(../@name,' ','_')" />
+		<xsl:value-of select='position()' />
+	  </xsl:attribute>
+      <xsl:attribute name="sourceRef">
+		<xsl:text>nodetask_</xsl:text>
+	    <xsl:value-of select="translate(../@name,' ','_')" />
+	  </xsl:attribute>
+      <xsl:attribute name="targetRef">
+	    <xsl:value-of select="translate(@to,' ','_')" />
+	  </xsl:attribute>
+    </sequenceFlow>
+  </xsl:template>
+  
  <xsl:template match="jpdl:transition" mode="javanode-leavenode-humantask">
     <sequenceFlow>
       <xsl:attribute name="id">
