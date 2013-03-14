@@ -10,11 +10,13 @@
   <xsl:import href="action-bpmn.xsl" />
 
   <xsl:template match="jpdl:node">
+  
+	<xsl:param name="superstate" />
 
-    <!-- In case of an event, we will use Java Nodes from project -->
+	<!-- In case of an event, we will use Java Nodes from project -->
     <!-- to process the handler classes. -->
     <xsl:choose>
-    
+
     <xsl:when test="(jpdl:event) and (count(jpdl:event) > 1)">
     
     	<!--  task - sequence - scriptTask (node) - sequence - task -->
@@ -527,9 +529,17 @@
       <xsl:otherwise>
         <scriptTask>
           <xsl:attribute name="name">
+          	<xsl:if test="string-length($superstate) > 0">
+          		<xsl:value-of select="$superstate" />
+				<xsl:text>/</xsl:text>
+          	</xsl:if>
             <xsl:value-of select="@name" />
           </xsl:attribute>
           <xsl:attribute name="id">
+          	<xsl:if test="string-length($superstate) > 0">
+          		<xsl:value-of select="$superstate" />
+				<xsl:text>/</xsl:text>
+          	</xsl:if>
             <xsl:value-of select="translate(@name,' ','_')" />
           </xsl:attribute>
 
@@ -547,7 +557,9 @@
           </xsl:if>
         </scriptTask>
 
-        <xsl:apply-templates select="jpdl:transition"/>
+        <xsl:apply-templates select="jpdl:transition">
+        	<xsl:with-param name="superstate" select="$superstate" />
+        </xsl:apply-templates>
       </xsl:otherwise>
 
     </xsl:choose>

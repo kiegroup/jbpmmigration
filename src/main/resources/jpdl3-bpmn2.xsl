@@ -13,7 +13,8 @@
   <xsl:import href="decision-bpmn.xsl" />
   <xsl:import href="forkjoin-bpmn.xsl" />
   <xsl:import href="transition-bpmn.xsl" />
-  <xsl:import href="end-state-bpmn2.xsl" />
+  <xsl:import href="super-state-bpmn.xsl" />
+  <xsl:import href="end-state-bpmn.xsl" />
 
   <xsl:output method="xml" />
 

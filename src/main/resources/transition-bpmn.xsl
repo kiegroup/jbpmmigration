@@ -5,6 +5,9 @@
   xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
 
   <xsl:template match="jpdl:transition">
+  	
+  	<xsl:param name="superstate" />
+    
     <sequenceFlow>
       <xsl:attribute name="id">
   		<xsl:text>flow_</xsl:text>
@@ -12,11 +15,46 @@
 		<xsl:value-of select='position()' />
 	  </xsl:attribute>
       <xsl:attribute name="sourceRef">
-        <xsl:value-of select="translate(../@name,' ','_')" />
+      	<xsl:if test="string-length($superstate) > 0">
+       		<xsl:value-of select="$superstate" />
+			<xsl:text>/</xsl:text>
+		</xsl:if>
+     	<xsl:value-of select="translate(../@name,' ','_')" />
 	  </xsl:attribute>
-      <xsl:attribute name="targetRef">
-	    <xsl:value-of select="translate(@to,' ','_')" />
-	  </xsl:attribute>
+	  
+	  <xsl:choose>
+		  <xsl:when test="starts-with(@to, '../')">
+		    <xsl:choose>
+			    <xsl:when test="contains((jpdl:super-state), 'superstate-leave')">
+				  <xsl:attribute name="targetRef">
+				  	<xsl:text>javanode_leavenode_</xsl:text>
+			        <xsl:value-of select="translate(@name,' ','_')" />
+				  </xsl:attribute>		  		  	
+			  	</xsl:when>
+			  	<xsl:otherwise>
+				  <xsl:attribute name="targetRef">			    
+				    <xsl:value-of select="substring-after(@to,'../')" />
+				  </xsl:attribute>
+				</xsl:otherwise>
+		    </xsl:choose>
+		  </xsl:when>
+		  <xsl:when test="starts-with(@name, 'super-state')">
+			  <xsl:attribute name="targetRef">
+				<xsl:value-of select="translate(@name,' ','_')" />
+			  </xsl:attribute>		  
+		  </xsl:when>
+		  
+		  <xsl:otherwise>
+			  <xsl:attribute name="targetRef">
+			  	<xsl:if test="string-length($superstate) > 0">
+          			<xsl:value-of select="$superstate" />
+					<xsl:text>/</xsl:text>
+			    </xsl:if>
+		    	<xsl:value-of select="translate(@to,' ','_')" />
+			 </xsl:attribute>
+		  </xsl:otherwise>	      
+	  </xsl:choose>
+	  
     </sequenceFlow>
   </xsl:template>
 
