@@ -15,8 +15,12 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.Reader;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
@@ -42,6 +46,9 @@ import org.apache.xalan.trace.PrintTraceListener;
 import org.apache.xalan.trace.TraceManager;
 import org.apache.xalan.transformer.TransformerImpl;
 import org.w3c.dom.Document;
+import org.w3c.dom.ls.DOMImplementationLS;
+import org.w3c.dom.ls.LSInput;
+import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXParseException;
 
@@ -161,7 +168,9 @@ public final class XmlUtils {
     public static boolean validate(final Source input, final Source[] schemas) {
         boolean isValid = true;
         try {
-            final Validator val = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema(schemas).newValidator();
+            final SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            factory.setResourceResolver(new SchemaLSResourceResolver());
+            final Validator val = factory.newSchema(schemas).newValidator();
             final ParserErrorHandler eh = new ParserErrorHandler();
             val.setErrorHandler(eh);
             val.validate(input);
@@ -292,5 +301,131 @@ public final class XmlUtils {
     }
 
     private static class TransformerErrorListener extends ErrorCollector<TransformerException> implements ErrorListener {
+    }
+    
+    /**
+     * Custom resource resolver used to load imported and included XSD documents
+     * from classpath resources located at the resource root.
+     */
+    private static class SchemaLSResourceResolver implements LSResourceResolver {
+
+        @Override
+        public LSInput resolveResource(String type, String namespaceURI,
+                                       String publicId, String systemId, String baseURI) {
+            
+            return new LSInputImpl(publicId, systemId, baseURI, 
+                                   getClass().getClassLoader().getResourceAsStream(systemId));
+        }
+        
+    }
+    
+    /**
+     * Application-specific LSInput implementation required for loading schema documents
+     * from classpath.
+     * 
+     * It implements only those methods required (returning the resource as InputStream)
+     * and assumes that resource (XSD schema) is encoded using UTF-8.
+     */
+    private static class LSInputImpl implements LSInput {
+
+        public static final String ENCODING = "UTF-8";
+
+        private String publicId;
+        private String systemId;
+        private String baseURI;
+        private boolean certifiedText;
+
+        private final InputStream inputStream;
+        
+        public LSInputImpl(String publicId, String systemId,
+                           String baseURI, InputStream inputStream) {
+            
+            this.publicId = publicId;
+            this.systemId = systemId;
+            this.baseURI = baseURI;
+            this.certifiedText = false;
+
+            this.inputStream = inputStream;
+        }
+        
+        @Override
+        public Reader getCharacterStream() {
+            return null;
+        }
+
+        @Override
+        public void setCharacterStream(Reader characterStream) {
+            throw new UnsupportedOperationException("Not supported.");
+        }
+
+        @Override
+        public InputStream getByteStream() {
+            return this.inputStream;
+        }
+
+        @Override
+        public void setByteStream(InputStream byteStream) {
+            throw new UnsupportedOperationException("Not supported.");
+        }
+
+        @Override
+        public String getStringData() {
+            return null;
+        }
+
+        @Override
+        public void setStringData(String stringData) {
+            throw new UnsupportedOperationException("Not supported.");
+        }
+
+        @Override
+        public String getSystemId() {
+            return this.systemId;
+        }
+
+        @Override
+        public void setSystemId(String systemId) {
+            this.systemId = systemId;
+        }
+
+        @Override
+        public String getPublicId() {
+            return this.publicId;
+        }
+
+        @Override
+        public void setPublicId(String publicId) {
+            this.publicId = publicId;
+        }
+
+        @Override
+        public String getBaseURI() {
+            return this.baseURI;
+        }
+
+        @Override
+        public void setBaseURI(String baseURI) {
+            this.baseURI = baseURI;
+        }
+
+        @Override
+        public String getEncoding() {
+            return ENCODING;
+        }
+
+        @Override
+        public void setEncoding(String encoding) {
+            throw new UnsupportedOperationException("Not supported.");
+        }
+
+        @Override
+        public boolean getCertifiedText() {
+            return this.certifiedText;
+        }
+
+        @Override
+        public void setCertifiedText(boolean certifiedText) {
+            this.certifiedText = certifiedText;
+        }
     }
 }
