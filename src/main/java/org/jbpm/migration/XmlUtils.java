@@ -314,7 +314,7 @@ public final class XmlUtils {
                                        String publicId, String systemId, String baseURI) {
             
             return new LSInputImpl(publicId, systemId, baseURI, 
-                                   getClass().getClassLoader().getResourceAsStream(systemId));
+                                   Thread.currentThread().getContextClassLoader().getResourceAsStream(systemId));
         }
         
     }
