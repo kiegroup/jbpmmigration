@@ -118,7 +118,7 @@ final class Validator {
         Source[] getSchemaSources() {
             final Source[] sources = new Source[schemas.size()];
             for (final String schema : schemas) {
-                sources[schemas.indexOf(schema)] = new StreamSource(Thread.currentThread().getContextClassLoader().getResourceAsStream(schema));
+                sources[schemas.indexOf(schema)] = new StreamSource(this.getClass().getClassLoader().getResourceAsStream(schema));
             }
             return sources;
         }
