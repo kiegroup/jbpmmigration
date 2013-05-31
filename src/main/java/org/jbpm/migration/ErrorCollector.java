@@ -24,7 +24,8 @@ abstract class ErrorCollector<T extends Exception> {
     }
 
     public boolean didErrorOccur() {
-        return !warningList.isEmpty() && !errorList.isEmpty() && !fatalList.isEmpty();
+        // checking warnings might be too restrictive
+        return !warningList.isEmpty() || !errorList.isEmpty() || !fatalList.isEmpty();
     }
 
     public List<T> getWarningList() {
