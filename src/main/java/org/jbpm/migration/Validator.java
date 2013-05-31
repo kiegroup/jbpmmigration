@@ -105,7 +105,7 @@ final class Validator {
     }
 
     enum ProcessLanguage {
-        JPDL(JPDL_3_2_SCHEMA), BPMN(BPMN_DC_SCHEMA, BPMN_DI_SCHEMA, BPMNDI_SCHEMA, BPMN_SEMANTIC_SCHEMA, BPMN_2_0_SCHEMA);
+        JPDL(JPDL_3_2_SCHEMA), BPMN(BPMN_2_0_SCHEMA);
 
         private final List<String> schemas = new ArrayList<String>();
 
