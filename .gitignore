@@ -1,4 +1,5 @@
 # files to ignore in this project.
+.DS_Store
 .classpath
 .project
 .settings*
