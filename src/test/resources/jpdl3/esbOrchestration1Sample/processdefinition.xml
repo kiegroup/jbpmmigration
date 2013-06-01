@@ -49,9 +49,6 @@
    </node>
    <end-state name="end1"></end-state>
    <node name="Send Results">
-      <event type="node-enter">
-         <action name="action1" class="org.jboss.soa.esb.samples.quickstarts.bpm_orchestration1.process_actions.MyBPMActionHandler" config-type="bean"></action>
-      </event>
       <action name="action2" class="org.jboss.soa.esb.services.jbpm.actionhandlers.EsbActionHandler">
          <esbCategoryName>BPM_Orchestration_ResultsService</esbCategoryName>
          <esbServiceName>ResultsService</esbServiceName>                   
@@ -62,7 +59,9 @@
          	<mapping esb="BODY_CONTENT" bpm="theBody"/>
          </esbToBpmVars>
       </action>
-   
+      <event type="node-enter">
+         <action name="action1" class="org.jboss.soa.esb.samples.quickstarts.bpm_orchestration1.process_actions.MyBPMActionHandler" config-type="bean"></action>
+      </event>   
       <transition to="end1"></transition>
    </node>
 </process-definition>

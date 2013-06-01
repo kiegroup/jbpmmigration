@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="processDefinition2" width="1090" height="484">
+<root-container name="processDefinition2" width="1770" height="997">
   <node name="start" x="229" y="74" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
