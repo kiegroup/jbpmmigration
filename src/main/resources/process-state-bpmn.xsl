@@ -76,11 +76,13 @@
       	<dataInputAssociation>
         	<sourceRef>
 			  <xsl:value-of select="translate(@name,' ','_')" />
+          		<xsl:text>_</xsl:text>
+          		<xsl:text>Input</xsl:text> 
         	</sourceRef>
         	<targetRef>
 				<xsl:value-of select="translate(@name,' ','_')" />
           		<xsl:text>_</xsl:text>
-          		<xsl:text>Input</xsl:text>
+          		<xsl:text>Output</xsl:text>
         	</targetRef>
       	</dataInputAssociation>
       </xsl:for-each> 	
@@ -93,6 +95,8 @@
         	</sourceRef>
         	<targetRef>
 				<xsl:value-of select="translate(@name,' ','_')" />
+ 	          <xsl:text>_</xsl:text>
+   		      <xsl:text>Input</xsl:text>
         	</targetRef>
       	 </dataOutputAssociation>
       </xsl:for-each> 	
