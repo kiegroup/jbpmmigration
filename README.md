@@ -11,24 +11,24 @@ If you want your pull requests (or patches) to be merged into master, please res
 Releases
 --------
 
-v0.11 - 38 test cases supported.
+v0.11 - 38 test cases suppported (06 Jan 2012)
 
-v0.10 - 
+v0.10 (03 Jan 2012)
 
-v0.9 -
+v0.9 (04 Sep 2011)
 
-v0.8 -
+v0.8 (30 May 2011)
 
-v0.7 -
+v0.7 (22 Apr 2011)
 
-v0.6 -
+v0.6 (15 Apr 2011)
 
-v0.5 -
+v0.5 (23 Mar 2011)
 
-v0.4 -
+v0.4 (11 Mar 2011)
 
-v0.3 -
+v0.3 (14 Feb 2011)
 
-v0.2 - 
+v0.2 (05 Feb 2011)
 
-v0.1 - initial release.
+v0.1 - initial release (24 Jan 2011)
