@@ -724,8 +724,6 @@
         <userTask>
           <xsl:attribute name="id">
             <xsl:value-of select="translate(@name,' ','_')" />
-            <xsl:text>_</xsl:text>
-		  	<xsl:value-of select="count(jpdl:action)" />
 		  </xsl:attribute>
           <xsl:attribute name="name">
 			<xsl:value-of select="@name" />

@@ -16,8 +16,10 @@
   <xsl:import href="super-state-bpmn.xsl" />
   <xsl:import href="end-state-bpmn.xsl" />
 
-  <xsl:output method="xml" />
+  <xsl:output method="xml" indent="yes" />
 
+  <xsl:variable name="vAllowedSymbols" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'" />
+  
   <xsl:template match="/">
     <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
       xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
