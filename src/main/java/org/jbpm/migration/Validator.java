@@ -42,10 +42,6 @@ final class Validator {
     private static final String JPDL_3_2_SCHEMA = "jpdl-3.2.xsd";
     /* XML Schema files for BPMN version 2.0 on the classpath. */
     private static final String BPMN_2_0_SCHEMA = "BPMN20.xsd";
-    private static final String BPMNDI_SCHEMA = "BPMNDI.xsd";
-    private static final String BPMN_DC_SCHEMA = "DC.xsd";
-    private static final String BPMN_DI_SCHEMA = "DI.xsd";
-    private static final String BPMN_SEMANTIC_SCHEMA = "Semantic.xsd";
 
     /** Logging facility. */
     private static final Logger LOGGER = Logger.getLogger(Validator.class);
