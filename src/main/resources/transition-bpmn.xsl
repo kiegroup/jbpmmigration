@@ -83,7 +83,6 @@
 		<xsl:value-of select='position()' />
 	  </xsl:attribute>
       <xsl:attribute name="sourceRef">
-		<xsl:text>signal: </xsl:text>
 	    <xsl:value-of select="translate(../@name,' ','_')" />
 	  </xsl:attribute>
       <xsl:attribute name="targetRef">

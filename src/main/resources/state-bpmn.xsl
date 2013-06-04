@@ -116,18 +116,18 @@
 		    <xsl:value-of select="translate(@name,' ','_')" />
 		  </xsl:attribute>
           <xsl:attribute name="targetRef">
-			<xsl:text>signal: </xsl:text>
+			<xsl:text>signal_</xsl:text>
 			<xsl:value-of select="translate(@name,' ','_')" />
 		  </xsl:attribute>
         </sequenceFlow>
         
     	<intermediateCatchEvent>
     	   <xsl:attribute name="id">
-    	    <xsl:text>signal: </xsl:text>
+    	    <xsl:text>signal_</xsl:text>
 			<xsl:value-of select="translate(@name,' ','_')" />
 	      </xsl:attribute>
           <xsl:attribute name="name">
-            <xsl:text>signal: </xsl:text>
+            <xsl:text>signal_</xsl:text>
 			<xsl:value-of select="@name" />
           </xsl:attribute>
 
@@ -150,7 +150,7 @@
 		  	<xsl:value-of select="position()+1" />
 		  </xsl:attribute>
           <xsl:attribute name="sourceRef">
-            <xsl:text>signal: </xsl:text>
+            <xsl:text>signal_</xsl:text>
 		    <xsl:value-of select="translate(@name,' ','_')" />
 		  </xsl:attribute>
           <xsl:attribute name="targetRef">
@@ -256,7 +256,7 @@
 
 		 <xsl:if test="(jpdl:event)/@type='node-enter'">
 		 
-		 	<!--  task - sequence - signal - sequence -->
+		 	<!--  task - sequence - signal_- sequence -->
 	        <task>
 	          <xsl:attribute name="id">
 				<xsl:value-of select="translate(@name,' ','_')" />
@@ -356,18 +356,18 @@
 			    <xsl:value-of select="translate(@name,' ','_')" />
 			  </xsl:attribute>
 	          <xsl:attribute name="targetRef">
-				<xsl:text>signal: </xsl:text>
+				<xsl:text>signal_</xsl:text>
 				<xsl:value-of select="translate(@name,' ','_')" />
 			  </xsl:attribute>
 	        </sequenceFlow>
 	        
 	    	<intermediateCatchEvent>
 	    	   <xsl:attribute name="id">
-	    	    <xsl:text>signal: </xsl:text>
+	    	    <xsl:text>signal_</xsl:text>
 				<xsl:value-of select="translate(@name,' ','_')" />
 		      </xsl:attribute>
 	          <xsl:attribute name="name">
-	            <xsl:text>signal: </xsl:text>
+	            <xsl:text>signal_</xsl:text>
 				<xsl:value-of select="@name" />
 	          </xsl:attribute>
 	
@@ -386,13 +386,13 @@
 
 		 <xsl:if test="(jpdl:event)/@type='node-leave'">
 		 
-		 	<!--  signal - sequence - task - sequence -->
+		 	<!--  signal_- sequence - task - sequence -->
 	    	<intermediateCatchEvent>
 	    	   <xsl:attribute name="id">
 				<xsl:value-of select="translate(@name,' ','_')" />
 		      </xsl:attribute>
 	          <xsl:attribute name="name">
-	            <xsl:text>signal: </xsl:text>
+	            <xsl:text>signal_</xsl:text>
 				<xsl:value-of select="@name" />
 	          </xsl:attribute>
 	
@@ -518,11 +518,9 @@
     <xsl:otherwise>
         <intermediateCatchEvent>
    	   		<xsl:attribute name="id">
-   	    		<xsl:text>signal: </xsl:text>
 				<xsl:value-of select="translate(@name,' ','_')" />
       		</xsl:attribute>
          	<xsl:attribute name="name">
-           		<xsl:text>signal: </xsl:text>
 				<xsl:value-of select="@name" />
          	</xsl:attribute>
 
