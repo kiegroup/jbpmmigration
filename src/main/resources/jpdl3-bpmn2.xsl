@@ -18,7 +18,7 @@
 
   <xsl:output method="xml" indent="yes" />
 
-  <xsl:variable name="vAllowedSymbols" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'" />
+  <xsl:variable name="allowedSymbols" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'" />
   
   <xsl:template match="/">
     <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"

@@ -543,14 +543,14 @@
           <xsl:attribute name="name">
           	<xsl:if test="string-length($superstate) > 0">
           		<xsl:value-of select="$superstate" />
-				<xsl:text>/</xsl:text>
+				<xsl:text>_</xsl:text>
           	</xsl:if>
             <xsl:value-of select="@name" />
           </xsl:attribute>
           <xsl:attribute name="id">
           	<xsl:if test="string-length($superstate) > 0">
           		<xsl:value-of select="$superstate" />
-				<xsl:text>/</xsl:text>
+				<xsl:text>_</xsl:text>
           	</xsl:if>
             <xsl:value-of select="translate(@name,' ','_')" />
           </xsl:attribute>
