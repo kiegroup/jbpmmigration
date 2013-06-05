@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<process-definition  xmlns="urn:jbpm.org:jpdl-3.2"  name="singleState">
+<process-definition  xmlns="urn:jbpm.org:jpdl-3.2"  name="singleStateWithEventEnter">
 
 
 	<start-state name="start-state">
