@@ -594,7 +594,8 @@
 	            <dataInput>
 	              <xsl:attribute name="id">
 					<xsl:value-of select="translate(@name,' ','_')" />
-					<xsl:text>_methodInput</xsl:text>
+					<xsl:text>_methodInput_</xsl:text>
+					<xsl:value-of select="position()" />
 				  </xsl:attribute>
 	              <xsl:attribute name="name">
 					<xsl:text>method</xsl:text>
