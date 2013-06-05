@@ -41,7 +41,8 @@
             <dataInput>
               <xsl:attribute name="id">
 				<xsl:value-of select="translate(@name,' ','_')" />
-				<xsl:text>_classInput</xsl:text>
+				<xsl:text>_classInput_</xsl:text>
+				<xsl:value-of select="position()" />
 			  </xsl:attribute>
               <xsl:attribute name="name">
 				<xsl:text>class</xsl:text>
@@ -50,7 +51,8 @@
             <dataInput>
               <xsl:attribute name="id">
 				<xsl:value-of select="translate(@name,' ','_')" />
-				<xsl:text>_methodInput</xsl:text>
+				<xsl:text>_methodInput_</xsl:text>
+				<xsl:value-of select="position()" />
 			  </xsl:attribute>
               <xsl:attribute name="name">
 				<xsl:text>method</xsl:text>
@@ -59,11 +61,13 @@
             <inputSet>
               <dataInputRefs>
                 <xsl:value-of select="translate(@name,' ','_')" />
-                <xsl:text>_classInput</xsl:text>
+                <xsl:text>_classInput_</xsl:text>
+                <xsl:value-of select="position()" />
               </dataInputRefs>
               <dataInputRefs>
                 <xsl:value-of select="translate(@name,' ','_')" />
-                <xsl:text>_methodInput</xsl:text>
+                <xsl:text>_methodInput_</xsl:text>
+                <xsl:value-of select="position()" />
               </dataInputRefs>
             </inputSet>
             <outputSet />
@@ -71,7 +75,8 @@
           <dataInputAssociation>
             <targetRef>
               <xsl:value-of select="translate(@name,' ','_')" />
-              <xsl:text>_classInput</xsl:text>
+              <xsl:text>_classInput_</xsl:text>
+              <xsl:value-of select="position()" />
             </targetRef>
             <assignment>
               <from>
@@ -87,14 +92,16 @@
               </from>
               <to>
                 <xsl:value-of select="@name" />
-                <xsl:text>_classInput</xsl:text>
+                <xsl:text>_classInput_</xsl:text>
+                <xsl:value-of select="position()" />
               </to>
             </assignment>
           </dataInputAssociation>
           <dataInputAssociation>
             <targetRef>
               <xsl:value-of select="translate(@name,' ','_')" />
-              <xsl:text>_methodInput</xsl:text>
+              <xsl:text>_methodInput_</xsl:text>
+              <xsl:value-of select="position()" />
             </targetRef>
             <assignment>
               <from>
@@ -102,7 +109,8 @@
               </from>
               <to>
                 <xsl:value-of select="@name" />
-                <xsl:text>_methodInput</xsl:text>
+                <xsl:text>_methodInput_</xsl:text>
+                <xsl:value-of select="position()" />
               </to>
             </assignment>
           </dataInputAssociation>
@@ -146,7 +154,8 @@
             <dataInput>
               <xsl:attribute name="id">
 				<xsl:value-of select="translate(@name,' ','_')" />
-				<xsl:text>_classInput</xsl:text>
+				<xsl:text>_classInput_</xsl:text>
+				<xsl:value-of select="position()+1" />
 			  </xsl:attribute>
               <xsl:attribute name="name">
 				<xsl:text>class</xsl:text>
@@ -155,7 +164,8 @@
             <dataInput>
               <xsl:attribute name="id">
 				<xsl:value-of select="translate(@name,' ','_')" />
-				<xsl:text>_methodInput</xsl:text>
+				<xsl:text>_methodInput_</xsl:text>
+				<xsl:value-of select="position()+1" />
 			  </xsl:attribute>
               <xsl:attribute name="name">
 				<xsl:text>method</xsl:text>
@@ -164,11 +174,13 @@
             <inputSet>
               <dataInputRefs>
                 <xsl:value-of select="translate(@name,' ','_')" />
-                <xsl:text>_classInput</xsl:text>
+                <xsl:text>_classInput_</xsl:text>
+                <xsl:value-of select="position()+1" />
               </dataInputRefs>
               <dataInputRefs>
                 <xsl:value-of select="translate(@name,' ','_')" />
-                <xsl:text>_methodInput</xsl:text>
+                <xsl:text>_methodInput_</xsl:text>
+                <xsl:value-of select="position()+1" />
               </dataInputRefs>
             </inputSet>
             <outputSet />
@@ -176,7 +188,8 @@
           <dataInputAssociation>
             <targetRef>
               <xsl:value-of select="translate(@name,' ','_')" />
-              <xsl:text>_classInput</xsl:text>
+              <xsl:text>_classInput_</xsl:text>
+              <xsl:value-of select="position()+1" />
             </targetRef>
             <assignment>
               <from>
@@ -191,14 +204,16 @@
               </from>
               <to>
                 <xsl:value-of select="@name" />
-                <xsl:text>_classInput</xsl:text>
+                <xsl:text>_classInput_</xsl:text>
+                <xsl:value-of select="position()+1" />
               </to>
             </assignment>
           </dataInputAssociation>
           <dataInputAssociation>
             <targetRef>
               <xsl:value-of select="translate(@name,' ','_')" />
-              <xsl:text>_methodInput</xsl:text>
+              <xsl:text>_methodInput_</xsl:text>
+              <xsl:value-of select="position()+1" />
             </targetRef>
             <assignment>
               <from>
@@ -206,7 +221,8 @@
               </from>
               <to>
                 <xsl:value-of select="@name" />
-                <xsl:text>_methodInput</xsl:text>
+                <xsl:text>_methodInput_</xsl:text>
+                <xsl:value-of select="position()+1" />
               </to>
             </assignment>
           </dataInputAssociation>
@@ -251,7 +267,8 @@
             <dataInput>
               <xsl:attribute name="id">
 				<xsl:value-of select="translate(@name,' ','_')" />
-				<xsl:text>_classInput</xsl:text>
+				<xsl:text>_classInput_</xsl:text>
+				<xsl:value-of select="position()+2" />
 			  </xsl:attribute>
               <xsl:attribute name="name">
 				<xsl:text>class</xsl:text>
@@ -260,7 +277,8 @@
             <dataInput>
               <xsl:attribute name="id">
 				<xsl:value-of select="translate(@name,' ','_')" />
-				<xsl:text>_methodInput</xsl:text>
+				<xsl:text>_methodInput_</xsl:text>
+				<xsl:value-of select="position()+2" />
 			  </xsl:attribute>
               <xsl:attribute name="name">
 				<xsl:text>method</xsl:text>
@@ -269,11 +287,13 @@
             <inputSet>
               <dataInputRefs>
                 <xsl:value-of select="translate(@name,' ','_')" />
-                <xsl:text>_classInput</xsl:text>
+                <xsl:text>_classInput_</xsl:text>
+                <xsl:value-of select="position()+2" />
               </dataInputRefs>
               <dataInputRefs>
                 <xsl:value-of select="translate(@name,' ','_')" />
-                <xsl:text>_methodInput</xsl:text>
+                <xsl:text>_methodInput_</xsl:text>
+                <xsl:value-of select="position()+2" />
               </dataInputRefs>
             </inputSet>
             <outputSet />
@@ -281,7 +301,8 @@
           <dataInputAssociation>
             <targetRef>
               <xsl:value-of select="translate(@name,' ','_')" />
-              <xsl:text>_classInput</xsl:text>
+              <xsl:text>_classInput_</xsl:text>
+              <xsl:value-of select="position()+2" />
             </targetRef>
             <assignment>
               <from>
@@ -297,14 +318,16 @@
               </from>
               <to>
                 <xsl:value-of select="@name" />
-                <xsl:text>_classInput</xsl:text>
+                <xsl:text>_classInput_</xsl:text>
+                <xsl:value-of select="position()+2" />
               </to>
             </assignment>
           </dataInputAssociation>
           <dataInputAssociation>
             <targetRef>
               <xsl:value-of select="translate(@name,' ','_')" />
-              <xsl:text>_methodInput</xsl:text>
+              <xsl:text>_methodInput_</xsl:text>
+              <xsl:value-of select="position()+2" />
             </targetRef>
             <assignment>
               <from>
@@ -312,7 +335,8 @@
               </from>
               <to>
                 <xsl:value-of select="@name" />
-                <xsl:text>_methodInput</xsl:text>
+                <xsl:text>_methodInput_</xsl:text>
+                <xsl:value-of select="position()+2" />
               </to>
             </assignment>
           </dataInputAssociation>
@@ -347,7 +371,8 @@
 	            <dataInput>
 	              <xsl:attribute name="id">
 					<xsl:value-of select="translate(@name,' ','_')" />
-					<xsl:text>_classInput</xsl:text>
+					<xsl:text>_classInput_</xsl:text>
+					<xsl:value-of select="position()" />
 				  </xsl:attribute>
 	              <xsl:attribute name="name">
 					<xsl:text>class</xsl:text>
@@ -356,7 +381,8 @@
 	            <dataInput>
 	              <xsl:attribute name="id">
 					<xsl:value-of select="translate(@name,' ','_')" />
-					<xsl:text>_methodInput</xsl:text>
+					<xsl:text>_methodInput_</xsl:text>
+					<xsl:value-of select="position()" />
 				  </xsl:attribute>
 	              <xsl:attribute name="name">
 					<xsl:text>method</xsl:text>
@@ -365,11 +391,13 @@
 	            <inputSet>
 	              <dataInputRefs>
 	                <xsl:value-of select="translate(@name,' ','_')" />
-	                <xsl:text>_classInput</xsl:text>
+	                <xsl:text>_classInput_</xsl:text>
+	                <xsl:value-of select="position()" />
 	              </dataInputRefs>
 	              <dataInputRefs>
 	                <xsl:value-of select="translate(@name,' ','_')" />
-	                <xsl:text>_methodInput</xsl:text>
+	                <xsl:text>_methodInput_</xsl:text>
+	                <xsl:value-of select="position()" />
 	              </dataInputRefs>
 	            </inputSet>
 	            <outputSet />
@@ -377,7 +405,8 @@
 	          <dataInputAssociation>
 	            <targetRef>
 	              <xsl:value-of select="translate(@name,' ','_')" />
-	              <xsl:text>_classInput</xsl:text>
+	              <xsl:text>_classInput_</xsl:text>
+	              <xsl:value-of select="position()" />
 	            </targetRef>
 	            <assignment>
 	              <from>
@@ -393,14 +422,16 @@
 	              </from>
 	              <to>
 	                <xsl:value-of select="@name" />
-	                <xsl:text>_classInput</xsl:text>
+	                <xsl:text>_classInput_</xsl:text>
+	                <xsl:value-of select="position()" />
 	              </to>
 	            </assignment>
 	          </dataInputAssociation>
 	          <dataInputAssociation>
 	            <targetRef>
 	              <xsl:value-of select="translate(@name,' ','_')" />
-	              <xsl:text>_methodInput</xsl:text>
+	              <xsl:text>_methodInput_</xsl:text>
+	              <xsl:value-of select="position()" />
 	            </targetRef>
 	            <assignment>
 	              <from>
@@ -408,7 +439,8 @@
 	              </from>
 	              <to>
 	                <xsl:value-of select="@name" />
-	                <xsl:text>_methodInput</xsl:text>
+	                <xsl:text>_methodInput_</xsl:text>
+	                <xsl:value-of select="position()" />
 	              </to>
 	            </assignment>
 	          </dataInputAssociation>
@@ -452,7 +484,8 @@
 	            <dataInput>
 	              <xsl:attribute name="id">
 					<xsl:value-of select="translate(@name,' ','_')" />
-					<xsl:text>_classInput</xsl:text>
+					<xsl:text>_classInput_</xsl:text>
+					<xsl:value-of select="position()+1" />
 				  </xsl:attribute>
 	              <xsl:attribute name="name">
 					<xsl:text>class</xsl:text>
@@ -461,7 +494,8 @@
 	            <dataInput>
 	              <xsl:attribute name="id">
 					<xsl:value-of select="translate(@name,' ','_')" />
-					<xsl:text>_methodInput</xsl:text>
+					<xsl:text>_methodInput_</xsl:text>
+					<xsl:value-of select="position()+1" />
 				  </xsl:attribute>
 	              <xsl:attribute name="name">
 					<xsl:text>method</xsl:text>
@@ -470,11 +504,13 @@
 	            <inputSet>
 	              <dataInputRefs>
 	                <xsl:value-of select="translate(@name,' ','_')" />
-	                <xsl:text>_classInput</xsl:text>
+	                <xsl:text>_classInput_</xsl:text>
+	                <xsl:value-of select="position()+1" />
 	              </dataInputRefs>
 	              <dataInputRefs>
 	                <xsl:value-of select="translate(@name,' ','_')" />
-	                <xsl:text>_methodInput</xsl:text>
+	                <xsl:text>_methodInput_</xsl:text>
+	                <xsl:value-of select="position()+1" />
 	              </dataInputRefs>
 	            </inputSet>
 	            <outputSet />
@@ -482,7 +518,8 @@
 	          <dataInputAssociation>
 	            <targetRef>
 	              <xsl:value-of select="translate(@name,' ','_')" />
-	              <xsl:text>_classInput</xsl:text>
+	              <xsl:text>_classInput_</xsl:text>
+	              <xsl:value-of select="position()+1" />
 	            </targetRef>
 	            <assignment>
 	              <from>
@@ -497,14 +534,16 @@
 	              </from>
 	              <to>
 	                <xsl:value-of select="@name" />
-	                <xsl:text>_classInput</xsl:text>
+	                <xsl:text>_classInput_</xsl:text>
+	                <xsl:value-of select="position()+1" />
 	              </to>
 	            </assignment>
 	          </dataInputAssociation>
 	          <dataInputAssociation>
 	            <targetRef>
 	              <xsl:value-of select="translate(@name,' ','_')" />
-	              <xsl:text>_methodInput</xsl:text>
+	              <xsl:text>_methodInput_</xsl:text>
+	              <xsl:value-of select="position()+1" />
 	            </targetRef>
 	            <assignment>
 	              <from>
@@ -512,7 +551,8 @@
 	              </from>
 	              <to>
 	                <xsl:value-of select="@name" />
-	                <xsl:text>_methodInput</xsl:text>
+	                <xsl:text>_methodInput_</xsl:text>
+	                <xsl:value-of select="position()+1" />
 	              </to>
 	            </assignment>
 	          </dataInputAssociation>
@@ -544,7 +584,8 @@
 	            <dataInput>
 	              <xsl:attribute name="id">
 					<xsl:value-of select="translate(@name,' ','_')" />
-					<xsl:text>_classInput</xsl:text>
+					<xsl:text>_classInput_</xsl:text>
+					<xsl:value-of select="position()" />
 				  </xsl:attribute>
 	              <xsl:attribute name="name">
 					<xsl:text>class</xsl:text>
@@ -562,11 +603,13 @@
 	            <inputSet>
 	              <dataInputRefs>
 	                <xsl:value-of select="translate(@name,' ','_')" />
-	                <xsl:text>_classInput</xsl:text>
+	                <xsl:text>_classInput_</xsl:text>
+	                <xsl:value-of select="position()" />
 	              </dataInputRefs>
 	              <dataInputRefs>
 	                <xsl:value-of select="translate(@name,' ','_')" />
-	                <xsl:text>_methodInput</xsl:text>
+	                <xsl:text>_methodInput_</xsl:text>
+	                <xsl:value-of select="position()" />
 	              </dataInputRefs>
 	            </inputSet>
 	            <outputSet />
@@ -574,7 +617,8 @@
 	          <dataInputAssociation>
 	            <targetRef>
 	              <xsl:value-of select="translate(@name,' ','_')" />
-	              <xsl:text>_classInput</xsl:text>
+	              <xsl:text>_classInput_</xsl:text>
+	              <xsl:value-of select="position()" />
 	            </targetRef>
 	            <assignment>
 	              <from>
@@ -589,14 +633,16 @@
 	              </from>
 	              <to>
 	                <xsl:value-of select="@name" />
-	                <xsl:text>_classInput</xsl:text>
+	                <xsl:text>_classInput_</xsl:text>
+	                <xsl:value-of select="position()" />
 	              </to>
 	            </assignment>
 	          </dataInputAssociation>
 	          <dataInputAssociation>
 	            <targetRef>
 	              <xsl:value-of select="translate(@name,' ','_')" />
-	              <xsl:text>_methodInput</xsl:text>
+	              <xsl:text>_methodInput_</xsl:text>
+	              <xsl:value-of select="position()" />
 	            </targetRef>
 	            <assignment>
 	              <from>
@@ -604,7 +650,8 @@
 	              </from>
 	              <to>
 	                <xsl:value-of select="@name" />
-	                <xsl:text>_methodInput</xsl:text>
+	                <xsl:text>_methodInput_</xsl:text>
+	                <xsl:value-of select="position()" />
 	              </to>
 	            </assignment>
 	          </dataInputAssociation>
@@ -648,7 +695,8 @@
 	            <dataInput>
 	              <xsl:attribute name="id">
 					<xsl:value-of select="translate(@name,' ','_')" />
-					<xsl:text>_classInput</xsl:text>
+					<xsl:text>_classInput_</xsl:text>
+					<xsl:value-of select="position()+1" />
 				  </xsl:attribute>
 	              <xsl:attribute name="name">
 					<xsl:text>class</xsl:text>
@@ -657,7 +705,8 @@
 	            <dataInput>
 	              <xsl:attribute name="id">
 					<xsl:value-of select="translate(@name,' ','_')" />
-					<xsl:text>_methodInput</xsl:text>
+					<xsl:text>_methodInput_</xsl:text>
+					<xsl:value-of select="position()+1" />
 				  </xsl:attribute>
 	              <xsl:attribute name="name">
 					<xsl:text>method</xsl:text>
@@ -666,11 +715,13 @@
 	            <inputSet>
 	              <dataInputRefs>
 	                <xsl:value-of select="translate(@name,' ','_')" />
-	                <xsl:text>_classInput</xsl:text>
+	                <xsl:text>_classInput_</xsl:text>
+	                <xsl:value-of select="position()+1" />
 	              </dataInputRefs>
 	              <dataInputRefs>
 	                <xsl:value-of select="translate(@name,' ','_')" />
-	                <xsl:text>_methodInput</xsl:text>
+	                <xsl:text>_methodInput_</xsl:text>
+	                <xsl:value-of select="position()+1" />
 	              </dataInputRefs>
 	            </inputSet>
 	            <outputSet />
@@ -678,7 +729,8 @@
 	          <dataInputAssociation>
 	            <targetRef>
 	              <xsl:value-of select="translate(@name,' ','_')" />
-	              <xsl:text>_classInput</xsl:text>
+	              <xsl:text>_classInput_</xsl:text>
+	              <xsl:value-of select="position()+1" />
 	            </targetRef>
 	            <assignment>
 	              <from>
@@ -694,14 +746,16 @@
 	              </from>
 	              <to>
 	                <xsl:value-of select="@name" />
-	                <xsl:text>_classInput</xsl:text>
+	                <xsl:text>_classInput_</xsl:text>
+	                <xsl:value-of select="position()+1" />
 	              </to>
 	            </assignment>
 	          </dataInputAssociation>
 	          <dataInputAssociation>
 	            <targetRef>
 	              <xsl:value-of select="translate(@name,' ','_')" />
-	              <xsl:text>_methodInput</xsl:text>
+	              <xsl:text>_methodInput_</xsl:text>
+	              <xsl:value-of select="position()+1" />
 	            </targetRef>
 	            <assignment>
 	              <from>
@@ -709,7 +763,8 @@
 	              </from>
 	              <to>
 	                <xsl:value-of select="@name" />
-	                <xsl:text>_methodInput</xsl:text>
+	                <xsl:text>_methodInput_</xsl:text>
+	                <xsl:value-of select="position()+1" />
 	              </to>
 	            </assignment>
 	          </dataInputAssociation>
@@ -740,7 +795,8 @@
             <dataInput>
               <xsl:attribute name="id">
 				<xsl:value-of select="translate(@name,' ','_')" />
-				<xsl:text>_classInput</xsl:text>
+				<xsl:text>_classInput_</xsl:text>
+				<xsl:value-of select="position()" />
 			  </xsl:attribute>
               <xsl:attribute name="name">
 				<xsl:text>class</xsl:text>
@@ -749,7 +805,8 @@
             <dataInput>
               <xsl:attribute name="id">
 				<xsl:value-of select="translate(@name,' ','_')" />
-				<xsl:text>_methodInput</xsl:text>
+				<xsl:text>_methodInput_</xsl:text>
+				<xsl:value-of select="position()" />
 			  </xsl:attribute>
               <xsl:attribute name="name">
 				<xsl:text>method</xsl:text>
@@ -758,11 +815,13 @@
             <inputSet>
               <dataInputRefs>
                 <xsl:value-of select="translate(@name,' ','_')" />
-                <xsl:text>_classInput</xsl:text>
+                <xsl:text>_classInput_</xsl:text>
+                <xsl:value-of select="position()" />
               </dataInputRefs>
               <dataInputRefs>
                 <xsl:value-of select="translate(@name,' ','_')" />
-                <xsl:text>_methodInput</xsl:text>
+                <xsl:text>_methodInput_</xsl:text>
+                <xsl:value-of select="position()" />
               </dataInputRefs>
             </inputSet>
             <outputSet />
@@ -770,7 +829,8 @@
           <dataInputAssociation>
             <targetRef>
               <xsl:value-of select="translate(@name,' ','_')" />
-              <xsl:text>_classInput</xsl:text>
+              <xsl:text>_classInput_</xsl:text>
+              <xsl:value-of select="position()" />
             </targetRef>
             <assignment>
               <from>
@@ -786,14 +846,16 @@
               </from>
               <to>
                 <xsl:value-of select="@name" />
-                <xsl:text>_classInput</xsl:text>
+                <xsl:text>_classInput_</xsl:text>
+                <xsl:value-of select="position()" />
               </to>
             </assignment>
           </dataInputAssociation>
           <dataInputAssociation>
             <targetRef>
               <xsl:value-of select="translate(@name,' ','_')" />
-              <xsl:text>_methodInput</xsl:text>
+              <xsl:text>_methodInput_</xsl:text>
+              <xsl:value-of select="position()" />
             </targetRef>
             <assignment>
               <from>
@@ -801,7 +863,8 @@
               </from>
               <to>
                 <xsl:value-of select="@name" />
-                <xsl:text>_methodInput</xsl:text>
+                <xsl:text>_methodInput_</xsl:text>
+                <xsl:value-of select="position()" />
               </to>
             </assignment>
           </dataInputAssociation>
