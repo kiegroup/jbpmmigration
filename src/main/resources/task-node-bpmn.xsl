@@ -773,6 +773,10 @@
         
         <xsl:apply-templates select="jpdl:transition" mode="javanode-leavenode-humantask" />
 		</xsl:if>
+		
+		<xsl:if test="(jpdl:event)/@type='task-create'">
+		<!--  todo: create this one, extract these event types to separate xsl sheets. -->
+		</xsl:if>
 	</xsl:when>	
 	
 	<xsl:otherwise>
