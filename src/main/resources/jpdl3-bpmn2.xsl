@@ -48,6 +48,33 @@
         <xsl:apply-templates select="jpdl:description" />
       </xsl:if>
 
+	  <!-- This is not working, an attempt to parse swimlanes, output should look like this for existing test:
+	      <laneSet>
+            <lane name="groupB" >
+             <flowNodeRef>task-node2</flowNodeRef>
+            </lane>
+            <lane name="groupA" >
+              <flowNodeRef>task-node1</flowNodeRef>
+            </lane>
+          </laneSet>
+	   -->
+      <xsl:if test="//@swimlane">
+      	<laneSet>
+		  <xsl:for-each select="//@swimlane">
+		    <xsl:if test="@swimlane = jpdl:swimlane/@name">
+		      <lane>
+	            <xsl:attribute name="name">
+	              <xsl:value-of select="jpdl:swimlane/@name" />
+	            </xsl:attribute>
+	            <flowNodeRef>
+	              <xsl:value-of select="../@name" />
+	            </flowNodeRef>
+	          </lane>
+		    </xsl:if>
+		  </xsl:for-each>
+      	</laneSet>
+      </xsl:if>
+
       <xsl:apply-templates />
     </process>
   </xsl:template>
