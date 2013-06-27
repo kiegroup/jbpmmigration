@@ -567,6 +567,29 @@
               <xsl:apply-templates select="jpdl:event" />
             </script>
           </xsl:if>
+ 
+          <xsl:if test="jpdl:transition/jpdl:action">
+            <script>
+              // place holder for the following action handlers,
+              // so you can migrate the code here:
+              //
+              <xsl:value-of select="jpdl:transition/jpdl:action/@class" />
+              
+            </script>
+          </xsl:if>
+ 
+          <xsl:if test="jpdl:transition/jpdl:script">
+            <script>
+              // found the following script code, 
+              // please evaluate:
+              //
+              
+              <xsl:value-of select="jpdl:transition/jpdl:script" />
+              
+            </script>
+          </xsl:if>
+          
+          
         </scriptTask>
 
         <xsl:apply-templates select="jpdl:transition">
