@@ -27,7 +27,7 @@
       <xsl:apply-templates select="jpdl:handler" />
     </exclusiveGateway>
 
-    <xsl:apply-templates select="jpdl:transition" />
+    <xsl:apply-templates select="jpdl:transition" mode="diverging-gateway" />
   </xsl:template>
 
   <!-- Removes description element from the transformation. -->
