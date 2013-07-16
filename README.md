@@ -11,6 +11,8 @@ If you want your pull requests (or patches) to be merged into master, please res
 Releases
 --------
 
+v0.12 - 18 issues fixed, up to 41 supported test cases (16 Jul 2013)
+
 v0.11 - 38 test cases suppported (06 Jan 2012)
 
 v0.10 (03 Jan 2012)
