@@ -555,6 +555,15 @@
             <xsl:value-of select="translate(@name,' ','_')" />
           </xsl:attribute>
 
+          <xsl:if test="jpdl:action">
+            <script>
+              // place holder for the following action handlers,
+              // so you can migrate the code here:
+              //          
+              <xsl:apply-templates select="jpdl:action" />
+            </script>
+          </xsl:if>
+
           <xsl:if test="jpdl:description">
             <xsl:apply-templates select="jpdl:description" />
           </xsl:if>
