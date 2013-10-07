@@ -18,7 +18,7 @@
        		<xsl:value-of select="$superstate" />
 			<xsl:text>_</xsl:text>
 		</xsl:if>
-     	<xsl:value-of select="translate(../@name,' ','_')" />
+		<xsl:value-of select="translate(../@name,' ','_')" />     
 	  </xsl:attribute>
 	  
 	  <xsl:choose>
@@ -30,13 +30,21 @@
 			        <xsl:value-of select="translate(@name,' ','_')" />
 				  </xsl:attribute>		  		  	
 			  	</xsl:when>
+			  	<xsl:when test="substring-after(substring-after(@to, '/'), '/')">
+				  <xsl:attribute name="targetRef">			    
+				    <xsl:value-of select="substring-before(substring-after(@to,'../'), '/')" />
+				    <xsl:text>_</xsl:text>
+				    <xsl:value-of select="substring-after(substring-after(@to,'../'), '/')" />
+		  		  </xsl:attribute>
+		  		</xsl:when>			  	
 			  	<xsl:otherwise>
 				  <xsl:attribute name="targetRef">			    
-				    <xsl:value-of select="substring-after(@to,'../')" />
+		  			<xsl:value-of select="substring-after(@to,'../')" />
 				  </xsl:attribute>
 				</xsl:otherwise>
 		    </xsl:choose>
 		  </xsl:when>
+
 		  <xsl:when test="starts-with(@name, 'super-state')">
 			  <xsl:attribute name="targetRef">
 			  	<xsl:value-of select="substring-before(@name, '/')" />
@@ -44,14 +52,39 @@
 			  	<xsl:value-of select="substring-after(@name, '/')" />
 			  </xsl:attribute>		  
 		  </xsl:when>
-		  
+	  
 		  <xsl:otherwise>
 			  <xsl:attribute name="targetRef">
-			  	<xsl:if test="string-length($superstate) > 0">
-          			<xsl:value-of select="$superstate" />
-					<xsl:text>_</xsl:text>
-			    </xsl:if>
-		    	<xsl:value-of select="translate(@to,' ','_')" />
+			  	<xsl:choose>
+				  	<xsl:when test="string-length($superstate) > 0">          		
+				 		<xsl:choose>
+						    <xsl:when test="substring-before(@to, '/')">
+						    	<xsl:value-of select="$superstate" />
+								<xsl:text>_</xsl:text>
+					    		<xsl:value-of select="substring-before(@to, '/')" />
+					  			<xsl:text>_</xsl:text>
+					  			<xsl:value-of select="substring-after(@to, '/')" />
+					  		</xsl:when>
+					  		<xsl:otherwise>
+					  			<xsl:value-of select="$superstate" />
+								<xsl:text>_</xsl:text>
+					  			<xsl:value-of select="translate(@to,' ','_')" />
+					  		</xsl:otherwise>
+					  	</xsl:choose>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:choose>
+						    <xsl:when test="substring-before(@to, '/')">
+						    	<xsl:value-of select="substring-before(@to, '/')" />
+					  			<xsl:text>_</xsl:text>
+					  			<xsl:value-of select="substring-after(@to, '/')" />
+					  		</xsl:when>
+					  		<xsl:otherwise>
+					  			<xsl:value-of select="translate(@to,' ','_')" />
+					  		</xsl:otherwise>
+					  	</xsl:choose>
+					</xsl:otherwise>
+		  		</xsl:choose>
 			 </xsl:attribute>
 		  </xsl:otherwise>	      
 	  </xsl:choose>
