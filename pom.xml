@@ -118,7 +118,10 @@
                     <archive>
                         <manifest>
                             <mainClass>org.jbpm.migration.JbpmMigration</mainClass>
-                            <addClasspath>true</addClasspath>
+                            <!-- Adding classpath will result in warnings in EAP/WildFly in case the exact dependencies
+                                 are not present. Which is the case most of the time as different projects use different
+                                 versions of same artifact (and they are usually compatible so it not an issue). -->
+                            <addClasspath>false</addClasspath>
                         </manifest>
                     </archive>
                 </configuration>
