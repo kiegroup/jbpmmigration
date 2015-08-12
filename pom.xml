@@ -10,12 +10,6 @@
     <url>http://community.jboss.org/wiki/jBPM5migrationtoolproject</url>
     <packaging>jar</packaging>
 
-    <parent>
-        <groupId>org.kie</groupId>
-        <artifactId>kie-parent-with-dependencies</artifactId>
-        <version>6.3.0.Beta2</version> <!-- change with every build -->
-    </parent>
-
     <developers>
         <developer>
             <id>erics</id>
@@ -35,7 +29,17 @@
     </developers>
 
     <properties>
+        <jbpm.version>6.3.0.CR1</jbpm.version>
         <bsh.version>1.3.0</bsh.version>
+        <junit.version>4.12</junit.version>
+        <assertj-core.version>3.1.0</assertj-core.version>
+        <log4j.version>1.2.17</log4j.version>
+        <dom4j.version>1.6.1</dom4j.version>
+        <commons-lang3.version>3.3.1</commons-lang3.version>
+        <commons-io.version>2.4</commons-io.version>
+        <xalan.version>2.7.1</xalan.version>
+        <xercesImpl.versionl>2.9.1</xercesImpl.versionl>
+        <xml-apis.verison>1.0.b2</xml-apis.verison>
         <!-- jBPM3 migration -->
         <jpdl.version>3.2.14</jpdl.version>
         <!-- The least supported Java version -->
@@ -44,6 +48,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>jboss-public-repository</id>
+            <name>JBoss Public Repository</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
 
     <distributionManagement>
         <repository>
@@ -61,6 +73,13 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.jbpm</groupId>
+                <artifactId>jbpm-bom</artifactId>
+                <type>pom</type>
+                <version>${jbpm.version}</version>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.jbpm.jbpm3</groupId>
                 <artifactId>jbpm-jpdl</artifactId>
                 <version>${jpdl.version}</version>
@@ -71,6 +90,51 @@
                 <artifactId>bsh</artifactId>
                 <version>${bsh.version}</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>xalan</groupId>
+                <artifactId>xalan</artifactId>
+                <version>${xalan.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>xerces</groupId>
+                <artifactId>xercesImpl</artifactId>
+                <version>${xercesImpl.versionl}</version>
+            </dependency>
+            <dependency>
+                <groupId>xml-apis</groupId>
+                <artifactId>xml-apis</artifactId>
+                <version>${xml-apis.verison}</version>
+            </dependency>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>dom4j</groupId>
+                <artifactId>dom4j</artifactId>
+                <version>${dom4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj-core.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
