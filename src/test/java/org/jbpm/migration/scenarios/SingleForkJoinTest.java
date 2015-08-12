@@ -18,7 +18,7 @@ import org.junit.Test;
  * Single scenario with fork and corresponding join.
  */
 public class SingleForkJoinTest extends MigrationTestWrapper {
-    public static final String definition = 
+    public static final String definition =
             "org/jbpm/migration/scenarios/singleForkJoin/processdefinition.xml";
 
     public static final String processId = "singleForkJoin_Process";
