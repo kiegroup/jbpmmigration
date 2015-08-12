@@ -6,7 +6,7 @@ import static org.jbpm.migration.tools.listeners.TrackingListenerAssert.assertTr
 import java.util.HashMap;
 
 import org.assertj.core.api.Assertions;
-import org.jbpm.migration.MigrationTestWrapper;
+import org.jbpm.migration.JbpmMigrationRuntimeTest;
 import org.jbpm.migration.tools.jpdl.JpdlAssert;
 import org.jbpm.migration.tools.jpdl.JpdlHelper;
 import org.jbpm.migration.tools.jpdl.handlers.DefaultActionHandler;
@@ -23,7 +23,7 @@ import org.kie.api.runtime.process.WorkItem;
  * Testing migration of swimlanes.
  *
  */
-public class SwimlanesTest extends MigrationTestWrapper {
+public class SwimlanesTest extends JbpmMigrationRuntimeTest {
 
     public static final String definition
             = "org/jbpm/migration/scenarios/swimlanesTest/processdefinition.xml";

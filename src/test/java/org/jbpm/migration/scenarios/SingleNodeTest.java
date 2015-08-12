@@ -3,7 +3,7 @@ package org.jbpm.migration.scenarios;
 import static org.jbpm.migration.tools.listeners.TrackingListenerAssert.assertProcessCompleted;
 import static org.jbpm.migration.tools.listeners.TrackingListenerAssert.assertProcessStarted;
 
-import org.jbpm.migration.MigrationTestWrapper;
+import org.jbpm.migration.JbpmMigrationRuntimeTest;
 import org.jbpm.migration.tools.jpdl.JpdlAssert;
 import org.jbpm.migration.tools.jpdl.handlers.DefaultActionHandler;
 import org.jbpm.migration.tools.jpdl.listeners.TrackingActionListener;
@@ -15,7 +15,7 @@ import org.junit.Test;
 /**
  * Scenario with a single node.
  */
-public class SingleNodeTest extends MigrationTestWrapper {
+public class SingleNodeTest extends JbpmMigrationRuntimeTest {
     public static final String definition =
             "org/jbpm/migration/scenarios/singleNode/processdefinition.xml";
 

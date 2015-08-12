@@ -4,7 +4,7 @@ import static org.jbpm.migration.tools.listeners.TrackingListenerAssert.assertPr
 import static org.jbpm.migration.tools.listeners.TrackingListenerAssert.assertProcessStarted;
 import static org.jbpm.migration.tools.listeners.TrackingListenerAssert.assertTriggeredAndLeft;
 
-import org.jbpm.migration.MigrationTestWrapper;
+import org.jbpm.migration.JbpmMigrationRuntimeTest;
 import org.jbpm.migration.tools.jpdl.JpdlAssert;
 import org.jbpm.migration.tools.jpdl.handlers.DefaultActionHandler;
 import org.jbpm.migration.tools.jpdl.listeners.TrackingActionListener;
@@ -15,7 +15,7 @@ import org.junit.Test;
 /**
  * Single node with an action inside.
  */
-public class SingleNodeWithActionTest extends MigrationTestWrapper {
+public class SingleNodeWithActionTest extends JbpmMigrationRuntimeTest {
     public static final String definition =
             "org/jbpm/migration/scenarios/singleNodeWithAction/processdefinition.xml";
 

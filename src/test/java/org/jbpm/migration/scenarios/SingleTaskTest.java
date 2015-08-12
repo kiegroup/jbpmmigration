@@ -6,7 +6,7 @@ import static org.jbpm.migration.tools.listeners.TrackingListenerAssert.assertPr
 import static org.jbpm.migration.tools.listeners.TrackingListenerAssert.assertTriggered;
 
 import org.assertj.core.api.Assertions;
-import org.jbpm.migration.MigrationTestWrapper;
+import org.jbpm.migration.JbpmMigrationRuntimeTest;
 import org.jbpm.migration.tools.jpdl.JpdlAssert;
 import org.jbpm.migration.tools.jpdl.JpdlHelper;
 import org.jbpm.migration.tools.listeners.TrackingProcessEventListener;
@@ -23,7 +23,7 @@ import org.kie.api.runtime.process.WorkItem;
  * task node with task inside => task. Should be userTask.
  *
  */
-public class SingleTaskTest extends MigrationTestWrapper {
+public class SingleTaskTest extends JbpmMigrationRuntimeTest {
 
     public static final String definition =
             "org/jbpm/migration/scenarios/singleTask/processdefinition.xml";

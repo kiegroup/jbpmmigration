@@ -4,7 +4,7 @@ import static org.jbpm.migration.tools.listeners.TrackingListenerAssert.assertPr
 import static org.jbpm.migration.tools.listeners.TrackingListenerAssert.assertProcessStarted;
 import static org.jbpm.migration.tools.listeners.TrackingListenerAssert.assertTriggeredAndLeft;
 
-import org.jbpm.migration.MigrationTestWrapper;
+import org.jbpm.migration.JbpmMigrationRuntimeTest;
 import org.jbpm.migration.tools.jpdl.JpdlAssert;
 import org.jbpm.migration.tools.listeners.TrackingProcessEventListener;
 import org.jbpm.graph.exe.ProcessInstance;
@@ -17,7 +17,7 @@ import org.junit.Test;
  *
  *
  */
-public class SingleStateTest extends MigrationTestWrapper {
+public class SingleStateTest extends JbpmMigrationRuntimeTest {
     public static final String definition =
             "org/jbpm/migration/scenarios/singleState/processdefinition.xml";
 

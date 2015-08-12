@@ -7,7 +7,7 @@ import static org.jbpm.migration.tools.listeners.TrackingListenerAssert.assertTr
 import java.util.Set;
 
 import org.assertj.core.api.Assertions;
-import org.jbpm.migration.MigrationTestWrapper;
+import org.jbpm.migration.JbpmMigrationRuntimeTest;
 import org.jbpm.migration.tools.bpmn2.ExecutionInfo;
 import org.jbpm.migration.tools.bpmn2.JavaNodeHandler;
 import org.jbpm.migration.tools.jpdl.JpdlAssert;
@@ -17,7 +17,7 @@ import org.jbpm.migration.tools.jpdl.listeners.TrackingActionListener;
 import org.jbpm.migration.tools.listeners.TrackingProcessEventListener;
 import org.jbpm.graph.exe.ProcessInstance;
 import org.jbpm.taskmgmt.exe.TaskInstance;
-import org.jbpm.test.JbpmJUnitTestCase;
+import org.jbpm.test.JbpmJUnitBaseTestCase;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.kie.api.runtime.process.WorkItem;
@@ -26,7 +26,7 @@ import org.kie.api.runtime.process.WorkItem;
  * Testing single task with event on node enter and leave. translated BPMN2
  * contains Java task->userTask->Java task.
  */
-public class SingleTaskWithEventTest extends MigrationTestWrapper {
+public class SingleTaskWithEventTest extends JbpmMigrationRuntimeTest {
     public static final String definition =
             "org/jbpm/migration/scenarios/singleTaskWithEvent/processdefinition.xml";
     public static final String processId = "singleTask_Process";
@@ -73,7 +73,7 @@ public class SingleTaskWithEventTest extends MigrationTestWrapper {
         TrackingProcessEventListener listener = new TrackingProcessEventListener();
         ksession.addEventListener(listener);
 
-        final JbpmJUnitTestCase.TestWorkItemHandler humanTaskHandler = new JbpmJUnitTestCase.TestWorkItemHandler();
+        final JbpmJUnitBaseTestCase.TestWorkItemHandler humanTaskHandler = new JbpmJUnitBaseTestCase.TestWorkItemHandler();
         ksession.getWorkItemManager().registerWorkItemHandler("Human Task", humanTaskHandler);
 
         final JavaNodeHandler javaNodeHandler = new JavaNodeHandler();

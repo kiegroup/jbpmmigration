@@ -12,6 +12,7 @@ import org.assertj.core.api.Assertions;
 import org.jbpm.migration.tools.MigrationHelper;
 
 import org.jbpm.graph.def.ProcessDefinition;
+import org.jbpm.test.JbpmJUnitBaseTestCase;
 import org.junit.After;
 import org.kie.api.io.ResourceType;
 import org.kie.api.KieBase;
@@ -27,7 +28,7 @@ import org.slf4j.LoggerFactory;
  *
  * Contains methods for test preparation.
  */
-public class MigrationTestWrapper {
+public class JbpmMigrationRuntimeTest extends JbpmJUnitBaseTestCase {
 
     protected static KieBase kbase;
 
@@ -37,11 +38,11 @@ public class MigrationTestWrapper {
 
     protected static ProcessDefinition processDef;
 
-    private static MigrationTestWrapper instance = new MigrationTestWrapper();
+    private static JbpmMigrationRuntimeTest instance = new JbpmMigrationRuntimeTest();
 
     private static File basedir;
     private static Properties properties;
-    private static final Logger logger = LoggerFactory.getLogger(MigrationTestWrapper.class);
+    private static final Logger logger = LoggerFactory.getLogger(JbpmMigrationRuntimeTest.class);
 
     protected static List<File> migrate(String... processDefinitions) {
         final List<File> migratedFiles = new ArrayList<File>(processDefinitions.length);
@@ -54,7 +55,7 @@ public class MigrationTestWrapper {
     protected static File migrate(String processDefinition) {
         File jpdlFile = null;
         try {
-            jpdlFile = new File(MigrationTestWrapper.class.getResource("/" + processDefinition).toURI());
+            jpdlFile = new File(JbpmMigrationRuntimeTest.class.getResource("/" + processDefinition).toURI());
         } catch (URISyntaxException ex) {
             logger.error(null, ex);
         }
@@ -122,7 +123,7 @@ public class MigrationTestWrapper {
      */
     protected static void addBpmnProcessFromClassPath(String... paths) {
         for (String path : paths) {
-            kbuilder.add(ResourceFactory.newClassPathResource(path, MigrationTestWrapper.class), ResourceType.BPMN2);
+            kbuilder.add(ResourceFactory.newClassPathResource(path, JbpmMigrationRuntimeTest.class), ResourceType.BPMN2);
         }
 
         if (kbuilder.hasErrors()) {
@@ -147,12 +148,12 @@ public class MigrationTestWrapper {
     }
 
     protected static synchronized File getBasedir() {
-        if (MigrationTestWrapper.basedir == null) {
+        if (JbpmMigrationRuntimeTest.basedir == null) {
             Assertions.assertThat(System.getProperty("basedir")).as("System property for basedir not set!").isNotNull();
-            MigrationTestWrapper.basedir = new File(System.getProperty("basedir"));
-            Assertions.assertThat(MigrationTestWrapper.basedir.exists()).as("Basedir does not exist! Check value of 'basedir' system property.").isTrue();
+            JbpmMigrationRuntimeTest.basedir = new File(System.getProperty("basedir"));
+            Assertions.assertThat(JbpmMigrationRuntimeTest.basedir.exists()).as("Basedir does not exist! Check value of 'basedir' system property.").isTrue();
         }
-        return MigrationTestWrapper.basedir;
+        return JbpmMigrationRuntimeTest.basedir;
     }
 
     /**
@@ -175,7 +176,7 @@ public class MigrationTestWrapper {
     protected static synchronized Properties getProperties() {
         if (properties == null) {
             // lazy initialization of properties
-            File basedir = MigrationTestWrapper.getBasedir();
+            File basedir = JbpmMigrationRuntimeTest.getBasedir();
             File propFile = new File(basedir, "build.properties");
             if (!propFile.exists()) {
                 propFile = new File(basedir.getParentFile(), "build.properties");

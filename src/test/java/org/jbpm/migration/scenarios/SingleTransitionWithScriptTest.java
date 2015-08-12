@@ -4,7 +4,7 @@ import static org.jbpm.migration.tools.listeners.TrackingListenerAssert.assertPr
 import static org.jbpm.migration.tools.listeners.TrackingListenerAssert.assertProcessStarted;
 import static org.jbpm.migration.tools.listeners.TrackingListenerAssert.assertTriggeredAndLeft;
 
-import org.jbpm.migration.MigrationTestWrapper;
+import org.jbpm.migration.JbpmMigrationRuntimeTest;
 import org.jbpm.migration.tools.jpdl.JpdlAssert;
 import org.jbpm.migration.tools.jpdl.handlers.DefaultActionHandler;
 import org.jbpm.migration.tools.jpdl.listeners.TrackingActionListener;
@@ -20,7 +20,7 @@ import org.junit.Test;
  * The script contents cannot be transformed automatically, but it should be
  * added as a comment into corresponding scriptTask in the result BPMN.
  */
-public class SingleTransitionWithScriptTest extends MigrationTestWrapper {
+public class SingleTransitionWithScriptTest extends JbpmMigrationRuntimeTest {
     public static final String definition =
             "org/jbpm/migration/scenarios/singleTransitionWithScript/processdefinition.xml";
 

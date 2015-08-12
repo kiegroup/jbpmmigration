@@ -7,7 +7,7 @@ import static org.jbpm.migration.tools.listeners.TrackingListenerAssert.assertTr
 import java.util.Set;
 
 import org.assertj.core.api.Assertions;
-import org.jbpm.migration.MigrationTestWrapper;
+import org.jbpm.migration.JbpmMigrationRuntimeTest;
 import org.jbpm.migration.tools.bpmn2.ExecutionInfo;
 import org.jbpm.migration.tools.bpmn2.JavaNodeHandler;
 import org.jbpm.migration.tools.jpdl.JpdlAssert;
@@ -25,7 +25,7 @@ import org.junit.Test;
  * https://issues.jboss.org/browse/JBPM-3681
  *
  */
-public class SingleStateWithEventTest extends MigrationTestWrapper {
+public class SingleStateWithEventTest extends JbpmMigrationRuntimeTest {
     public static final String DEFINITION =
             "org/jbpm/migration/scenarios/singleStateWithEvent/processdefinition.xml";
     public static final String PROCESS_ID = "singleState_Process";

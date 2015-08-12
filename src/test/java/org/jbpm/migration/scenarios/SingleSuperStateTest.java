@@ -1,6 +1,6 @@
 package org.jbpm.migration.scenarios;
 
-import org.jbpm.migration.MigrationTestWrapper;
+import org.jbpm.migration.JbpmMigrationRuntimeTest;
 import org.jbpm.migration.tools.jpdl.JpdlAssert;
 import org.jbpm.migration.tools.jpdl.handlers.DefaultActionHandler;
 import org.jbpm.migration.tools.jpdl.listeners.TrackingActionListener;
@@ -16,7 +16,7 @@ import org.junit.Test;
  * Verifies https://issues.jboss.org/browse/JBPM-3693
  *
  */
-public class SingleSuperStateTest extends MigrationTestWrapper {
+public class SingleSuperStateTest extends JbpmMigrationRuntimeTest {
     public static final String definition =
             "org/jbpm/migration/scenarios/singleSuperState/processdefinition.xml";
 

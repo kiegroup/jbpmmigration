@@ -1,7 +1,7 @@
 package org.jbpm.migration.scenarios;
 
 import org.assertj.core.api.Assertions;
-import org.jbpm.migration.MigrationTestWrapper;
+import org.jbpm.migration.JbpmMigrationRuntimeTest;
 import org.junit.Test;
 
 /**
@@ -9,7 +9,7 @@ import org.junit.Test;
  *
  */
 @org.junit.Ignore("look at JIRA https://issues.jboss.org/browse/JBPM-4313")
-public class InitializeAndValidateTest extends MigrationTestWrapper {
+public class InitializeAndValidateTest extends JbpmMigrationRuntimeTest {
     public static final String definition =
             "org/jbpm/migration/scenarios/insuranceInitializeAndValidateProcess/processdefinition.xml";
 

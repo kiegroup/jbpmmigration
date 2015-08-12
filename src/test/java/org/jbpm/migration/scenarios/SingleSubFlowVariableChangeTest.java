@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.assertj.core.api.Assertions;
-import org.jbpm.migration.MigrationTestWrapper;
+import org.jbpm.migration.JbpmMigrationRuntimeTest;
 import org.jbpm.migration.tools.jpdl.JpdlAssert;
 import org.jbpm.migration.tools.jpdl.handlers.VariableActionHandler;
 import org.jbpm.migration.tools.jpdl.listeners.TrackingVariableChangeListener;
@@ -20,7 +20,7 @@ import org.kie.api.runtime.process.WorkflowProcessInstance;
  * Testing process with single subprocess node.
  */
 @org.junit.Ignore("take a loot at https://issues.jboss.org/browse/JBPM-3684 , comment #3")
-public class SingleSubFlowVariableChangeTest extends MigrationTestWrapper {
+public class SingleSubFlowVariableChangeTest extends JbpmMigrationRuntimeTest {
     public static final String topProcessDefinition =
             "org/jbpm/migration/scenarios/singleSubFlowVariableChange/processdefinition.xml";
     public static final String subProcessDefinition =

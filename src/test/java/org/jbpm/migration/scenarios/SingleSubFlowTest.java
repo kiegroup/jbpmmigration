@@ -6,7 +6,7 @@ import static org.jbpm.migration.tools.listeners.TrackingListenerAssert.assertTr
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jbpm.migration.MigrationTestWrapper;
+import org.jbpm.migration.JbpmMigrationRuntimeTest;
 import org.jbpm.migration.tools.jpdl.JpdlAssert;
 import org.jbpm.migration.tools.jpdl.handlers.VariableActionHandler;
 import org.jbpm.migration.tools.jpdl.listeners.TrackingVariableChangeListener;
@@ -18,7 +18,7 @@ import org.junit.Test;
 /**
  * Testing process with single subprocess node.
  */
-public class SingleSubFlowTest extends MigrationTestWrapper {
+public class SingleSubFlowTest extends JbpmMigrationRuntimeTest {
     public static final String topProcessDefinition =
             "org/jbpm/migration/scenarios/singleSubFlow/processdefinition.xml";
     public static final String subProcessDefinition =

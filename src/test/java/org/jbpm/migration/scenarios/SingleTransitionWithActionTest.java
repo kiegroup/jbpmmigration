@@ -4,7 +4,7 @@ import static org.jbpm.migration.tools.listeners.TrackingListenerAssert.assertPr
 import static org.jbpm.migration.tools.listeners.TrackingListenerAssert.assertProcessStarted;
 import static org.jbpm.migration.tools.listeners.TrackingListenerAssert.assertTriggeredAndLeft;
 
-import org.jbpm.migration.MigrationTestWrapper;
+import org.jbpm.migration.JbpmMigrationRuntimeTest;
 import org.jbpm.migration.tools.bpmn2.JavaNodeHandler;
 import org.jbpm.migration.tools.jpdl.JpdlAssert;
 import org.jbpm.migration.tools.jpdl.handlers.DefaultActionHandler;
@@ -19,7 +19,7 @@ import org.junit.Test;
  * transition should be migrated into a sequenceFlow -> scriptTask ->
  * sequenceFlow, and the action executed.
  */
-public class SingleTransitionWithActionTest extends MigrationTestWrapper {
+public class SingleTransitionWithActionTest extends JbpmMigrationRuntimeTest {
     public static final String definition =
             "org/jbpm/migration/scenarios/singleTransitionWithAction/processdefinition.xml";
 
