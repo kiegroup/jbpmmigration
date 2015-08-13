@@ -1,14 +1,10 @@
 package org.jbpm.migration;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import org.assertj.core.api.Assertions;
 import org.jbpm.migration.tools.MigrationHelper;
 
 import org.jbpm.graph.def.ProcessDefinition;
@@ -147,55 +143,17 @@ public class JbpmMigrationRuntimeTest extends JbpmJUnitBaseTestCase {
         return createTempFile(name, "");
     }
 
-    protected static synchronized File getBasedir() {
-        if (JbpmMigrationRuntimeTest.basedir == null) {
-            Assertions.assertThat(System.getProperty("basedir")).as("System property for basedir not set!").isNotNull();
-            JbpmMigrationRuntimeTest.basedir = new File(System.getProperty("basedir"));
-            Assertions.assertThat(JbpmMigrationRuntimeTest.basedir.exists()).as("Basedir does not exist! Check value of 'basedir' system property.").isTrue();
+    public File targetDir(){
+        String relPath = getClass().getProtectionDomain().getCodeSource().getLocation().getFile();
+        File targetDir = new File(relPath+"../../target");
+        if(!targetDir.exists()) {
+            targetDir.mkdir();
         }
-        return JbpmMigrationRuntimeTest.basedir;
-    }
-
-    /**
-     * Returns location of directory for temporary files
-     *
-     * @return directory to save temporary files to
-     */
-    private static synchronized File getTempDir() {
-        File tempDir = new File(getBasedir(), getProperty("temp.dir", "tmp"));
-        if (!tempDir.exists()) {
-            tempDir.mkdir();
-        }
-        return tempDir;
-    }
-
-    protected static String getProperty(String key, String defaultValue) {
-        return getProperties().getProperty(key, defaultValue);
-    }
-
-    protected static synchronized Properties getProperties() {
-        if (properties == null) {
-            // lazy initialization of properties
-            File basedir = JbpmMigrationRuntimeTest.getBasedir();
-            File propFile = new File(basedir, "build.properties");
-            if (!propFile.exists()) {
-                propFile = new File(basedir.getParentFile(), "build.properties");
-            }
-            Assertions.assertThat(propFile.exists()).as("Couldn't find build.properties!").isTrue();
-            properties = new Properties();
-            try {
-                properties.load(new FileInputStream(propFile));
-            } catch (FileNotFoundException e) {
-                Assertions.fail("Properties file not found. At this point, this is impossible.");
-            } catch (IOException e) {
-                Assertions.fail("Properties file cannot be read!");
-            }
-        }
-        return (Properties) properties.clone();
+        return targetDir;
     }
 
     protected final File createTempFile(String name, String extension) {
-        File dir = new File(getTempDir(), getClass().getSimpleName());
+        File dir = new File(targetDir(), getClass().getSimpleName());
         if (!dir.exists()) {
             dir.mkdir();
         }
