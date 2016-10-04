@@ -18,6 +18,7 @@ import org.junit.Test;
 /**
  * Testing process with single subprocess node.
  */
+@org.junit.Ignore("take a loot at https://issues.jboss.org/browse/JBPM-3684 , comment #3")
 public class SingleSubFlowTest extends JbpmMigrationRuntimeTest {
     public static final String topProcessDefinition =
             "org/jbpm/migration/scenarios/singleSubFlow/processdefinition.xml";
